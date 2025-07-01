@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Network Budget Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #f7fafc;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .heading-primary {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .form-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+         .form-section:first-of-type {
+             border-top: none;
+             margin-top: 0;
+             padding-top: 0;
+         }
+        .section-heading {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        .form-label {
+            display: block;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #334155;
+            margin-bottom: 0.5rem;
+        }
+        .form-input, .form-select {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            color: #4b5563;
+            background-color: #fff;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvgxmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='none' stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
+            padding-right: 2.5rem;
+        }
+        .add-button {
+             background-color: #10b981;
+             color: white;
+             font-weight: 600;
+             padding: 0.625rem 1.25rem;
+             border-radius: 0.375rem;
+             transition: background-color 0.15s ease-in-out;
+             margin-top: 1rem;
+             border: none;
+             cursor: pointer;
+        }
+        .add-button:hover {
+             background-color: #059669;
+        }
+        .table-container {
+            overflow-x: auto;
+            margin-top: 3rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .table-header th {
+            background-color: #f0f4f8;
+            color: #334155;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .table-body td {
+            padding: 1rem;
+            color: #4b5563;
+            border-bottom: 1px solid #f2f2f2;
+        }
+        .table-body tr:last-child td {
+            border-bottom: none;
+        }
+        .table-body tr:hover {
+            background-color: #f7fafc;
+        }
+        .delete-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            color: #dc2626;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+        }
+        .delete-button:hover {
+            color: #b91c1c;
+            background-color: #fee2e2;
+        }
+        .total-section {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #eff6ff;
+            border-radius: 0.5rem;
+            border: 1px solid #e0f2fe;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .total-label {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .total-value {
+            font-size: 1.25rem;
+            color: #15803d;
+            font-weight: 700;
+        }
+        .message-container {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background-color: #f0fdf4;
+            border: 1px solid #d1fae5;
+            color: #065f46;
+            font-weight: 500;
+            text-align: center;
+        }
+        .canvas-wrapper {
+            overflow-x: auto;
+            margin-top: 0.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            background-color: #ffffff;
+        }
+        #ramal-canvas {
+            display: block;
+            min-width: 100%;
+            height: 600px;
+        }
+         .form-row {
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+             gap: 1.5rem;
+         }
+         .form-row > .form-group {
+             margin-bottom: 0;
+         }
+        .icon-button {
+            background-color: #e5e7eb;
+            color: #4b5563;
+            padding: 0.5rem;
+            border-radius: 9999px; /* Botão redondo */
+            transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+            border: none;
+            cursor: pointer;
+            line-height: 0; /* Alinha o SVG verticalmente */
+        }
+        .icon-button:hover {
+            background-color: #d1d5db;
+            color: #1f2937;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="container">
+        <h1 class="heading-primary">Electrical Network Budget Simulator</h1>
+
+        <div class="form-section">
+            <h2 class="section-heading">Step 1: Project Information</h2>
+            <div class="form-group">
+                <label for="projeto" class="form-label">PROJECT NAME:</label>
+                <input type="text" id="projeto" name="projeto" class="form-input" placeholder="Ex: Residential Installation">
+            </div>
+             <div class="form-group">
+                <label for="autor" class="form-label">AUTHOR:</label>
+                <input type="text" id="autor" name="autor" class="form-input" placeholder="Your Name">
+            </div>
+            <div class="form-group">
+                <label for="regiao" class="form-label">REGION:</label>
+                <select id="regiao" name="regiao" class="form-select">
+                    <option value="" disabled selected>Select Region</option>
+                    <option value="LAR">LAR</option>
+                    <option value="EMEA">EMEA</option>
+                    <option value="NAR">NAR</option>
+                    <option value="ASIA">ASIA</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-heading">Step 2: MAIN WIRE</h2>
+             <div class="form-row">
+                <div class="form-group">
+                    <label for="main-wire-length" class="form-label">TOTAL LENGTH (meters):</label>
+                    <input type="number" id="main-wire-length" name="main-wire-length" class="form-input" value="0" min="0" placeholder="Ex: 10">
+                </div>
+                <div class="form-group">
+                    <label for="main-wire-amount" class="form-label">WIRE AMOUNT:</label>
+                    <input type="number" id="main-wire-amount" name="main-wire-amount" class="form-input" value="1" min="1" placeholder="Ex: 2">
+                </div>
+             </div>
+             <div class="form-row">
+                <div class="form-group">
+                    <label for="main-wire-insulation" class="form-label">INSULATION:</label>
+                    <select id="main-wire-insulation" name="main-wire-insulation" class="form-select">
+                        <option value="" disabled selected>Select Insulation Type</option>
+                         </select>
+                </div>
+                <div class="form-group">
+                    <label for="main-wire-gauge" class="form-label">GAUGE (mm²):</label>
+                    <select id="main-wire-gauge" name="main-wire-gauge" class="form-select">
+                        <option value="" disabled selected>Select Gauge</option>
+                         </select>
+                </div>
+             </div>
+            <div class="form-group custom-main-wire-fields hidden">
+                <label for="custom-main-wire-insulation-name" class="form-label">Custom Insulation Name:</label>
+                <input type="text" id="custom-main-wire-insulation-name" name="custom-main-wire-insulation-name" class="form-input" placeholder="Ex: XLPE">
+            </div>
+            <div class="form-group custom-main-wire-fields hidden">
+                <label for="custom-main-wire-gauge-input" class="form-label">Custom Gauge (mm²):</label>
+                <input type="text" id="custom-main-wire-gauge-input" name="custom-main-wire-gauge-input" class="form-input" placeholder="Ex: 16.0">
+            </div>
+            <div class="form-group custom-main-wire-fields hidden">
+                <label for="custom-main-wire-price-per-meter" class="form-label">Custom Price per Meter ($):</label>
+                <input type="number" id="custom-main-wire-price-per-meter" name="custom-main-wire-price-per-meter" class="form-input" value="0" min="0" step="0.001">
+            </div>
+            <div class="form-group">
+                <label for="main-wire-number" class="form-label">WIRE NUMBER:</label>
+                <input type="text" id="main-wire-number" name="main-wire-number" class="form-input" placeholder="Ex: W01">
+            </div>
+            <button id="adicionar-main-wire" class="add-button">
+                Add Main Wire
+            </button>
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-heading">Step 3: SECONDARY WIRE</h2>
+             <div class="form-row">
+                <div class="form-group">
+                    <label for="secondary-wire-length" class="form-label">TOTAL LENGTH (meters):</label>
+                    <input type="number" id="secondary-wire-length" name="secondary-wire-length" class="form-input" value="0" min="0" placeholder="Ex: 5">
+                </div>
+                <div class="form-group">
+                    <label for="secondary-wire-amount" class="form-label">WIRE AMOUNT:</label>
+                    <input type="number" id="secondary-wire-amount" name="secondary-wire-amount" class="form-input" value="1" min="1" placeholder="Ex: 1">
+                </div>
+             </div>
+             <div class="form-row">
+                <div class="form-group">
+                    <label for="secondary-wire-insulation" class="form-label">INSULATION:</label>
+                    <select id="secondary-wire-insulation" name="secondary-wire-insulation" class="form-select">
+                        <option value="" disabled selected>Select Insulation Type</option>
+                         </select>
+                </div>
+                <div class="form-group">
+                    <label for="secondary-wire-gauge" class="form-label">GAUGE (mm²):</label>
+                    <select id="secondary-wire-gauge" name="secondary-wire-gauge" class="form-select">
+                        <option value="" disabled selected>Select Gauge</option>
+                         </select>
+                </div>
+            </div>
+            <div class="form-group custom-secondary-wire-fields hidden">
+                <label for="custom-secondary-wire-insulation-name" class="form-label">Custom Insulation Name:</label>
+                <input type="text" id="custom-secondary-wire-insulation-name" name="custom-secondary-wire-insulation-name" class="form-input" placeholder="Ex: EPR">
+            </div>
+            <div class="form-group custom-secondary-wire-fields hidden">
+                <label for="custom-secondary-wire-gauge-input" class="form-label">Custom Gauge (mm²):</label>
+                <input type="text" id="custom-secondary-wire-gauge-input" name="custom-secondary-wire-gauge-input" class="form-input" placeholder="Ex: 0.8">
+            </div>
+            <div class="form-group custom-secondary-wire-fields hidden">
+                <label for="custom-secondary-wire-price-per-meter" class="form-label">Custom Price per Meter ($):</label>
+                <input type="number" id="custom-secondary-wire-price-per-meter" name="custom-secondary-wire-price-per-meter" class="form-input" value="0" min="0" step="0.001">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="secondary-wire-number" class="form-label">WIRE NUMBER:</label>
+                    <input type="text" id="secondary-wire-number" name="secondary-wire-number" class="form-input" placeholder="Ex: W02">
+                </div>
+                <div class="form-group">
+                    <label for="secondary-wire-integration-wire" class="form-label">WIRE INTEGRATION:</label>
+                    <select id="secondary-wire-integration-wire" name="secondary-wire-integration-wire" class="form-select">
+                        <option value="" disabled selected>Select Source Wire</option>
+                        </select>
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="secondary-wire-integration-distance" class="form-label">INTEGRATION DISTANCE (meters on source wire):</label>
+                <input type="number" id="secondary-wire-integration-distance" name="secondary-wire-integration-distance" class="form-input" value="0" min="0" placeholder="Ex: 3">
+            </div>
+            <button id="adicionar-secondary-wire" class="add-button">
+                Add Secondary Wire
+            </button>
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-heading">Step 4: COMPONENTS</h2>
+             <div class="form-row">
+                <div class="form-group">
+                    <label for="component-type" class="form-label">COMPONENT TYPE:</label>
+                    <select id="component-type" name="component-type" class="form-select">
+                        <option value="" disabled selected>Select Type</option>
+                         </select>
+                </div>
+                 <div class="form-group">
+                    <label for="component-model" class="form-label">MODEL:</label>
+                    <select id="component-model" name="component-model" class="form-select" disabled>
+                        <option value="" disabled selected>Select Model</option>
+                         </select>
+                </div>
+            </div>
+            <div class="form-group custom-component-fields hidden">
+                <label for="custom-component-name" class="form-label">Custom Name:</label>
+                <input type="text" id="custom-component-name" name="custom-component-name" class="form-input" placeholder="Ex: Xtreme Component">
+            </div>
+            <div class="form-group custom-component-fields hidden">
+                <label for="custom-component-price" class="form-label">Custom Unit Price ($):</label>
+                <input type="number" id="custom-component-price" name="custom-component-price" class="form-input" value="0" min="0" step="0.01">
+            </div>
+            <div class="form-row">
+                 <div class="form-group">
+                    <label for="component-wire" class="form-label">WIRE:</label>
+                    <select id="component-wire" name="component-wire" class="form-select">
+                        <option value="" disabled selected>Select Wire</option>
+                        </select>
+                </div>
+                 <div class="form-group">
+                    <label for="component-distance" class="form-label">DISTANCE (meters on wire):</label>
+                    <input type="number" id="component-distance" name="component-distance" class="form-input" value="0" min="0" placeholder="Ex: 1.5">
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="component-quantity" class="form-label">QUANTITY:</label>
+                <input type="number" id="component-quantity" name="component-quantity" class="form-input" value="1" min="1" placeholder="Ex: 2">
+            </div>
+            <button id="adicionar-componente" class="add-button">
+                Add Component
+            </button>
+            <button id="repeat-component" class="add-button ml-2 bg-gray-500 hover:bg-gray-700">Repeat Last Component</button>
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-heading">Step 5: CONNECTOR</h2>
+             <div class="form-row">
+                <div class="form-group">
+                    <label for="connector-model" class="form-label">MODEL:</label>
+                    <select id="connector-model" name="connector-model" class="form-select">
+                        <option value="" disabled selected>Select Model</option>
+                        </select>
+                </div>
+                 <div class="form-group">
+                    <label for="connector-wire" class="form-label">WIRE:</label>
+                    <select id="connector-wire" name="connector-wire" class="form-select">
+                        <option value="" disabled selected>Select Wire</option>
+                        </select>
+                </div>
+            </div>
+            <div class="form-group custom-connector-fields hidden">
+                <label for="custom-connector-name" class="form-label">Custom Name:</label>
+                <input type="text" id="custom-connector-name" name="custom-connector-name" class="form-input" placeholder="Ex: Ultra Connector">
+            </div>
+            <div class="form-group custom-connector-fields hidden">
+                <label for="custom-connector-price" class="form-label">Custom Unit Price ($):</label>
+                <input type="number" id="custom-connector-price" name="custom-connector-price" class="form-input" value="0" min="0" step="0.01">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="connector-distance" class="form-label">DISTANCE (meters on wire):</label>
+                    <input type="number" id="connector-distance" name="connector-distance" class="form-input" value="0" min="0" placeholder="Ex: 4">
+                </div>
+                 <div class="form-group">
+                    <label for="connector-quantity" class="form-label">QUANTITY:</label>
+                    <input type="number" id="connector-quantity" name="connector-quantity" class="form-input" value="1" min="1" placeholder="Ex: 1">
+                </div>
+            </div>
+            <button id="adicionar-conector" class="add-button">
+                Add Connector
+            </button>
+            <button id="repeat-connector" class="add-button ml-2 bg-gray-500 hover:bg-gray-700">Repeat Last Connector</button>
+        </div>
+
+
+        <div class="table-container">
+             <table class="table">
+                <thead class="table-header">
+                    <tr>
+                        <th class="px-4 py-2">#</th>
+                        <th class="px-4 py-2">Type</th>
+                        <th class="px-4 py-2">Source Wire</th>
+                        <th class="px-4 py-2">Item / Model / Gauge</th>
+                        <th class="px-4 py-2">Qty. / Length</th>
+                        <th class="px-4 py-2">Distance</th>
+                        <th class="px-4 py-2">Unit Price ($)</th>
+                        <th class="px-4 py-2">Subtotal ($)</th>
+                        <th class="px-4 py-2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-itens" class="table-body">
+                    <tr>
+                        <td colspan="9" class="px-4 py-2 text-center text-gray-500">No items added.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="total-section">
+            <span class="total-label">Total Estimate:</span>
+            <span id="total-estimativa" class="total-value">$ 0.00</span>
+        </div>
+        
+        <div class="form-section">
+            <div class="flex justify-between items-center">
+                <h2 class="section-heading" style="margin-bottom: 0;">Network Visualization</h2>
+                <div class="flex items-center space-x-2">
+                    <button id="zoom-out-button" class="icon-button" title="Zoom Out">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </button>
+                    <button id="zoom-in-button" class="icon-button" title="Zoom In">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="canvas-wrapper">
+                <canvas id="ramal-canvas"></canvas>
+            </div>
+        </div>
+
+        <div class="flex justify-center mt-6">
+            <button id="export-pdf-button" class="add-button bg-purple-600 hover:bg-purple-700">
+                Export to PDF
+            </button>
+        </div>
+
+        <div id="mensagem-container" class="message-container" style="display: none;"></div>
+    </div>
+
+    <script>
+        // --- Sample Data (Simulating Database) ---
+        const insulationOptions = ["PVC", "Other"];
+        const gaugeOptions = ["0.5", "0.75", "1.0", "1.5", "2.5", "4.0", "6.0", "10.0"];
+        const componentTypesData = [ { type: "Bimetal", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 }, { type: "Ferrite", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 }, { type: "Splice", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.060 }, { type: "POLYAMIDE GLUE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.154 }, { type: "HEAT SHRINK TUBE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.240 }, { type: "Hot Melt", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.010 }, { type: "Terminal", isDirectPrice: false, models: [ {"model": "39012065", "unit": "Unit", "pricePerUnit": 0.03820}, {"model": "39012125", "unit": "Unit", "pricePerUnit": 0.07185}, {"model": "39013028", "unit": "Unit", "pricePerUnit": 0.07100}, {"model": "39013029", "unit": "Unit", "pricePerUnit": 0.03158}, {"model": "39014053", "unit": "Unit", "pricePerUnit": 0.10800}, {"model": "50841025", "unit": "Unit", "pricePerUnit": 0.07607}, {"model": "50841035", "unit": "Unit", "pricePerUnit": 0.08588}, {"model": "50841045", "unit": "Unit", "pricePerUnit": 0.09588}, {"model": "50842032", "unit": "Unit", "pricePerUnit": 0.10789}, {"model": "50842042", "unit": "Unit", "pricePerUnit": 0.11489}, {"model": "366440004", "unit": "Unit", "pricePerUnit": 0.11789}, {"model": "433351002", "unit": "Unit", "pricePerUnit": 0.06359}, {"model": "457763006", "unit": "Unit", "pricePerUnit": 0.24687}, {"model": "457763012", "unit": "Unit", "pricePerUnit": 0.30191}, {"model": "945504106", "unit": "Unit", "pricePerUnit": 0.09123}, {"model": "1-1744417-0", "unit": "Unit", "pricePerUnit": 0.03921}, {"model": "1-1971772-4", "unit": "Unit", "pricePerUnit": 0.06804}, {"model": "1-1971773-2", "unit": "Unit", "pricePerUnit": 0.04276}, {"model": "1-1971775-3", "unit": "Unit", "pricePerUnit": 0.21512}, {"model": "1-1971776-3", "unit": "Unit", "pricePerUnit": 0.22795}, {"model": "17444036-3", "unit": "Unit", "pricePerUnit": 0.03140}, {"model": "17444036-5", "unit": "Unit", "pricePerUnit": 0.04041}, {"model": "1744417-4", "unit": "Unit", "pricePerUnit": 0.01469}, {"model": "1744417-5", "unit": "Unit", "pricePerUnit": 0.02298}, {"model": "1744417-7", "unit": "Unit", "pricePerUnit": 0.02497}, {"model": "1969588-4", "unit": "Unit", "pricePerUnit": 0.01000}, {"model": "2371377-9", "unit": "Unit", "pricePerUnit": 0.05000}, {"model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565}, {"model": "4-180923-0", "unit": "Unit", "pricePerUnit": 0.04801}, {"model": "521229-1", "unit": "Unit", "pricePerUnit": 0.03464}, {"model": "PARP-04V", "unit": "Unit", "pricePerUnit": 0.01430}, {"model": "VLR-02", "unit": "Unit", "pricePerUnit": 0.04890}, {"model": "VLR-03V", "unit": "Unit", "pricePerUnit": 0.07460}, {"model": "XARP-04V", "unit": "Unit", "pricePerUnit": 0.01950}, {"model": "YLNR-02VF", "unit": "Unit", "pricePerUnit": 0.03920}, {"model": "YLP-03V", "unit": "Unit", "pricePerUnit": 0.02890}, {"model": "W11669793", "unit": "Unit", "pricePerUnit": 0.0520}, {"model": "W11678929", "unit": "Unit", "pricePerUnit": 0.1620} ]}, { type: "Tape", isDirectPrice: false, models: [ { model: "Masking Tape", unit: "Meter", pricePerUnit: 0.10 }, { model: "Electrical Tape", unit: "Roll", pricePerUnit: 2.50 }, { model: "GLASS TAPE", unit: "Meter", pricePerUnit: 0.30 } ]}, { type: "Ground Ring", isDirectPrice: false, models: [ { model: "61795-3", unit: "Unit", pricePerUnit: 0.12345 } ]}, { type: "Retainer", isDirectPrice: false, models: [ { model: "1-1969443-0", unit: "Unit", pricePerUnit: 0.01000 }, {"model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565 }, {"model": "YLS-03V", "unit": "Unit", "pricePerUnit": 0.02890 } ]}, { type: "Grommet", isDirectPrice: false, models: [ { model: "12.5 mm", unit: "Unit", pricePerUnit: 0.03 }, { model: "Model G-Z", unit: "Unit", pricePerUnit: 0.06 }, { model: "12952201SP", unit: "Unit", "pricePerUnit": 0.09 } ]} ];
+        const connectorModelsData = [ {"model": "39012065", "unit": "Unit", "pricePerUnit": 0.03820}, {"model": "39012125", "unit": "Unit", "pricePerUnit": 0.07185}, {"model": "39013028", "unit": "Unit", "pricePerUnit": 0.07100}, {"model": "39013029", "unit": "Unit", "pricePerUnit": 0.03158}, {"model": "39014053", "unit": "Unit", "pricePerUnit": 0.10800}, {"model": "50841025", "unit": "Unit", "pricePerUnit": 0.07607}, {"model": "50841035", "unit": "Unit", "pricePerUnit": 0.08588}, {"model": "50841045", "unit": "Unit", "pricePerUnit": 0.09588}, {"model": "50842032", "unit": "Unit", "pricePerUnit": 0.10789}, {"model": "50842042", "unit": "Unit", "pricePerUnit": 0.11489}, {"model": "366440004", "unit": "Unit", "pricePerUnit": 0.11789}, {"model": "433351002", "unit": "Unit", "pricePerUnit": 0.06359}, {"model": "457763006", "unit": "Unit", "pricePerUnit": 0.24687}, {"model": "457763012", "unit": "Unit", "pricePerUnit": 0.30191}, {"model": "945504106", "unit": "Unit", "pricePerUnit": 0.09123}, {"model": "1-1744417-0", "unit": "Unit", "pricePerUnit": 0.03921}, {"model": "1-1971772-4", "unit": "Unit", "pricePerUnit": 0.06804}, {"model": "1-1971773-2", "unit": "Unit", "pricePerUnit": 0.04276}, {"model": "1-1971775-3", "unit": "Unit", "pricePerUnit": 0.21512}, {"model": "1-1971776-3", "unit": "Unit", "pricePerUnit": 0.22795}, {"model": "17444036-3", "unit": "Unit", "pricePerUnit": 0.03140}, {"model": "17444036-5", "unit": "Unit", "pricePerUnit": 0.04041}, {"model": "1744417-4", "unit": "Unit", "pricePerUnit": 0.01469}, {"model": "1744417-5", "unit": "Unit", "pricePerUnit": 0.02298}, {"model": "1744417-7", "unit": "Unit", "pricePerUnit": 0.02497}, {"model": "1969588-4", "unit": "Unit", "pricePerUnit": 0.01000}, {"model": "2371377-9", "unit": "Unit", "pricePerUnit": 0.05000}, {"model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565}, {"model": "4-180923-0", "unit": "Unit", "pricePerUnit": 0.04801}, {"model": "521229-1", "unit": "Unit", "pricePerUnit": 0.03464}, {"model": "PARP-04V", "unit": "Unit", "pricePerUnit": 0.01430}, {"model": "VLR-02", "unit": "Unit", "pricePerUnit": 0.04890}, {"model": "VLR-03V", "unit": "Unit", "pricePerUnit": 0.07460}, {"model": "XARP-04V", "unit": "Unit", "pricePerUnit": 0.01950}, {"model": "YLNR-02VF", "unit": "Unit", "pricePerUnit": 0.03920}, {"model": "YLP-03V", "unit": "Unit", "pricePerUnit": 0.02890}, {"model": "W11669793", "unit": "Unit", "pricePerUnit": 0.0520}, {"model": "W11678929", "unit": "Unit", "pricePerUnit": 0.1620} ];
+        const wirePriceData = [ { gauge: "0.5", pricePerMeterSingle: 0.20 }, { gauge: "0.75", pricePerMeterSingle: 0.25 }, { gauge: "1.0", pricePerMeterSingle: 0.30 }, { gauge: "1.5", pricePerMeterSingle: 0.40 }, { gauge: "2.5", pricePerMeterSingle: 0.50 }, { gauge: "4.0", pricePerMeterSingle: 0.70 }, { gauge: "6.0", pricePerMeterSingle: 1.00 }, { gauge: "10.0", pricePerMeterSingle: 1.50 }, ];
+
+        // --- DOM Elements ---
+        const projetoInput = document.getElementById("projeto");
+        const autorInput = document.getElementById("autor");
+        const regiaoSelect = document.getElementById("regiao");
+        const mainWireLengthInput = document.getElementById("main-wire-length");
+        const mainWireAmountInput = document.getElementById("main-wire-amount");
+        const mainWireInsulationSelect = document.getElementById("main-wire-insulation");
+        const mainWireGaugeSelect = document.getElementById("main-wire-gauge");
+        const customMainWireInsulationNameInput = document.getElementById("custom-main-wire-insulation-name");
+        const customMainWireGaugeInput = document.getElementById("custom-main-wire-gauge-input");
+        const customMainWirePricePerMeterInput = document.getElementById("custom-main-wire-price-per-meter");
+        const customMainWireFields = document.querySelectorAll(".custom-main-wire-fields");
+        const mainWireNumberInput = document.getElementById("main-wire-number");
+        const adicionarMainWireButton = document.getElementById("adicionar-main-wire");
+        const secondaryWireLengthInput = document.getElementById("secondary-wire-length");
+        const secondaryWireAmountInput = document.getElementById("secondary-wire-amount");
+        const secondaryWireInsulationSelect = document.getElementById("secondary-wire-insulation");
+        const secondaryWireGaugeSelect = document.getElementById("secondary-wire-gauge");
+        const customSecondaryWireInsulationNameInput = document.getElementById("custom-secondary-wire-insulation-name");
+        const customSecondaryWireGaugeInput = document.getElementById("custom-secondary-wire-gauge-input");
+        const customSecondaryWirePricePerMeterInput = document.getElementById("custom-secondary-wire-price-per-meter");
+        const customSecondaryWireFields = document.querySelectorAll(".custom-secondary-wire-fields");
+        const secondaryWireNumberInput = document.getElementById("secondary-wire-number");
+        const secondaryWireIntegrationWireSelect = document.getElementById("secondary-wire-integration-wire");
+        const secondaryWireIntegrationDistanceInput = document.getElementById("secondary-wire-integration-distance");
+        const adicionarSecondaryWireButton = document.getElementById("adicionar-secondary-wire");
+        const componentTypeSelect = document.getElementById("component-type");
+        const componentModelSelect = document.getElementById("component-model");
+        const customComponentNameInput = document.getElementById("custom-component-name");
+        const customComponentPriceInput = document.getElementById("custom-component-price");
+        const customComponentFields = document.querySelectorAll(".custom-component-fields"); 
+        const componentWireSelect = document.getElementById("component-wire");
+        const componentDistanceInput = document.getElementById("component-distance");
+        const componentQuantityInput = document.getElementById("component-quantity");
+        const adicionarComponenteButton = document.getElementById("adicionar-componente");
+        const repeatComponentButton = document.getElementById("repeat-component");
+        const connectorModelSelect = document.getElementById("connector-model");
+        const customConnectorNameInput = document.getElementById("custom-connector-name");
+        const customConnectorPriceInput = document.getElementById("custom-connector-price");
+        const customConnectorFields = document.querySelectorAll(".custom-connector-fields"); 
+        const connectorWireSelect = document.getElementById("connector-wire");
+        const connectorDistanceInput = document.getElementById("connector-distance");
+        const connectorQuantityInput = document.getElementById("connector-quantity");
+        const adicionarConectorButton = document.getElementById("adicionar-conector");
+        const repeatConnectorButton = document.getElementById("repeat-connector");
+        const listaItensBody = document.getElementById("lista-itens");
+        const totalEstimativaElement = document.getElementById("total-estimativa");
+        const mensagemContainer = document.getElementById("mensagem-container");
+        const ramalCanvas = document.getElementById("ramal-canvas");
+        const ramalCanvasCtx = ramalCanvas.getContext("2d");
+        const exportPdfButton = document.getElementById("export-pdf-button");
+        const zoomInButton = document.getElementById("zoom-in-button");
+        const zoomOutButton = document.getElementById("zoom-out-button");
+
+        // --- Application State ---
+        let listaItens = [];
+        let totalEstimativa = 0;
+        let lastAddedComponent = null;
+        let lastAddedConnector = null;
+        let zoomLevel = 1.0;
+        const zoomStep = 0.1;
+
+        // --- Helper Functions ---
+        function formatCurrency(value) {
+            return `$${(value || 0).toFixed(3)}`;
+        }
+
+        function exibirMensagem(message, type = "success") {
+            mensagemContainer.textContent = message;
+            mensagemContainer.style.display = "block";
+            mensagemContainer.className = `message-container ${type === "success" ? 'bg-green-100 border-green-400 text-green-800' : 'bg-red-100 border-red-400 text-red-800'}`;
+            setTimeout(() => {
+                mensagemContainer.style.display = "none";
+            }, 3000);
+        }
+
+        function preencherStaticSelects() {
+            [mainWireInsulationSelect, secondaryWireInsulationSelect].forEach(select => {
+                select.innerHTML = '<option value="" disabled selected>Select Insulation Type</option>';
+                insulationOptions.forEach(item => {
+                    const option = document.createElement("option");
+                    option.value = item; option.textContent = item;
+                    select.appendChild(option);
+                });
+            });
+
+            [mainWireGaugeSelect, secondaryWireGaugeSelect].forEach(select => {
+                select.innerHTML = '<option value="" disabled selected>Select Gauge</option>';
+                gaugeOptions.forEach(item => {
+                    const option = document.createElement("option");
+                    option.value = item; option.textContent = item;
+                    select.appendChild(option);
+                });
+            });
+
+            componentTypeSelect.innerHTML = '<option value="" disabled selected>Select Type</option>';
+            componentTypesData.forEach(compType => {
+                const option = document.createElement("option");
+                option.value = compType.type;
+                option.textContent = compType.isDirectPrice ? compType.type.toUpperCase() : compType.type;
+                componentTypeSelect.appendChild(option); 
+            });
+
+            connectorModelSelect.innerHTML = '<option value="" disabled selected>Select Model</option>';
+            connectorModelsData.forEach(connector => {
+                const option = document.createElement("option");
+                option.value = connector.model; option.textContent = connector.model;
+                connectorModelSelect.appendChild(option);
+            });
+            const customConOption = document.createElement("option");
+            customConOption.value = "custom"; customConOption.textContent = "Other / Custom";
+            connectorModelSelect.appendChild(customConOption);
+        }
+
+        function preencherComponentModelSelect(selectedType) {
+            componentModelSelect.innerHTML = '<option value="" disabled selected>Select Model</option>';
+            componentModelSelect.disabled = true;
+            toggleCustomComponentFields(); 
+            const componentType = componentTypesData.find(ct => ct.type === selectedType);
+            if (!componentType) return;
+            if (componentType.isDirectPrice) {
+                componentModelSelect.innerHTML = '<option value="N/A" selected>N/A (Direct Price)</option>';
+                componentModelSelect.disabled = true;
+            } else if (componentType.models && componentType.models.length > 0) {
+                componentType.models.forEach(model => {
+                    const option = document.createElement("option");
+                    option.value = model.model; option.textContent = model.model; 
+                    componentModelSelect.appendChild(option); 
+                });
+                componentModelSelect.disabled = false;
+                const customCompOption = document.createElement("option");
+                customCompOption.value = "custom"; customCompOption.textContent = "Other / Custom";
+                componentModelSelect.appendChild(customCompOption);
+            } else {
+                componentModelSelect.innerHTML = '<option value="" disabled selected>No models available</option>';
+                componentModelSelect.disabled = true;
+            }
+        }
+
+        function preencherWireSelects() {
+            const selectsToPopulate = [secondaryWireIntegrationWireSelect, componentWireSelect, connectorWireSelect];
+            selectsToPopulate.forEach(select => {
+                const selectedValue = select.value;
+                select.innerHTML = '<option value="" disabled selected>Select Wire</option>';
+                select.disabled = true;
+            });
+            const wires = listaItens.filter(item => item.type === 'main-wire' || item.type === 'secondary-wire');
+            if (wires.length === 0) return;
+            selectsToPopulate.forEach(select => {
+                select.disabled = false;
+                wires.forEach(wire => {
+                    const option = document.createElement("option");
+                    option.value = wire.wireNumber; option.textContent = `Wire ${wire.wireNumber}`;
+                    select.appendChild(option); 
+                });
+            });
+        }
+
+        function toggleCustomWireFields(wireType) {
+            let customFields, insulationSelect, gaugeSelect;
+            if (wireType === 'main') {
+                customFields = customMainWireFields;
+                insulationSelect = mainWireInsulationSelect;
+                gaugeSelect = mainWireGaugeSelect;
+            } else {
+                customFields = customSecondaryWireFields;
+                insulationSelect = secondaryWireInsulationSelect;
+                gaugeSelect = secondaryWireGaugeSelect;
+            }
+
+            if (insulationSelect.value === 'Other') {
+                customFields.forEach(field => field.classList.remove('hidden'));
+                gaugeSelect.disabled = true;
+                gaugeSelect.value = "";
+            } else {
+                customFields.forEach(field => field.classList.add('hidden'));
+                gaugeSelect.disabled = false;
+            }
+        }
+
+        function toggleCustomComponentFields() {
+            if (componentModelSelect.value === 'custom') {
+                customComponentFields.forEach(field => field.classList.remove('hidden'));
+            } else {
+                customComponentFields.forEach(field => field.classList.add('hidden'));
+                customComponentNameInput.value = "";
+                customComponentPriceInput.value = "0";
+            }
+        }
+
+        function toggleCustomConnectorFields() {
+            if (connectorModelSelect.value === 'custom') {
+                customConnectorFields.forEach(field => field.classList.remove('hidden'));
+            } else {
+                customConnectorFields.forEach(field => field.classList.add('hidden'));
+                customConnectorNameInput.value = "";
+                customConnectorPriceInput.value = "0";
+            }
+        }
+
+        function adicionarFioPrincipal() {
+            const length = parseFloat(mainWireLengthInput.value);
+            const amount = parseInt(mainWireAmountInput.value);
+            let insulation = mainWireInsulationSelect.value;
+            let gauge = mainWireGaugeSelect.value;
+            const wireNumber = mainWireNumberInput.value.trim();
+            let finalInsulationName, finalGauge, finalPricePerMeterSingleWire;
+            if (insulation === 'Other') {
+                finalInsulationName = customMainWireInsulationNameInput.value.trim();
+                finalGauge = customMainWireGaugeInput.value.trim();
+                finalPricePerMeterSingleWire = parseFloat(customMainWirePricePerMeterInput.value);
+                if (!finalInsulationName || !finalGauge || isNaN(finalPricePerMeterSingleWire) || finalPricePerMeterSingleWire <= 0) {
+                    exibirMensagem("Please fill all custom Wire fields (Insulation Name, Gauge, Price > 0).", "erro");
+                    return;
+                }
+            } else {
+                finalInsulationName = insulation; finalGauge = gauge;
+                if (!finalInsulationName || !finalGauge) {
+                    exibirMensagem("Please select Insulation and Gauge.", "erro"); return;
+                }
+                const priceData = wirePriceData.find(item => item.gauge === finalGauge);
+                finalPricePerMeterSingleWire = priceData ? priceData.pricePerMeterSingle : 0;
+                if (finalPricePerMeterSingleWire === 0) {
+                    exibirMensagem(`Price data not found for Gauge ${finalGauge}.`, "erro"); return;
+                }
+            }
+            if (listaItens.some(item => item.type === 'main-wire')) {
+                 exibirMensagem("A Main Wire already exists. Remove it to add a new one.", "erro"); return;
+            }
+            if (length <= 0 || amount <= 0 || !wireNumber) {
+                exibirMensagem("Please fill Total Length, Wire Amount, and Wire Number.", "erro"); return;
+            }
+            if (listaItens.some(item => (item.wireNumber === wireNumber))) {
+                 exibirMensagem(`Wire Number "${wireNumber}" already exists.`, "erro"); return;
+            }
+            const subtotal = length * finalPricePerMeterSingleWire * amount;
+            const novoFioPrincipal = { type: 'main-wire', wireNumber, length, amount, insulation: finalInsulationName, gauge: finalGauge, unit: 'Meter', pricePerUnit: finalPricePerMeterSingleWire, subtotal };
+            listaItens.unshift(novoFioPrincipal);
+            exibirMensagem(`Main Wire ${wireNumber} added.`, "success");
+            atualizarLista();
+        }
+
+        function adicionarFioSecundario() {
+            const length = parseFloat(secondaryWireLengthInput.value);
+            const amount = parseInt(secondaryWireAmountInput.value);
+            let insulation = secondaryWireInsulationSelect.value;
+            let gauge = secondaryWireGaugeSelect.value;
+            const wireNumber = secondaryWireNumberInput.value.trim();
+            const parentWireNumber = secondaryWireIntegrationWireSelect.value;
+            const integrationDistance = parseFloat(secondaryWireIntegrationDistanceInput.value);
+            let finalInsulationName, finalGauge, finalPricePerMeterSingleWire;
+            if (insulation === 'Other') {
+                finalInsulationName = customSecondaryWireInsulationNameInput.value.trim();
+                finalGauge = customSecondaryWireGaugeInput.value.trim();
+                finalPricePerMeterSingleWire = parseFloat(customSecondaryWirePricePerMeterInput.value);
+                if (!finalInsulationName || !finalGauge || isNaN(finalPricePerMeterSingleWire) || finalPricePerMeterSingleWire <= 0) {
+                    exibirMensagem("Please fill all custom Wire fields (Insulation Name, Gauge, Price > 0).", "erro"); return;
+                }
+            } else {
+                finalInsulationName = insulation; finalGauge = gauge;
+                if (!finalInsulationName || !finalGauge) {
+                    exibirMensagem("Please select Insulation and Gauge.", "erro"); return;
+                }
+                const priceData = wirePriceData.find(item => item.gauge === finalGauge);
+                finalPricePerMeterSingleWire = priceData ? priceData.pricePerMeterSingle : 0;
+                if (finalPricePerMeterSingleWire === 0) {
+                    exibirMensagem(`Price data not found for Gauge ${finalGauge}.`, "erro"); return;
+                }
+            }
+            if (length <= 0 || amount <= 0 || !wireNumber || !parentWireNumber || isNaN(integrationDistance) || integrationDistance < 0) {
+                exibirMensagem("Please fill all fields for the secondary wire correctly.", "erro"); return;
+            }
+            if (listaItens.some(item => item.wireNumber === wireNumber)) {
+                 exibirMensagem(`Wire Number "${wireNumber}" already exists.`, "erro"); return;
+            }
+            const parentWire = listaItens.find(item => item.wireNumber === parentWireNumber);
+            if (!parentWire) {
+                exibirMensagem(`Source wire "${parentWireNumber}" not found.`, "erro"); return;
+            }
+            if (integrationDistance > parentWire.length) {
+                exibirMensagem(`Integration distance exceeds the length of source wire "${parentWireNumber}".`, "erro"); return;
+            }
+            const subtotal = (length) * finalPricePerMeterSingleWire * amount;
+            const novoFioSecundario = { type: 'secondary-wire', wireNumber, parentWireNumber, integrationDistance, length, amount, insulation: finalInsulationName, gauge: finalGauge, unit: 'Meter', pricePerUnit: finalPricePerMeterSingleWire, subtotal };
+            listaItens.push(novoFioSecundario);
+            exibirMensagem(`Secondary Wire ${wireNumber} added.`, "success");
+            atualizarLista();
+        }
+
+        function adicionarComponenteItem() {
+            const itemType = componentTypeSelect.value;
+            let selectedModel = componentModelSelect.value; 
+            const parentWireNumber = componentWireSelect.value;
+            const distance = parseFloat(componentDistanceInput.value);
+            const quantity = parseInt(componentQuantityInput.value);
+            let finalModel, finalPricePerUnit, finalUnit;
+            const selectedComponentTypeData = componentTypesData.find(ct => ct.type === itemType);
+            if (!selectedComponentTypeData) {
+                exibirMensagem("Please select a valid Component Type.", "erro"); return;
+            }
+            if (selectedComponentTypeData.isDirectPrice) {
+                finalModel = selectedComponentTypeData.type;
+                finalPricePerUnit = selectedComponentTypeData.pricePerUnit;
+                finalUnit = selectedComponentTypeData.unit;
+            } else { 
+                if (selectedModel === 'custom') {
+                    finalModel = customComponentNameInput.value.trim();
+                    finalPricePerUnit = parseFloat(customComponentPriceInput.value);
+                    finalUnit = 'Unit'; 
+                    if (!finalModel || isNaN(finalPricePerUnit) || finalPricePerUnit <= 0) { 
+                        exibirMensagem("Please fill all custom Component fields.", "erro"); return;
+                    }
+                } else {
+                    finalModel = selectedModel;
+                    if (!selectedComponentTypeData.models) {
+                        exibirMensagem("Component type has no models.", "erro"); return;
+                    }
+                    const modelData = selectedComponentTypeData.models.find(m => m.model === selectedModel);
+                    if (!modelData) {
+                        exibirMensagem("Select a valid component model.", "erro"); return;
+                    }
+                    finalPricePerUnit = modelData.pricePerUnit;
+                    finalUnit = modelData.unit;
+                }
+            }
+            if (!itemType || !finalModel || !parentWireNumber || isNaN(distance) || distance < 0 || isNaN(quantity) || quantity <= 0) {
+                exibirMensagem("Please fill all Component fields correctly.", "erro"); return;
+            }
+            const parentWire = listaItens.find(item => item.wireNumber === parentWireNumber);
+            if (!parentWire) {
+                exibirMensagem(`Source wire "${parentWireNumber}" not found.`, "erro"); return;
+            }
+            if (distance > parentWire.length) {
+                exibirMensagem(`Distance exceeds the length of source wire "${parentWireNumber}".`, "erro"); return;
+            }
+            const subtotal = quantity * finalPricePerUnit;
+            const novoComponente = { type: 'component', itemType, model: finalModel, parentWireNumber, distance, quantity, unit: finalUnit, pricePerUnit: finalPricePerUnit, subtotal, isCustom: (selectedModel === 'custom') };
+            listaItens.push(novoComponente);
+            lastAddedComponent = novoComponente;
+            exibirMensagem(`${quantity}x ${itemType} ${finalModel} added.`, "success");
+            atualizarLista();
+        }
+
+        function adicionarConector() {
+            let selectedModel = connectorModelSelect.value;
+            const parentWireNumber = connectorWireSelect.value;
+            const distance = parseFloat(connectorDistanceInput.value);
+            const quantity = parseInt(connectorQuantityInput.value);
+            let finalModel, finalPricePerUnit, finalUnit; 
+            if (selectedModel === 'custom') {
+                finalModel = customConnectorNameInput.value.trim();
+                finalPricePerUnit = parseFloat(customConnectorPriceInput.value);
+                finalUnit = 'Unit'; 
+                if (!finalModel || isNaN(finalPricePerUnit) || finalPricePerUnit <= 0) {
+                    exibirMensagem("Please fill all custom Connector fields.", "erro"); return;
+                }
+            } else {
+                finalModel = selectedModel;
+                const modelData = connectorModelsData.find(m => m.model === selectedModel);
+                if (!modelData) {
+                    exibirMensagem("Select a valid connector model.", "erro"); return;
+                }
+                finalPricePerUnit = modelData.pricePerUnit;
+                finalUnit = modelData.unit;
+            }
+            if (!finalModel || !parentWireNumber || isNaN(distance) || distance < 0 || isNaN(quantity) || quantity <= 0) {
+                exibirMensagem("Please fill all Connector fields correctly.", "erro"); return;
+            }
+            const parentWire = listaItens.find(item => item.wireNumber === parentWireNumber);
+            if (!parentWire) {
+                exibirMensagem(`Source wire "${parentWireNumber}" not found.`, "erro"); return;
+            }
+            if (distance > parentWire.length) {
+                exibirMensagem(`Distance exceeds the length of source wire "${parentWireNumber}".`, "erro"); return;
+            }
+            const subtotal = quantity * finalPricePerUnit;
+            const novoConector = { type: 'connector', model: finalModel, parentWireNumber, distance, quantity, unit: finalUnit, pricePerUnit: finalPricePerUnit, subtotal, isCustom: (selectedModel === 'custom') };
+            listaItens.push(novoConector);
+            lastAddedConnector = novoConector;
+            exibirMensagem(`${quantity}x Connector ${finalModel} added.`, "success");
+            atualizarLista();
+        }
+
+        function repeatLastComponent() {
+            if (!lastAddedComponent) {
+                exibirMensagem("No component has been added yet.", "erro"); return;
+            }
+            componentTypeSelect.value = lastAddedComponent.itemType;
+            componentTypeSelect.dispatchEvent(new Event('change')); 
+            setTimeout(() => {
+                if (lastAddedComponent.isCustom) {
+                    componentModelSelect.value = "custom";
+                    componentModelSelect.dispatchEvent(new Event('change')); 
+                    customComponentNameInput.value = lastAddedComponent.model;
+                    customComponentPriceInput.value = lastAddedComponent.pricePerUnit;
+                } else {
+                    componentModelSelect.value = lastAddedComponent.model;
+                    componentModelSelect.dispatchEvent(new Event('change')); 
+                }
+                componentWireSelect.value = lastAddedComponent.parentWireNumber;
+                componentDistanceInput.value = lastAddedComponent.distance;
+                componentQuantityInput.value = lastAddedComponent.quantity;
+                exibirMensagem("Last component loaded.", "success");
+            }, 100);
+        }
+
+        function repeatLastConnector() {
+            if (!lastAddedConnector) {
+                exibirMensagem("No connector has been added yet.", "erro"); return;
+            }
+            if (lastAddedConnector.isCustom) {
+                connectorModelSelect.value = "custom";
+                connectorModelSelect.dispatchEvent(new Event('change')); 
+                customConnectorNameInput.value = lastAddedConnector.model;
+                customConnectorPriceInput.value = lastAddedConnector.pricePerUnit;
+            } else {
+                connectorModelSelect.value = lastAddedConnector.model;
+                connectorModelSelect.dispatchEvent(new Event('change')); 
+            }
+            connectorWireSelect.value = lastAddedConnector.parentWireNumber;
+            connectorDistanceInput.value = lastAddedConnector.distance;
+            connectorQuantityInput.value = lastAddedConnector.quantity;
+            exibirMensagem("Last connector loaded.", "success");
+        }
+
+        function atualizarLista() {
+            if (listaItens.length === 0) {
+                listaItensBody.innerHTML = '<tr><td colspan="9" class="px-4 py-2 text-center text-gray-500">No items added.</td></tr>';
+            } else {
+                listaItens.sort((a, b) => (a.type === 'main-wire' ? -1 : 1));
+                listaItensBody.innerHTML = "";
+                listaItens.forEach((item, index) => {
+                    const row = document.createElement("tr");
+                    let desc, qty, wire, dist, price;
+                    switch (item.type) {
+                        case 'main-wire':
+                            desc = `Main Wire (${item.insulation}, ${item.gauge} mm²) - ${item.wireNumber}`;
+                            qty = `${item.length} m (${item.amount} vias)`;
+                            wire = '-'; dist = '-';
+                            price = `${formatCurrency(item.pricePerUnit)}/m`;
+                            break;
+                        case 'secondary-wire':
+                            desc = `Secondary Wire (${item.insulation}, ${item.gauge} mm²) - ${item.wireNumber}`;
+                            qty = `${item.length} m (${item.amount} vias)`; 
+                            wire = item.parentWireNumber; dist = `${item.integrationDistance} m`;
+                            price = `${formatCurrency(item.pricePerUnit)}/m`;
+                            break;
+                        case 'component':
+                            desc = `${item.itemType} - ${item.model}`;
+                            qty = `${item.quantity} ${item.unit}`;
+                            wire = item.parentWireNumber; dist = `${item.distance} m`;
+                            price = `${formatCurrency(item.pricePerUnit)}/${item.unit}`;
+                            break;
+                        case 'connector':
+                            desc = `Connector - ${item.model}`;
+                            qty = `${item.quantity} ${item.unit}`;
+                            wire = item.parentWireNumber; dist = `${item.distance} m`;
+                            price = `${formatCurrency(item.pricePerUnit)}/${item.unit}`;
+                            break;
+                    }
+                    row.innerHTML = `
+                        <td class="px-4 py-2">${index + 1}</td>
+                        <td class="px-4 py-2">${item.type.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase())}</td>
+                        <td class="px-4 py-2">${wire}</td>
+                        <td class="px-4 py-2">${desc}</td>
+                        <td class="px-4 py-2">${qty}</td>
+                        <td class="px-4 py-2">${dist}</td>
+                        <td class="px-4 py-2">${price}</td>
+                        <td class="px-4 py-2">${formatCurrency(item.subtotal)}</td>
+                        <td class="px-4 py-2">
+                            <button class="delete-button" onclick="removerItem(${index})" aria-label="Remove Item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3-3V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                            </button>
+                        </td>
+                    `;
+                    listaItensBody.appendChild(row);
+                });
+            }
+            atualizarTotal();
+            desenharRede();
+            preencherWireSelects();
+        }
+
+        function removerItem(index) {
+            if (index >= 0 && index < listaItens.length) {
+                const removedItem = listaItens[index];
+                if (removedItem.type === 'main-wire' || removedItem.type === 'secondary-wire') {
+                    listaItens = listaItens.filter(item => item !== removedItem && item.parentWireNumber !== removedItem.wireNumber);
+                } else {
+                    listaItens.splice(index, 1);
+                }
+                exibirMensagem("Item removed.", "success");
+                atualizarLista();
+            }
+        }
+        window.removerItem = removerItem;
+
+        function atualizarTotal() {
+            totalEstimativa = listaItens.reduce((total, item) => total + (item.subtotal || 0), 0);
+            totalEstimativaElement.textContent = formatCurrency(totalEstimativa);
+        }
+
+        function desenharRede() {
+            const canvasWidth = ramalCanvas.offsetWidth;
+            ramalCanvas.width = canvasWidth;
+            ramalCanvas.height = 600;
+            const ctx = ramalCanvasCtx;
+            ctx.clearRect(0, 0, canvasWidth, ramalCanvas.height);
+            ctx.save();
+            ctx.translate(canvasWidth / 2, ramalCanvas.height / 2);
+            ctx.scale(zoomLevel, zoomLevel);
+            ctx.translate(-canvasWidth / 2, -ramalCanvas.height / 2);
+            const paddingX = 60, mainWireY = ramalCanvas.height / 4, diagonalAngle = Math.PI / 4;
+            const branchStackingOffset = 40, itemMarkerSize = 5, mainWireColor = "#000000";
+            const labelColor = "#1f2937", wireStrokeWidth = 3;
+            const wireMap = {};
+            const mainWire = listaItens.find(item => item.type === 'main-wire');
+            if (!mainWire) {
+                ctx.restore(); 
+                ctx.font = "16px Inter"; ctx.fillStyle = labelColor; ctx.textAlign = "center";
+                ctx.fillText("Add a Main Wire to start visualizing the network.", canvasWidth / 2, ramalCanvas.height / 2);
+                return;
+            }
+            const mainStartX = paddingX, mainEndX = canvasWidth - paddingX;
+            const mainVisualLength = mainEndX - mainStartX;
+            const mainPixelPerMeter = mainWire.length > 0 ? mainVisualLength / mainWire.length : 0;
+            ctx.beginPath(); ctx.moveTo(mainStartX, mainWireY); ctx.lineTo(mainEndX, mainWireY);
+            ctx.strokeStyle = mainWireColor; ctx.lineWidth = wireStrokeWidth; ctx.stroke();
+            ctx.font = "14px Inter"; ctx.fillStyle = labelColor; ctx.textAlign = "left";
+            ctx.fillText(`Wire ${mainWire.wireNumber} (${mainWire.length}m)`, mainStartX, mainWireY - 15);
+            wireMap[mainWire.wireNumber] = { item: mainWire, canvasStartX: mainStartX, canvasStartY: mainWireY, pixelPerMeter: mainPixelPerMeter, orientation: 'horizontal' };
+            const secondaryWiresToDraw = listaItens.filter(item => item.type === 'secondary-wire' && item.parentWireNumber === mainWire.wireNumber)
+                                         .sort((a, b) => a.integrationDistance - b.integrationDistance);
+            let currentBranchCount = 0;
+            secondaryWiresToDraw.forEach(secondaryWire => {
+                const attachX = mainStartX + secondaryWire.integrationDistance * mainPixelPerMeter;
+                const attachY = mainWireY;
+                const visualDiagonalLength = secondaryWire.length * mainPixelPerMeter * 0.9;
+                const deltaX = visualDiagonalLength * Math.cos(diagonalAngle);
+                const deltaY = visualDiagonalLength * Math.sin(diagonalAngle);
+                const branchEndX = attachX + deltaX, branchEndY = attachY + deltaY + (currentBranchCount * branchStackingOffset);
+                ctx.beginPath(); ctx.moveTo(attachX, attachY); ctx.lineTo(branchEndX, branchEndY);
+                ctx.strokeStyle = mainWireColor; ctx.stroke();
+                ctx.font = "12px Inter"; ctx.fillStyle = labelColor; ctx.textAlign = "left";
+                ctx.fillText(`Wire ${secondaryWire.wireNumber} (${secondaryWire.length}m)`, attachX + 5, attachY + 15 + (currentBranchCount * branchStackingOffset));
+                const secondaryPixelPerMeter = secondaryWire.length > 0 ? visualDiagonalLength / secondaryWire.length : 0;
+                wireMap[secondaryWire.wireNumber] = { item: secondaryWire, canvasStartX: attachX, canvasStartY: attachY, canvasEndX: branchEndX, canvasEndY: branchEndY, pixelPerMeter: secondaryPixelPerMeter, orientation: 'diagonal' };
+                currentBranchCount++;
+            });
+            listaItens.filter(item => item.type === 'component' || item.type === 'connector').forEach(item => {
+                const parentWireEntry = wireMap[item.parentWireNumber];
+                if (parentWireEntry) {
+                    let itemX, itemY;
+                    const itemVisualDist = item.distance * parentWireEntry.pixelPerMeter;
+                    if (parentWireEntry.orientation === 'horizontal') {
+                        itemX = parentWireEntry.canvasStartX + itemVisualDist;
+                        itemY = parentWireEntry.canvasStartY;
+                    } else {
+                        const dx = parentWireEntry.canvasEndX - parentWireEntry.canvasStartX;
+                        const dy = parentWireEntry.canvasEndY - parentWireEntry.canvasStartY;
+                        const totalVisualLen = Math.sqrt(dx * dx + dy * dy);
+                        const ratio = totalVisualLen > 0 ? itemVisualDist / totalVisualLen : 0;
+                        itemX = parentWireEntry.canvasStartX + dx * ratio;
+                        itemY = parentWireEntry.canvasStartY + dy * ratio;
+                    }
+                    ctx.beginPath();
+                    ctx.arc(itemX, itemY, itemMarkerSize, 0, 2 * Math.PI);
+                    ctx.fillStyle = item.type === 'component' ? "#059669" : "#ef4444";
+                    ctx.fill();
+                    ctx.font = "10px Inter"; ctx.fillStyle = labelColor;
+                    const labelText = `${item.quantity}x ${item.model}`;
+                    ctx.textAlign = parentWireEntry.orientation === 'diagonal' ? 'left' : 'center';
+                    const labelX = parentWireEntry.orientation === 'diagonal' ? itemX + 8 : itemX;
+                    const labelY = parentWireEntry.orientation === 'diagonal' ? itemY - 8 : itemY - 10;
+                    ctx.fillText(labelText, labelX, labelY);
+                }
+            });
+            ctx.font = "14px Inter"; ctx.fillStyle = mainWireColor;
+            ctx.textAlign = "left"; ctx.fillText("Start", paddingX, mainWireY + 20);
+            ctx.textAlign = "right"; ctx.fillText("End", canvasWidth - paddingX, mainWireY + 20);
+            ctx.restore();
+        }
+
+        function zoomIn() {
+            zoomLevel += zoomStep;
+            desenharRede();
+        }
+
+        function zoomOut() {
+            if (zoomLevel - zoomStep >= 0.2) {
+                zoomLevel -= zoomStep;
+                desenharRede();
+            }
+        }
+
+        async function exportToPdf() {
+            exibirMensagem("Generating PDF...", "success");
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const margin = 15;
+            let yOffset = margin;
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const usableWidth = pageWidth - (2 * margin);
+            pdf.setFontSize(20);
+            pdf.text("Electrical Network Budget Report", pageWidth / 2, yOffset, { align: 'center' });
+            yOffset += 12;
+            pdf.setFontSize(12);
+            pdf.text(`Project: ${projetoInput.value || 'N/A'}`, margin, yOffset);
+            pdf.text(`Author: ${autorInput.value || 'N/A'}`, margin, yOffset + 7);
+            pdf.text(`Region: ${regiaoSelect.value || 'N/A'}`, margin, yOffset + 14);
+            yOffset += 25;
+            const tableContainer = document.querySelector(".table-container");
+            if (listaItens.length > 0) {
+                pdf.setFontSize(16);
+                pdf.text("Material List", margin, yOffset);
+                yOffset += 8;
+                const canvasTable = await html2canvas(tableContainer, { scale: 2, useCORS: true });
+                const imgData = canvasTable.toDataURL('image/png');
+                const imgHeight = (canvasTable.height * usableWidth) / canvasTable.width;
+                if (yOffset + imgHeight > pdf.internal.pageSize.getHeight() - margin) {
+                    pdf.addPage();
+                    yOffset = margin;
+                }
+                pdf.addImage(imgData, 'PNG', margin, yOffset, usableWidth, imgHeight);
+                yOffset += imgHeight + 10;
+            }
+            if (yOffset + 20 > pdf.internal.pageSize.getHeight() - margin) {
+                pdf.addPage();
+                yOffset = margin;
+            }
+            pdf.setFontSize(14);
+            pdf.text(`Total Estimated Cost: ${totalEstimativaElement.textContent}`, margin, yOffset);
+            yOffset += 15;
+            if (listaItens.find(item => item.type === 'main-wire')) {
+                if (yOffset + 80 > pdf.internal.pageSize.getHeight() - margin) {
+                    pdf.addPage();
+                    yOffset = margin;
+                }
+                pdf.setFontSize(16);
+                pdf.text("Network Visualization", margin, yOffset);
+                yOffset += 8;
+                const canvasImage = ramalCanvas.toDataURL('image/png', 1.0);
+                const imgHeightCanvas = (ramalCanvas.height * usableWidth) / ramalCanvas.width;
+                pdf.addImage(canvasImage, 'PNG', margin, yOffset, usableWidth, imgHeightCanvas);
+            }
+            const fileName = `${(projetoInput.value || 'Report').replace(/ /g, '_')}.pdf`;
+            pdf.save(fileName);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            preencherStaticSelects();
+            preencherWireSelects();
+            atualizarLista();
+            adicionarMainWireButton.addEventListener("click", adicionarFioPrincipal);
+            adicionarSecondaryWireButton.addEventListener("click", adicionarFioSecundario);
+            adicionarComponenteButton.addEventListener("click", adicionarComponenteItem);
+            adicionarConectorButton.addEventListener("click", adicionarConector);
+            componentTypeSelect.addEventListener("change", (e) => preencherComponentModelSelect(e.target.value));
+            componentModelSelect.addEventListener("change", toggleCustomComponentFields); 
+            connectorModelSelect.addEventListener("change", toggleCustomConnectorFields); 
+            mainWireInsulationSelect.addEventListener("change", () => toggleCustomWireFields('main'));
+            secondaryWireInsulationSelect.addEventListener("change", () => toggleCustomWireFields('secondary'));
+            repeatComponentButton.addEventListener("click", repeatLastComponent); 
+            repeatConnectorButton.addEventListener("click", repeatLastConnector); 
+            zoomInButton.addEventListener("click", zoomIn);
+            zoomOutButton.addEventListener("click", zoomOut);
+            exportPdfButton.addEventListener("click", exportToPdf);
+            window.addEventListener('resize', desenharRede);
+        });
+    </script>
+</body>
+</html>
