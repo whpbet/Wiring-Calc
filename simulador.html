@@ -1082,7 +1082,8 @@
             ctx.translate(-canvasWidth / 2, -ramalCanvas.height / 2);
             
             const paddingX = 60, mainWireY = ramalCanvas.height / 2;
-            const itemMarkerSize = 5, mainWireColor = "#000000";
+            const itemMarkerSize = 8;
+            const mainWireColor = "#000000";
             const labelColor = "#1f2937", wireStrokeWidth = 3;
             const wireMap = {};
             
@@ -1132,29 +1133,19 @@
                 ctx.beginPath(); ctx.moveTo(attachX, attachY); ctx.lineTo(branchEndX, branchEndY);
                 ctx.strokeStyle = mainWireColor; ctx.stroke();
                 
-                // --- LÓGICA DE POSICIONAMENTO DA ETIQUETA DO FIO (CORRIGIDA) ---
                 const wireLabelText = `Wire ${secondaryWire.wireNumber} (${secondaryWire.length}m)`;
                 ctx.font = "12px Inter";
-                
-                // Posição base: 15% ao longo do fio
                 const labelRatio = 0.15;
                 const labelBaseX = attachX + (deltaX * labelRatio);
                 const labelBaseY = attachY + (deltaY * labelRatio);
-
-                // Deslocamento perpendicular para "flutuar" ao lado da linha
-                const perpendicularOffset = 12; // Distância da linha em pixels
-                const offsetX = perpendicularOffset * -Math.sin(finalAngle);
-                const offsetY = perpendicularOffset * Math.cos(finalAngle);
                 
                 ctx.fillStyle = labelColor;
                 ctx.textAlign = "left";
-                // Rotaciona o texto para alinhar com o fio
                 ctx.save();
                 ctx.translate(labelBaseX, labelBaseY);
                 ctx.rotate(finalAngle);
-                ctx.fillText(wireLabelText, 5, -5); // Pequeno ajuste para não colar na linha
+                ctx.fillText(wireLabelText, 5, -5);
                 ctx.restore();
-
 
                 const secondaryPixelPerMeter = secondaryWire.length > 0 ? visualDiagonalLength / secondaryWire.length : 0;
                 wireMap[secondaryWire.wireNumber] = { item: secondaryWire, canvasStartX: attachX, canvasStartY: attachY, canvasEndX: branchEndX, canvasEndY: branchEndY, pixelPerMeter: secondaryPixelPerMeter, orientation: 'diagonal', angle: finalAngle };
@@ -1179,18 +1170,57 @@
                         itemX = parentWireEntry.canvasStartX + dx;
                         itemY = parentWireEntry.canvasStartY + dy;
                     }
-
-                    ctx.beginPath();
-                    ctx.arc(itemX, itemY, itemMarkerSize, 0, 2 * Math.PI);
-                    ctx.fillStyle = item.type === 'component' ? "#059669" : "#ef4444";
-                    ctx.fill();
                     
+                    ctx.save();
+                    ctx.translate(itemX, itemY);
+                    ctx.rotate(parentWireEntry.angle || 0);
+                    
+                    let itemIdentifier = item.type === 'connector' ? 'connector' : item.itemType;
+                    
+                    switch(itemIdentifier) {
+                        case 'connector':
+                            ctx.fillStyle = "#ef4444"; // Vermelho
+                            ctx.fillRect(-itemMarkerSize / 2, -itemMarkerSize / 2, itemMarkerSize, itemMarkerSize);
+                            break;
+                        
+                        case 'Grommet':
+                            ctx.fillStyle = "#f97316"; // Laranja
+                            ctx.beginPath();
+                            ctx.moveTo(0, -itemMarkerSize / 1.5);
+                            ctx.lineTo(itemMarkerSize / 1.5, itemMarkerSize / 2);
+                            ctx.lineTo(-itemMarkerSize / 1.5, itemMarkerSize / 2);
+                            ctx.closePath();
+                            ctx.fill();
+                            break;
+                            
+                        case 'Tape':
+                            ctx.fillStyle = "#1f2937"; // Preto/Cinza Escuro
+                            // AUMENTADA A LARGURA (ALTURA DO RETÂNGULO)
+                            ctx.fillRect(-itemMarkerSize, -itemMarkerSize / 2, itemMarkerSize * 2, itemMarkerSize);
+                            break;
+                            
+                        case 'Splice':
+                             ctx.fillStyle = "#d1d5db"; // Cinza Claro
+                             // INVERTIDO LARGURA E ALTURA PARA FICAR NA VERTICAL
+                             ctx.fillRect(-itemMarkerSize / 8, -itemMarkerSize * 1.5, itemMarkerSize / 4, itemMarkerSize * 3);
+                             break;
+                             
+                        default:
+                            ctx.fillStyle = "#059669"; // Verde
+                            ctx.beginPath();
+                            ctx.arc(0, 0, itemMarkerSize / 2, 0, 2 * Math.PI);
+                            ctx.fill();
+                            break;
+                    }
+                    
+                    ctx.restore();
+
                     ctx.font = "10px Inter";
                     ctx.fillStyle = labelColor;
                     const labelText = `${item.quantity}x ${item.model}`;
                     ctx.textAlign = 'center';
 
-                    const labelYOffset = labelPositionToggle ? -10 : 20;
+                    const labelYOffset = labelPositionToggle ? -12 : 22;
                     ctx.fillText(labelText, itemX, itemY + labelYOffset);
                     
                     labelPositionToggle = !labelPositionToggle;
