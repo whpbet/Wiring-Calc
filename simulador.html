@@ -251,7 +251,7 @@
                          </select>
                 </div>
                 <div class="form-group">
-                    <label for="main-wire-gauge" class="form-label">GAUGE (mm²):</label>
+                    <label for="main-wire-gauge" class="form-label">GAUGE (AWG):</label>
                     <select id="main-wire-gauge" name="main-wire-gauge" class="form-select">
                         <option value="" disabled selected>Select Gauge</option>
                          </select>
@@ -262,7 +262,7 @@
                 <input type="text" id="custom-main-wire-insulation-name" name="custom-main-wire-insulation-name" class="form-input" placeholder="Ex: XLPE">
             </div>
             <div class="form-group custom-main-wire-fields hidden">
-                <label for="custom-main-wire-gauge-input" class="form-label">Custom Gauge (mm²):</label>
+                <label for="custom-main-wire-gauge-input" class="form-label">Custom Gauge (AWG):</label>
                 <input type="text" id="custom-main-wire-gauge-input" name="custom-main-wire-gauge-input" class="form-input" placeholder="Ex: 16.0">
             </div>
             <div class="form-group custom-main-wire-fields hidden">
@@ -298,7 +298,7 @@
                          </select>
                 </div>
                 <div class="form-group">
-                    <label for="secondary-wire-gauge" class="form-label">GAUGE (mm²):</label>
+                    <label for="secondary-wire-gauge" class="form-label">GAUGE (AWG):</label>
                     <select id="secondary-wire-gauge" name="secondary-wire-gauge" class="form-select">
                         <option value="" disabled selected>Select Gauge</option>
                          </select>
@@ -309,7 +309,7 @@
                 <input type="text" id="custom-secondary-wire-insulation-name" name="custom-secondary-wire-insulation-name" class="form-input" placeholder="Ex: EPR">
             </div>
             <div class="form-group custom-secondary-wire-fields hidden">
-                <label for="custom-secondary-wire-gauge-input" class="form-label">Custom Gauge (mm²):</label>
+                <label for="custom-secondary-wire-gauge-input" class="form-label">Custom Gauge (AWG):</label>
                 <input type="text" id="custom-secondary-wire-gauge-input" name="custom-secondary-wire-gauge-input" class="form-input" placeholder="Ex: 0.8">
             </div>
             <div class="form-group custom-secondary-wire-fields hidden">
@@ -496,7 +496,7 @@
     <script>
         // --- Sample Data (Simulating Database) ---
         const insulationOptions = ["PVC", "Other"];
-        const gaugeOptions = ["0.5", "0.75", "1.0", "1.5", "2.5", "4.0", "6.0", "10.0"];
+        const gaugeOptions = ["24", "22", "20", "18", "17", "16"];
         const componentTypesData = [
             { type: "Bimetal", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 },
             { type: "Ferrite", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 },
@@ -564,7 +564,7 @@
             ]}
         ];
         const connectorModelsData = [ {"model": "39012065", "unit": "Unit", "pricePerUnit": 0.03820}, {"model": "39012125", "unit": "Unit", "pricePerUnit": 0.07185}, {"model": "39013028", "unit": "Unit", "pricePerUnit": 0.07100}, {"model": "39013029", "unit": "Unit", "pricePerUnit": 0.03158}, {"model": "39014053", "unit": "Unit", "pricePerUnit": 0.10800}, {"model": "50841025", "unit": "Unit", "pricePerUnit": 0.07607}, {"model": "50841035", "unit": "Unit", "pricePerUnit": 0.08588}, {"model": "50841045", "unit": "Unit", "pricePerUnit": 0.09588}, {"model": "50842032", "unit": "Unit", "pricePerUnit": 0.10789}, {"model": "50842042", "unit": "Unit", "pricePerUnit": 0.11489}, {"model": "366440004", "unit": "Unit", "pricePerUnit": 0.11789}, {"model": "433351002", "unit": "Unit", "pricePerUnit": 0.06359}, {"model": "457763006", "unit": "Unit", "pricePerUnit": 0.24687}, {"model": "457763012", "unit": "Unit", "pricePerUnit": 0.30191}, {"model": "945504106", "unit": "Unit", "pricePerUnit": 0.09123}, {"model": "1-1744417-0", "unit": "Unit", "pricePerUnit": 0.03921}, {"model": "1-1971772-4", "unit": "Unit", "pricePerUnit": 0.06804}, {"model": "1-1971773-2", "unit": "Unit", "pricePerUnit": 0.04276}, {"model": "1-1971775-3", "unit": "Unit", "pricePerUnit": 0.21512}, {"model": "1-1971776-3", "unit": "Unit", "pricePerUnit": 0.22795}, {"model": "17444036-3", "unit": "Unit", "pricePerUnit": 0.03140}, {"model": "17444036-5", "unit": "Unit", "pricePerUnit": 0.04041}, {"model": "1744417-4", "unit": "Unit", "pricePerUnit": 0.01469}, {"model": "1744417-5", "unit": "Unit", "pricePerUnit": 0.02298}, {"model": "1744417-7", "unit": "Unit", "pricePerUnit": 0.02497}, {"model": "1969588-4", "unit": "Unit", "pricePerUnit": 0.01000}, {"model": "2371377-9", "unit": "Unit", "pricePerUnit": 0.05000}, {"model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565}, {"model": "4-180923-0", "unit": "Unit", "pricePerUnit": 0.04801}, {"model": "521229-1", "unit": "Unit", "pricePerUnit": 0.03464}, {"model": "PARP-04V", "unit": "Unit", "pricePerUnit": 0.01430}, {"model": "VLR-02", "unit": "Unit", "pricePerUnit": 0.04890}, {"model": "VLR-03V", "unit": "Unit", "pricePerUnit": 0.07460}, {"model": "XARP-04V", "unit": "Unit", "pricePerUnit": 0.01950}, {"model": "YLNR-02VF", "unit": "Unit", "pricePerUnit": 0.03920}, {"model": "YLP-03V", "unit": "Unit", "pricePerUnit": 0.02890}, {"model": "W11669793", "unit": "Unit", "pricePerUnit": 0.0520}, {"model": "W11678929", "unit": "Unit", "pricePerUnit": 0.1620} ];
-        const wirePriceData = [ { gauge: "0.5", pricePerMeterSingle: 0.20 }, { gauge: "0.75", pricePerMeterSingle: 0.25 }, { gauge: "1.0", pricePerMeterSingle: 0.30 }, { gauge: "1.5", pricePerMeterSingle: 0.40 }, { gauge: "2.5", pricePerMeterSingle: 0.50 }, { gauge: "4.0", pricePerMeterSingle: 0.70 }, { gauge: "6.0", pricePerMeterSingle: 1.00 }, { gauge: "10.0", pricePerMeterSingle: 1.50 }, ];
+        const wirePriceData = [ { gauge: "24", pricePerMeterSingle: 0.05 },{ gauge: "22", pricePerMeterSingle: 0.06 },{ gauge: "20", pricePerMeterSingle: 0.07 },{ gauge: "18", pricePerMeterSingle: 0.08 },{ gauge: "17", pricePerMeterSingle: 0.09 },{ gauge: "16", pricePerMeterSingle: 0.10 }, ];
 
         // --- DOM Elements ---
         const projetoInput = document.getElementById("projeto");
