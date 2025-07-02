@@ -558,10 +558,10 @@
                 { "model": "YLS-03V", "unit": "Unit", "pricePerUnit": 0.02890 }
             ]},
             { type: "Grommet", isDirectPrice: false, models: [
-                { model: "12.5 mm", unit: "Unit", pricePerUnit: 0.03 },
-                { model: "Model G-Z", unit: "Unit", pricePerUnit: 0.06 },
-                { model: "12952201SP", unit: "Unit", "pricePerUnit": 0.09 }
-            ]}
+    { model: "12.5mm", unit: "Unit", pricePerUnit: 0.05 },
+    { model: "19mm", unit: "Unit", pricePerUnit: 0.06 },
+    { model: "30mm", unit: "Unit", pricePerUnit: 0.08 }
+]}
         ];
         const connectorModelsData = [ {"model": "39012065", "unit": "Unit", "pricePerUnit": 0.03820}, {"model": "39012125", "unit": "Unit", "pricePerUnit": 0.07185}, {"model": "39013028", "unit": "Unit", "pricePerUnit": 0.07100}, {"model": "39013029", "unit": "Unit", "pricePerUnit": 0.03158}, {"model": "39014053", "unit": "Unit", "pricePerUnit": 0.10800}, {"model": "50841025", "unit": "Unit", "pricePerUnit": 0.07607}, {"model": "50841035", "unit": "Unit", "pricePerUnit": 0.08588}, {"model": "50841045", "unit": "Unit", "pricePerUnit": 0.09588}, {"model": "50842032", "unit": "Unit", "pricePerUnit": 0.10789}, {"model": "50842042", "unit": "Unit", "pricePerUnit": 0.11489}, {"model": "366440004", "unit": "Unit", "pricePerUnit": 0.11789}, {"model": "433351002", "unit": "Unit", "pricePerUnit": 0.06359}, {"model": "457763006", "unit": "Unit", "pricePerUnit": 0.24687}, {"model": "457763012", "unit": "Unit", "pricePerUnit": 0.30191}, {"model": "945504106", "unit": "Unit", "pricePerUnit": 0.09123}, {"model": "1-1744417-0", "unit": "Unit", "pricePerUnit": 0.03921}, {"model": "1-1971772-4", "unit": "Unit", "pricePerUnit": 0.06804}, {"model": "1-1971773-2", "unit": "Unit", "pricePerUnit": 0.04276}, {"model": "1-1971775-3", "unit": "Unit", "pricePerUnit": 0.21512}, {"model": "1-1971776-3", "unit": "Unit", "pricePerUnit": 0.22795}, {"model": "17444036-3", "unit": "Unit", "pricePerUnit": 0.03140}, {"model": "17444036-5", "unit": "Unit", "pricePerUnit": 0.04041}, {"model": "1744417-4", "unit": "Unit", "pricePerUnit": 0.01469}, {"model": "1744417-5", "unit": "Unit", "pricePerUnit": 0.02298}, {"model": "1744417-7", "unit": "Unit", "pricePerUnit": 0.02497}, {"model": "1969588-4", "unit": "Unit", "pricePerUnit": 0.01000}, {"model": "2371377-9", "unit": "Unit", "pricePerUnit": 0.05000}, {"model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565}, {"model": "4-180923-0", "unit": "Unit", "pricePerUnit": 0.04801}, {"model": "521229-1", "unit": "Unit", "pricePerUnit": 0.03464}, {"model": "PARP-04V", "unit": "Unit", "pricePerUnit": 0.01430}, {"model": "VLR-02", "unit": "Unit", "pricePerUnit": 0.04890}, {"model": "VLR-03V", "unit": "Unit", "pricePerUnit": 0.07460}, {"model": "XARP-04V", "unit": "Unit", "pricePerUnit": 0.01950}, {"model": "YLNR-02VF", "unit": "Unit", "pricePerUnit": 0.03920}, {"model": "YLP-03V", "unit": "Unit", "pricePerUnit": 0.02890}, {"model": "W11669793", "unit": "Unit", "pricePerUnit": 0.0520}, {"model": "W11678929", "unit": "Unit", "pricePerUnit": 0.1620} ];
         const wirePriceData = [ { gauge: "24", pricePerMeterSingle: 0.05 },{ gauge: "22", pricePerMeterSingle: 0.06 },{ gauge: "20", pricePerMeterSingle: 0.07 },{ gauge: "18", pricePerMeterSingle: 0.08 },{ gauge: "17", pricePerMeterSingle: 0.09 },{ gauge: "16", pricePerMeterSingle: 0.10 }, ];
@@ -1185,13 +1185,14 @@
                         
                         case 'Grommet':
                             ctx.fillStyle = "#f97316"; // Laranja
-                            ctx.beginPath();
-                            ctx.moveTo(0, -itemMarkerSize / 1.5);
-                            ctx.lineTo(itemMarkerSize / 1.5, itemMarkerSize / 2);
-                            ctx.lineTo(-itemMarkerSize / 1.5, itemMarkerSize / 2);
-                            ctx.closePath();
-                            ctx.fill();
-                            break;
+    ctx.beginPath();
+    // Pontos para um triângulo apontando para a direita
+    ctx.moveTo(itemMarkerSize, 0); // Ponta da direita
+    ctx.lineTo(-itemMarkerSize / 2, -itemMarkerSize / 2); // Canto superior esquerdo
+    ctx.lineTo(-itemMarkerSize / 2, itemMarkerSize / 2); // Canto inferior esquerdo
+    ctx.closePath();
+    ctx.fill();
+    break;
                             
                         case 'Tape':
                             ctx.fillStyle = "#1f2937"; // Preto/Cinza Escuro
