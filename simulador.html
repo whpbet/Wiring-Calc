@@ -332,6 +332,21 @@
                 <label for="secondary-wire-integration-distance" class="form-label">INTEGRATION DISTANCE (meters on source wire):</label>
                 <input type="number" id="secondary-wire-integration-distance" name="secondary-wire-integration-distance" class="form-input" value="0" min="0" placeholder="Ex: 3">
             </div>
+
+            <div class="form-group">
+                <label class="form-label">Branch Direction:</label>
+                <div class="flex items-center space-x-6 py-2">
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="radio" id="direction-below" name="branch-direction" value="below" class="form-radio h-4 w-4 text-blue-600" checked>
+                        <span>Below Main Wire</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="radio" id="direction-above" name="branch-direction" value="above" class="form-radio h-4 w-4 text-blue-600">
+                        <span>Above Main Wire</span>
+                    </label>
+                </div>
+            </div>
+
             <button id="adicionar-secondary-wire" class="add-button">
                 Add Secondary Wire
             </button>
@@ -482,7 +497,74 @@
         // --- Sample Data (Simulating Database) ---
         const insulationOptions = ["PVC", "Other"];
         const gaugeOptions = ["0.5", "0.75", "1.0", "1.5", "2.5", "4.0", "6.0", "10.0"];
-        const componentTypesData = [ { type: "Bimetal", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 }, { type: "Ferrite", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 }, { type: "Splice", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.060 }, { type: "POLYAMIDE GLUE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.154 }, { type: "HEAT SHRINK TUBE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.240 }, { type: "Hot Melt", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.010 }, { type: "Terminal", isDirectPrice: false, models: [ {"model": "39012065", "unit": "Unit", "pricePerUnit": 0.03820}, {"model": "39012125", "unit": "Unit", "pricePerUnit": 0.07185}, {"model": "39013028", "unit": "Unit", "pricePerUnit": 0.07100}, {"model": "39013029", "unit": "Unit", "pricePerUnit": 0.03158}, {"model": "39014053", "unit": "Unit", "pricePerUnit": 0.10800}, {"model": "50841025", "unit": "Unit", "pricePerUnit": 0.07607}, {"model": "50841035", "unit": "Unit", "pricePerUnit": 0.08588}, {"model": "50841045", "unit": "Unit", "pricePerUnit": 0.09588}, {"model": "50842032", "unit": "Unit", "pricePerUnit": 0.10789}, {"model": "50842042", "unit": "Unit", "pricePerUnit": 0.11489}, {"model": "366440004", "unit": "Unit", "pricePerUnit": 0.11789}, {"model": "433351002", "unit": "Unit", "pricePerUnit": 0.06359}, {"model": "457763006", "unit": "Unit", "pricePerUnit": 0.24687}, {"model": "457763012", "unit": "Unit", "pricePerUnit": 0.30191}, {"model": "945504106", "unit": "Unit", "pricePerUnit": 0.09123}, {"model": "1-1744417-0", "unit": "Unit", "pricePerUnit": 0.03921}, {"model": "1-1971772-4", "unit": "Unit", "pricePerUnit": 0.06804}, {"model": "1-1971773-2", "unit": "Unit", "pricePerUnit": 0.04276}, {"model": "1-1971775-3", "unit": "Unit", "pricePerUnit": 0.21512}, {"model": "1-1971776-3", "unit": "Unit", "pricePerUnit": 0.22795}, {"model": "17444036-3", "unit": "Unit", "pricePerUnit": 0.03140}, {"model": "17444036-5", "unit": "Unit", "pricePerUnit": 0.04041}, {"model": "1744417-4", "unit": "Unit", "pricePerUnit": 0.01469}, {"model": "1744417-5", "unit": "Unit", "pricePerUnit": 0.02298}, {"model": "1744417-7", "unit": "Unit", "pricePerUnit": 0.02497}, {"model": "1969588-4", "unit": "Unit", "pricePerUnit": 0.01000}, {"model": "2371377-9", "unit": "Unit", "pricePerUnit": 0.05000}, {"model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565}, {"model": "4-180923-0", "unit": "Unit", "pricePerUnit": 0.04801}, {"model": "521229-1", "unit": "Unit", "pricePerUnit": 0.03464}, {"model": "PARP-04V", "unit": "Unit", "pricePerUnit": 0.01430}, {"model": "VLR-02", "unit": "Unit", "pricePerUnit": 0.04890}, {"model": "VLR-03V", "unit": "Unit", "pricePerUnit": 0.07460}, {"model": "XARP-04V", "unit": "Unit", "pricePerUnit": 0.01950}, {"model": "YLNR-02VF", "unit": "Unit", "pricePerUnit": 0.03920}, {"model": "YLP-03V", "unit": "Unit", "pricePerUnit": 0.02890}, {"model": "W11669793", "unit": "Unit", "pricePerUnit": 0.0520}, {"model": "W11678929", "unit": "Unit", "pricePerUnit": 0.1620} ]}, { type: "Tape", isDirectPrice: false, models: [ { model: "Masking Tape", unit: "Meter", pricePerUnit: 0.10 }, { model: "Electrical Tape", unit: "Roll", pricePerUnit: 2.50 }, { model: "GLASS TAPE", unit: "Meter", pricePerUnit: 0.30 } ]}, { type: "Ground Ring", isDirectPrice: false, models: [ { model: "61795-3", unit: "Unit", pricePerUnit: 0.12345 } ]}, { type: "Retainer", isDirectPrice: false, models: [ { model: "1-1969443-0", unit: "Unit", pricePerUnit: 0.01000 }, {"model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565 }, {"model": "YLS-03V", "unit": "Unit", "pricePerUnit": 0.02890 } ]}, { type: "Grommet", isDirectPrice: false, models: [ { model: "12.5 mm", unit: "Unit", pricePerUnit: 0.03 }, { model: "Model G-Z", unit: "Unit", pricePerUnit: 0.06 }, { model: "12952201SP", unit: "Unit", "pricePerUnit": 0.09 } ]} ];
+        
+        // DADOS COM A CORREÇÃO DA ASPA FALTANTE
+        const componentTypesData = [
+            { type: "Bimetal", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 },
+            { type: "Ferrite", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 },
+            { type: "Splice", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.060 },
+            { type: "POLYAMIDE GLUE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.154 },
+            { type: "HEAT SHRINK TUBE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.240 },
+            { type: "Hot Melt", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.010 },
+            { type: "Terminal", isDirectPrice: false, models: [
+                {"model": "39012065", "unit": "Unit", "pricePerUnit": 0.03820},
+                {"model": "39012125", "unit": "Unit", "pricePerUnit": 0.07185},
+                {"model": "39013028", "unit": "Unit", "pricePerUnit": 0.07100},
+                {"model": "39013029", "unit": "Unit", "pricePerUnit": 0.03158},
+                {"model": "39014053", "unit": "Unit", "pricePerUnit": 0.10800},
+                {"model": "50841025", "unit": "Unit", "pricePerUnit": 0.07607},
+                {"model": "50841035", "unit": "Unit", "pricePerUnit": 0.08588},
+                {"model": "50841045", "unit": "Unit", "pricePerUnit": 0.09588},
+                {"model": "50842032", "unit": "Unit", "pricePerUnit": 0.10789},
+                {"model": "50842042", "unit": "Unit", "pricePerUnit": 0.11489},
+                {"model": "366440004", "unit": "Unit", "pricePerUnit": 0.11789},
+                {"model": "433351002", "unit": "Unit", "pricePerUnit": 0.06359},
+                {"model": "457763006", "unit": "Unit", "pricePerUnit": 0.24687},
+                {"model": "457763012", "unit": "Unit", "pricePerUnit": 0.30191},
+                {"model": "945504106", "unit": "Unit", "pricePerUnit": 0.09123},
+                {"model": "1-1744417-0", "unit": "Unit", "pricePerUnit": 0.03921},
+                {"model": "1-1971772-4", "unit": "Unit", "pricePerUnit": 0.06804},
+                {"model": "1-1971773-2", "unit": "Unit", "pricePerUnit": 0.04276},
+                {"model": "1-1971775-3", "unit": "Unit", "pricePerUnit": 0.21512},
+                {"model": "1-1971776-3", "unit": "Unit", "pricePerUnit": 0.22795},
+                {"model": "17444036-3", "unit": "Unit", "pricePerUnit": 0.03140},
+                {"model": "17444036-5", "unit": "Unit", "pricePerUnit": 0.04041},
+                {"model": "1744417-4", "unit": "Unit", "pricePerUnit": 0.01469},
+                {"model": "1744417-5", "unit": "Unit", "pricePerUnit": 0.02298},
+                {"model": "1744417-7", "unit": "Unit", "pricePerUnit": 0.02497},
+                {"model": "1969588-4", "unit": "Unit", "pricePerUnit": 0.01000},
+                {"model": "2371377-9", "unit": "Unit", "pricePerUnit": 0.05000},
+                {"model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565},
+                {"model": "4-180923-0", "unit": "Unit", "pricePerUnit": 0.04801},
+                {"model": "521229-1", "unit": "Unit", "pricePerUnit": 0.03464},
+                {"model": "PARP-04V", "unit": "Unit", "pricePerUnit": 0.01430},
+                {"model": "VLR-02", "unit": "Unit", "pricePerUnit": 0.04890},
+                {"model": "VLR-03V", "unit": "Unit", "pricePerUnit": 0.07460},
+                {"model": "XARP-04V", "unit": "Unit", "pricePerUnit": 0.01950},
+                {"model": "YLNR-02VF", "unit": "Unit", "pricePerUnit": 0.03920},
+                {"model": "YLP-03V", "unit": "Unit", "pricePerUnit": 0.02890},
+                {"model": "W11669793", "unit": "Unit", "pricePerUnit": 0.0520},
+                {"model": "W11678929", "unit": "Unit", "pricePerUnit": 0.1620}
+            ]},
+            { type: "Tape", isDirectPrice: false, models: [
+                { model: "Masking Tape", unit: "Meter", pricePerUnit: 0.10 },
+                { model: "Electrical Tape", unit: "Roll", pricePerUnit: 2.50 },
+                { model: "GLASS TAPE", unit: "Meter", "pricePerUnit": 0.30 } // CORREÇÃO APLICADA AQUI
+            ]},
+            { type: "Ground Ring", isDirectPrice: false, models: [
+                { model: "61795-3", unit: "Unit", pricePerUnit: 0.12345 }
+            ]},
+            { type: "Retainer", isDirectPrice: false, models: [
+                { model: "1-1969443-0", unit: "Unit", pricePerUnit: 0.01000 },
+                { "model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565 },
+                { "model": "YLS-03V", "unit": "Unit", "pricePerUnit": 0.02890 }
+            ]},
+            { type: "Grommet", isDirectPrice: false, models: [
+                { model: "12.5 mm", unit: "Unit", pricePerUnit: 0.03 },
+                { model: "Model G-Z", unit: "Unit", pricePerUnit: 0.06 },
+                { model: "12952201SP", unit: "Unit", "pricePerUnit": 0.09 }
+            ]}
+        ];
         const connectorModelsData = [ {"model": "39012065", "unit": "Unit", "pricePerUnit": 0.03820}, {"model": "39012125", "unit": "Unit", "pricePerUnit": 0.07185}, {"model": "39013028", "unit": "Unit", "pricePerUnit": 0.07100}, {"model": "39013029", "unit": "Unit", "pricePerUnit": 0.03158}, {"model": "39014053", "unit": "Unit", "pricePerUnit": 0.10800}, {"model": "50841025", "unit": "Unit", "pricePerUnit": 0.07607}, {"model": "50841035", "unit": "Unit", "pricePerUnit": 0.08588}, {"model": "50841045", "unit": "Unit", "pricePerUnit": 0.09588}, {"model": "50842032", "unit": "Unit", "pricePerUnit": 0.10789}, {"model": "50842042", "unit": "Unit", "pricePerUnit": 0.11489}, {"model": "366440004", "unit": "Unit", "pricePerUnit": 0.11789}, {"model": "433351002", "unit": "Unit", "pricePerUnit": 0.06359}, {"model": "457763006", "unit": "Unit", "pricePerUnit": 0.24687}, {"model": "457763012", "unit": "Unit", "pricePerUnit": 0.30191}, {"model": "945504106", "unit": "Unit", "pricePerUnit": 0.09123}, {"model": "1-1744417-0", "unit": "Unit", "pricePerUnit": 0.03921}, {"model": "1-1971772-4", "unit": "Unit", "pricePerUnit": 0.06804}, {"model": "1-1971773-2", "unit": "Unit", "pricePerUnit": 0.04276}, {"model": "1-1971775-3", "unit": "Unit", "pricePerUnit": 0.21512}, {"model": "1-1971776-3", "unit": "Unit", "pricePerUnit": 0.22795}, {"model": "17444036-3", "unit": "Unit", "pricePerUnit": 0.03140}, {"model": "17444036-5", "unit": "Unit", "pricePerUnit": 0.04041}, {"model": "1744417-4", "unit": "Unit", "pricePerUnit": 0.01469}, {"model": "1744417-5", "unit": "Unit", "pricePerUnit": 0.02298}, {"model": "1744417-7", "unit": "Unit", "pricePerUnit": 0.02497}, {"model": "1969588-4", "unit": "Unit", "pricePerUnit": 0.01000}, {"model": "2371377-9", "unit": "Unit", "pricePerUnit": 0.05000}, {"model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565}, {"model": "4-180923-0", "unit": "Unit", "pricePerUnit": 0.04801}, {"model": "521229-1", "unit": "Unit", "pricePerUnit": 0.03464}, {"model": "PARP-04V", "unit": "Unit", "pricePerUnit": 0.01430}, {"model": "VLR-02", "unit": "Unit", "pricePerUnit": 0.04890}, {"model": "VLR-03V", "unit": "Unit", "pricePerUnit": 0.07460}, {"model": "XARP-04V", "unit": "Unit", "pricePerUnit": 0.01950}, {"model": "YLNR-02VF", "unit": "Unit", "pricePerUnit": 0.03920}, {"model": "YLP-03V", "unit": "Unit", "pricePerUnit": 0.02890}, {"model": "W11669793", "unit": "Unit", "pricePerUnit": 0.0520}, {"model": "W11678929", "unit": "Unit", "pricePerUnit": 0.1620} ];
         const wirePriceData = [ { gauge: "0.5", pricePerMeterSingle: 0.20 }, { gauge: "0.75", pricePerMeterSingle: 0.25 }, { gauge: "1.0", pricePerMeterSingle: 0.30 }, { gauge: "1.5", pricePerMeterSingle: 0.40 }, { gauge: "2.5", pricePerMeterSingle: 0.50 }, { gauge: "4.0", pricePerMeterSingle: 0.70 }, { gauge: "6.0", pricePerMeterSingle: 1.00 }, { gauge: "10.0", pricePerMeterSingle: 1.50 }, ];
 
@@ -736,6 +818,8 @@
             const wireNumber = secondaryWireNumberInput.value.trim();
             const parentWireNumber = secondaryWireIntegrationWireSelect.value;
             const integrationDistance = parseFloat(secondaryWireIntegrationDistanceInput.value);
+            const direction = document.querySelector('input[name="branch-direction"]:checked').value;
+
             let finalInsulationName, finalGauge, finalPricePerMeterSingleWire;
             if (insulation === 'Other') {
                 finalInsulationName = customSecondaryWireInsulationNameInput.value.trim();
@@ -769,7 +853,7 @@
                 exibirMensagem(`Integration distance exceeds the length of source wire "${parentWireNumber}".`, "erro"); return;
             }
             const subtotal = (length) * finalPricePerMeterSingleWire * amount;
-            const novoFioSecundario = { type: 'secondary-wire', wireNumber, parentWireNumber, integrationDistance, length, amount, insulation: finalInsulationName, gauge: finalGauge, unit: 'Meter', pricePerUnit: finalPricePerMeterSingleWire, subtotal };
+            const novoFioSecundario = { type: 'secondary-wire', wireNumber, parentWireNumber, integrationDistance, length, amount, insulation: finalInsulationName, gauge: finalGauge, unit: 'Meter', pricePerUnit: finalPricePerMeterSingleWire, subtotal, direction: direction };
             listaItens.push(novoFioSecundario);
             exibirMensagem(`Secondary Wire ${wireNumber} added.`, "success");
             atualizarLista();
@@ -998,8 +1082,8 @@
             ctx.translate(canvasWidth / 2, ramalCanvas.height / 2);
             ctx.scale(zoomLevel, zoomLevel);
             ctx.translate(-canvasWidth / 2, -ramalCanvas.height / 2);
-            const paddingX = 60, mainWireY = ramalCanvas.height / 4, diagonalAngle = Math.PI / 4;
-            const branchStackingOffset = 40, itemMarkerSize = 5, mainWireColor = "#000000";
+            const paddingX = 60, mainWireY = ramalCanvas.height / 2;
+            const itemMarkerSize = 5, mainWireColor = "#000000";
             const labelColor = "#1f2937", wireStrokeWidth = 3;
             const wireMap = {};
             const mainWire = listaItens.find(item => item.type === 'main-wire');
@@ -1017,23 +1101,37 @@
             ctx.font = "14px Inter"; ctx.fillStyle = labelColor; ctx.textAlign = "left";
             ctx.fillText(`Wire ${mainWire.wireNumber} (${mainWire.length}m)`, mainStartX, mainWireY - 15);
             wireMap[mainWire.wireNumber] = { item: mainWire, canvasStartX: mainStartX, canvasStartY: mainWireY, pixelPerMeter: mainPixelPerMeter, orientation: 'horizontal' };
+            const baseAngleBelow = Math.PI / 6;
+            const baseAngleAbove = -Math.PI / 6;
+            const angleIncrement = Math.PI / 18;
+            let branchesBelowCount = 0;
+            let branchesAboveCount = 0;
             const secondaryWiresToDraw = listaItens.filter(item => item.type === 'secondary-wire' && item.parentWireNumber === mainWire.wireNumber)
                                          .sort((a, b) => a.integrationDistance - b.integrationDistance);
-            let currentBranchCount = 0;
             secondaryWiresToDraw.forEach(secondaryWire => {
                 const attachX = mainStartX + secondaryWire.integrationDistance * mainPixelPerMeter;
                 const attachY = mainWireY;
-                const visualDiagonalLength = secondaryWire.length * mainPixelPerMeter * 0.9;
-                const deltaX = visualDiagonalLength * Math.cos(diagonalAngle);
-                const deltaY = visualDiagonalLength * Math.sin(diagonalAngle);
-                const branchEndX = attachX + deltaX, branchEndY = attachY + deltaY + (currentBranchCount * branchStackingOffset);
+                const visualDiagonalLength = secondaryWire.length * mainPixelPerMeter * 0.8;
+                let finalAngle, labelOffsetY;
+                if (secondaryWire.direction === 'below') {
+                    finalAngle = baseAngleBelow + (branchesBelowCount * angleIncrement);
+                    labelOffsetY = 20;
+                    branchesBelowCount++;
+                } else {
+                    finalAngle = baseAngleAbove - (branchesAboveCount * angleIncrement);
+                    labelOffsetY = -10;
+                    branchesAboveCount++;
+                }
+                const deltaX = visualDiagonalLength * Math.cos(finalAngle);
+                const deltaY = visualDiagonalLength * Math.sin(finalAngle);
+                const branchEndX = attachX + deltaX;
+                const branchEndY = attachY + deltaY;
                 ctx.beginPath(); ctx.moveTo(attachX, attachY); ctx.lineTo(branchEndX, branchEndY);
                 ctx.strokeStyle = mainWireColor; ctx.stroke();
                 ctx.font = "12px Inter"; ctx.fillStyle = labelColor; ctx.textAlign = "left";
-                ctx.fillText(`Wire ${secondaryWire.wireNumber} (${secondaryWire.length}m)`, attachX + 5, attachY + 15 + (currentBranchCount * branchStackingOffset));
+                ctx.fillText(`Wire ${secondaryWire.wireNumber} (${secondaryWire.length}m)`, attachX + 5, attachY + labelOffsetY);
                 const secondaryPixelPerMeter = secondaryWire.length > 0 ? visualDiagonalLength / secondaryWire.length : 0;
-                wireMap[secondaryWire.wireNumber] = { item: secondaryWire, canvasStartX: attachX, canvasStartY: attachY, canvasEndX: branchEndX, canvasEndY: branchEndY, pixelPerMeter: secondaryPixelPerMeter, orientation: 'diagonal' };
-                currentBranchCount++;
+                wireMap[secondaryWire.wireNumber] = { item: secondaryWire, canvasStartX: attachX, canvasStartY: attachY, canvasEndX: branchEndX, canvasEndY: branchEndY, pixelPerMeter: secondaryPixelPerMeter, orientation: 'diagonal', angle: finalAngle };
             });
             listaItens.filter(item => item.type === 'component' || item.type === 'connector').forEach(item => {
                 const parentWireEntry = wireMap[item.parentWireNumber];
@@ -1044,12 +1142,10 @@
                         itemX = parentWireEntry.canvasStartX + itemVisualDist;
                         itemY = parentWireEntry.canvasStartY;
                     } else {
-                        const dx = parentWireEntry.canvasEndX - parentWireEntry.canvasStartX;
-                        const dy = parentWireEntry.canvasEndY - parentWireEntry.canvasStartY;
-                        const totalVisualLen = Math.sqrt(dx * dx + dy * dy);
-                        const ratio = totalVisualLen > 0 ? itemVisualDist / totalVisualLen : 0;
-                        itemX = parentWireEntry.canvasStartX + dx * ratio;
-                        itemY = parentWireEntry.canvasStartY + dy * ratio;
+                        const dx = itemVisualDist * Math.cos(parentWireEntry.angle);
+                        const dy = itemVisualDist * Math.sin(parentWireEntry.angle);
+                        itemX = parentWireEntry.canvasStartX + dx;
+                        itemY = parentWireEntry.canvasStartY + dy;
                     }
                     ctx.beginPath();
                     ctx.arc(itemX, itemY, itemMarkerSize, 0, 2 * Math.PI);
@@ -1057,10 +1153,8 @@
                     ctx.fill();
                     ctx.font = "10px Inter"; ctx.fillStyle = labelColor;
                     const labelText = `${item.quantity}x ${item.model}`;
-                    ctx.textAlign = parentWireEntry.orientation === 'diagonal' ? 'left' : 'center';
-                    const labelX = parentWireEntry.orientation === 'diagonal' ? itemX + 8 : itemX;
-                    const labelY = parentWireEntry.orientation === 'diagonal' ? itemY - 8 : itemY - 10;
-                    ctx.fillText(labelText, labelX, labelY);
+                    ctx.textAlign = 'center';
+                    ctx.fillText(labelText, itemX, itemY - 10);
                 }
             });
             ctx.font = "14px Inter"; ctx.fillStyle = mainWireColor;
