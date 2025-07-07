@@ -43,6 +43,7 @@
         .form-row > .form-group { margin-bottom: 0; }
         .icon-button { background-color: #e5e7eb; color: #4b5563; padding: 0.5rem; border-radius: 9999px; transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out; border: none; cursor: pointer; line-height: 0; }
         .icon-button:hover { background-color: #d1d5db; color: #1f2937; }
+        .hidden { display: none; }
     </style>
 </head>
 <body class="bg-gray-100 p-6">
@@ -83,10 +84,10 @@
         <div id="component-form-section" class="form-section item-form-section">
             <h2 class="section-heading">Step 4: COMPONENTS</h2>
              <div class="form-row"><div class="form-group"><label for="component-type" class="form-label">COMPONENT TYPE:</label><select id="component-type" class="form-select"></select></div><div class="form-group"><label for="component-model" class="form-label">MODEL:</label><select id="component-model" class="form-select" disabled></select></div></div>
-            <div class="form-group custom-component-fields hidden"><label for="custom-component-name" class="form-label">Custom Name:</label><input type="text" id="custom-component-name" class="form-input" placeholder="Ex: Xtreme Component"></div>
+            <div class="form-group custom-component-fields hidden"><label for="custom-component-name" class="form-label">Custom Name:</label><input type="text" id="custom-component-name" class="form-input" placeholder="Ex: New Component Type"></div>
             <div class="form-group custom-component-fields hidden"><label for="custom-component-price" class="form-label">Custom Unit Price ($):</label><input type="number" id="custom-component-price" class="form-input" value="0" min="0" step="0.01"></div>
             <div class="form-row"><div class="form-group"><label for="component-wire" class="form-label">ATTACH TO WIRE:</label><select id="component-wire" class="form-select"></select></div><div class="form-group"><label for="component-distance" class="form-label">DISTANCE (m on wire):</label><input type="number" id="component-distance" class="form-input" value="0" min="0"></div></div>
-             <div class="form-group"><label for="component-quantity" class="form-label">QUANTITY:</label><input type="number" id="component-quantity" class="form-input" value="1" min="1"></div>
+             <div class="form-group"><label for="component-quantity" class="form-label">QUANTITY:</label><input type="number" id="component-quantity" class="form-input" value="1" min="1" step="any"></div>
             <div id="component-actions"><button id="adicionar-componente" class="action-button add-button">Add Component</button><button id="repeat-component" class="action-button bg-gray-500 hover:bg-gray-700 ml-2">Repeat Last</button></div>
         </div>
 
@@ -101,9 +102,9 @@
 
         <div class="table-container">
              <table class="table">
-                <thead class="table-header"><tr><th>#</th><th>Type</th><th>Source Wire</th><th>Item / Model / Gauge</th><th>Qty. / Length</th><th>Distance</th><th>Unit Price ($)</th><th>Subtotal ($)</th><th>Actions</th></tr></thead>
-                <tbody id="lista-itens" class="table-body"><tr><td colspan="9" class="text-center text-gray-500">No items added.</td></tr></tbody>
-            </table>
+                 <thead class="table-header"><tr><th>#</th><th>Type</th><th>Source Wire</th><th>Item / Model / Gauge</th><th>Qty. / Length</th><th>Distance</th><th>Unit Price ($)</th><th>Subtotal ($)</th><th>Actions</th></tr></thead>
+                 <tbody id="lista-itens" class="table-body"><tr><td colspan="9" class="text-center text-gray-500">No items added.</td></tr></tbody>
+             </table>
         </div>
 
         <div class="total-section"><span class="total-label">Total Estimate:</span><span id="total-estimativa" class="total-value">$ 0.000</span></div>
@@ -123,10 +124,110 @@
 
     <script>
         // --- DATA ---
-        const insulationOptions = ["PVC", "Other"];
+        const insulationOptions = ["PVC"]; // Alterado
         const gaugeOptions = ["24", "22", "20", "18", "17", "16"];
-        const componentTypesData = [ { type: "Bimetal", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 }, { type: "Ferrite", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 }, { type: "Splice", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.060 }, { type: "POLYAMIDE GLUE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.154 }, { type: "HEAT SHRINK TUBE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.240 }, { type: "Hot Melt", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.010 }, { type: "Terminal", isDirectPrice: false, models: [ {"model": "39012065", "unit": "Unit", "pricePerUnit": 0.03820}, {"model": "39012125", "unit": "Unit", "pricePerUnit": 0.07185}, {"model": "39013028", "unit": "Unit", "pricePerUnit": 0.07100}, {"model": "39013029", "unit": "Unit", "pricePerUnit": 0.03158}, {"model": "39014053", "unit": "Unit", "pricePerUnit": 0.10800}, {"model": "50841025", "unit": "Unit", "pricePerUnit": 0.07607}, {"model": "50841035", "unit": "Unit", "pricePerUnit": 0.08588}, {"model": "50841045", "unit": "Unit", "pricePerUnit": 0.09588}, {"model": "50842032", "unit": "Unit", "pricePerUnit": 0.10789}, {"model": "50842042", "unit": "Unit", "pricePerUnit": 0.11489}, {"model": "366440004", "unit": "Unit", "pricePerUnit": 0.11789}, {"model": "433351002", "unit": "Unit", "pricePerUnit": 0.06359}, {"model": "457763006", "unit": "Unit", "pricePerUnit": 0.24687}, {"model": "457763012", "unit": "Unit", "pricePerUnit": 0.30191}, {"model": "945504106", "unit": "Unit", "pricePerUnit": 0.09123}, {"model": "1-1744417-0", "unit": "Unit", "pricePerUnit": 0.03921}, {"model": "1-1971772-4", "unit": "Unit", "pricePerUnit": 0.06804}, {"model": "1-1971773-2", "unit": "Unit", "pricePerUnit": 0.04276}, {"model": "1-1971775-3", "unit": "Unit", "pricePerUnit": 0.21512}, {"model": "1-1971776-3", "unit": "Unit", "pricePerUnit": 0.22795}, {"model": "17444036-3", "unit": "Unit", "pricePerUnit": 0.03140}, {"model": "17444036-5", "unit": "Unit", "pricePerUnit": 0.04041}, {"model": "1744417-4", "unit": "Unit", "pricePerUnit": 0.01469}, {"model": "1744417-5", "unit": "Unit", "pricePerUnit": 0.02298}, {"model": "1744417-7", "unit": "Unit", "pricePerUnit": 0.02497}, {"model": "1969588-4", "unit": "Unit", "pricePerUnit": 0.01000}, {"model": "2371377-9", "unit": "Unit", "pricePerUnit": 0.05000}, {"model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565}, {"model": "4-180923-0", "unit": "Unit", "pricePerUnit": 0.04801}, {"model": "521229-1", "unit": "Unit", "pricePerUnit": 0.03464}, {"model": "PARP-04V", "unit": "Unit", "pricePerUnit": 0.01430}, {"model": "VLR-02", "unit": "Unit", "pricePerUnit": 0.04890}, {"model": "VLR-03V", "unit": "Unit", "pricePerUnit": 0.07460}, {"model": "XARP-04V", "unit": "Unit", "pricePerUnit": 0.01950}, {"model": "YLNR-02VF", "unit": "Unit", "pricePerUnit": 0.03920}, {"model": "YLP-03V", "unit": "Unit", "pricePerUnit": 0.02890}, {"model": "W11669793", "unit": "Unit", "pricePerUnit": 0.0520}, {"model": "W11678929", "unit": "Unit", "pricePerUnit": 0.1620} ]}, { type: "Tape", isDirectPrice: false, models: [ { model: "Masking Tape", unit: "Meter", pricePerUnit: 0.10 }, { model: "Electrical Tape", unit: "Roll", pricePerUnit: 2.50 }, { model: "GLASS TAPE", unit: "Meter", "pricePerUnit": 0.30 } ]}, { type: "Ground Ring", isDirectPrice: false, models: [ { model: "61795-3", unit: "Unit", pricePerUnit: 0.12345 } ]}, { type: "Retainer", isDirectPrice: false, models: [ { model: "1-1969443-0", "unit": "Unit", pricePerUnit: 0.01000 }, { "model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565 }, { "model": "YLS-03V", "unit": "Unit", "pricePerUnit": 0.02890 } ]}, { type: "Grommet", isDirectPrice: false, models: [ { model: "12.5mm", unit: "Unit", pricePerUnit: 0.05 }, { model: "19mm", unit: "Unit", pricePerUnit: 0.06 }, { model: "30mm", unit: "Unit", pricePerUnit: 0.08 } ]} ];
-        const connectorModelsData = [ {"model": "39012065", "unit": "Unit", "pricePerUnit": 0.03820}, {"model": "39012125", "unit": "Unit", "pricePerUnit": 0.07185}, {"model": "39013028", "unit": "Unit", "pricePerUnit": 0.07100}, {"model": "39013029", "unit": "Unit", "pricePerUnit": 0.03158}, {"model": "39014053", "unit": "Unit", "pricePerUnit": 0.10800}, {"model": "50841025", "unit": "Unit", "pricePerUnit": 0.07607}, {"model": "50841035", "unit": "Unit", "pricePerUnit": 0.08588}, {"model": "50841045", "unit": "Unit", "pricePerUnit": 0.09588}, {"model": "50842032", "unit": "Unit", "pricePerUnit": 0.10789}, {"model": "50842042", "unit": "Unit", "pricePerUnit": 0.11489}, {"model": "366440004", "unit": "Unit", "pricePerUnit": 0.11789}, {"model": "433351002", "unit": "Unit", "pricePerUnit": 0.06359}, {"model": "457763006", "unit": "Unit", "pricePerUnit": 0.24687}, {"model": "457763012", "unit": "Unit", "pricePerUnit": 0.30191}, {"model": "945504106", "unit": "Unit", "pricePerUnit": 0.09123}, {"model": "1-1744417-0", "unit": "Unit", "pricePerUnit": 0.03921}, {"model": "1-1971772-4", "unit": "Unit", "pricePerUnit": 0.06804}, {"model": "1-1971773-2", "unit": "Unit", "pricePerUnit": 0.04276}, {"model": "1-1971775-3", "unit": "Unit", "pricePerUnit": 0.21512}, {"model": "1-1971776-3", "unit": "Unit", "pricePerUnit": 0.22795}, {"model": "17444036-3", "unit": "Unit", "pricePerUnit": 0.03140}, {"model": "17444036-5", "unit": "Unit", "pricePerUnit": 0.04041}, {"model": "1744417-4", "unit": "Unit", "pricePerUnit": 0.01469}, {"model": "1744417-5", "unit": "Unit", "pricePerUnit": 0.02298}, {"model": "1744417-7", "unit": "Unit", "pricePerUnit": 0.02497}, {"model": "1969588-4", "unit": "Unit", "pricePerUnit": 0.01000}, {"model": "2371377-9", "unit": "Unit", "pricePerUnit": 0.05000}, {"model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565}, {"model": "4-180923-0", "unit": "Unit", "pricePerUnit": 0.04801}, {"model": "521229-1", "unit": "Unit", "pricePerUnit": 0.03464}, {"model": "PARP-04V", "unit": "Unit", "pricePerUnit": 0.01430}, {"model": "VLR-02", "unit": "Unit", "pricePerUnit": 0.04890}, {"model": "VLR-03V", "unit": "Unit", "pricePerUnit": 0.07460}, {"model": "XARP-04V", "unit": "Unit", "pricePerUnit": 0.01950}, {"model": "YLNR-02VF", "unit": "Unit", "pricePerUnit": 0.03920}, {"model": "YLP-03V", "unit": "Unit", "pricePerUnit": 0.02890}, {"model": "W11669793", "unit": "Unit", "pricePerUnit": 0.0520}, {"model": "W11678929", "unit": "Unit", "pricePerUnit": 0.1620} ];
+        
+        const componentTypesData = [
+            { type: "Bimetal", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 },
+            { type: "Ferrite", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 },
+            { type: "Splice", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.060 },
+            { type: "POLYAMIDE GLUE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.154 },
+            { type: "HEAT SHRINK TUBE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.240 },
+            { type: "Hot Melt", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.010 },
+            {
+                type: "Terminal", isDirectPrice: false, models: [
+                    { "model": "6-917660", "unit": "Unit", "pricePerUnit": 0.00880 },
+                    { "model": "TBD", "unit": "Unit", "pricePerUnit": 0.01264 },
+                    { "model": "W10224274", "unit": "Unit", "pricePerUnit": 0.01540 },
+                    { "model": "W10224275", "unit": "Unit", "pricePerUnit": 0.2100 },
+                    { "model": "W10241280", "unit": "Unit", "pricePerUnit": 0.0410 },
+                    { "model": "W10241606", "unit": "Unit", "pricePerUnit": 0.00380 },
+                    { "model": "W10241607", "unit": "Unit", "pricePerUnit": 0.01050 },
+                    { "model": "W10241608", "unit": "Unit", "pricePerUnit": 0.01030 },
+                    { "model": "W10361444", "unit": "Unit", "pricePerUnit": 0.0470 },
+                    { "model": "10431333", "unit": "Unit", "pricePerUnit": 0.00528 },
+                    { "model": "W10582562", "unit": "Unit", "pricePerUnit": 0.00873 },
+                    { "model": "W10704522", "unit": "Unit", "pricePerUnit": 0.01002 },
+                    { "model": "W10704522", "unit": "Unit", "pricePerUnit": 0.0570 },
+                    { "model": "10863776", "unit": "Unit", "pricePerUnit": 0.00839 },
+                    { "model": "W11224007", "unit": "Unit", "pricePerUnit": 0.2160 },
+                    { "model": "W11402255", "unit": "Unit", "pricePerUnit": 0.00528 },
+                    { "model": "W11561408", "unit": "Unit", "pricePerUnit": 0.033 },
+                    { "model": "W11600246", "unit": "Unit", "pricePerUnit": 0.0820 },
+                    { "model": "W11620170", "unit": "Unit", "pricePerUnit": 0.0410 },
+                    { "model": "W11650942", "unit": "Unit", "pricePerUnit": 0.012 }
+                ]
+            },
+            {
+                type: "Tape", isDirectPrice: false, models: [
+                    { model: "Masking Tape", unit: "Meter", pricePerUnit: 0.10 },
+                    { model: "Electrical Tape", unit: "Roll", pricePerUnit: 2.50 },
+                    { model: "GLASS TAPE", unit: "Meter", "pricePerUnit": 0.30 },
+                    { model: "PVC", unit: "Meter", "pricePerUnit": 0.0333 } // Adicionado
+                ]
+            },
+            {
+                type: "Ground Ring", isDirectPrice: false, models: [
+                    { model: "61795-3", unit: "Unit", pricePerUnit: 0.12345 }
+                ]
+            },
+            {
+                type: "Retainer", isDirectPrice: false, models: [
+                    { "model": "177918-1", "unit": "Unit", "pricePerUnit": 0.011 },
+                    { "model": "1-1969443-0", "unit": "Unit", "pricePerUnit": 0.02055 },
+                    { "model": "1744544-9", "unit": "Unit", "pricePerUnit": 0.05553 },
+                    { "model": "1969443-4", "unit": "Unit", "pricePerUnit": 0.01000 },
+                    { "model": "1969443-5", "unit": "Unit", "pricePerUnit": 0.01000 },
+                    { "model": "1969443-7", "unit": "Unit", "pricePerUnit": 0.02000 },
+                    { "model": "1971778-3", "unit": "Unit", "pricePerUnit": 0.04970 },
+                    { "model": "917700-1", "unit": "Unit", "pricePerUnit": 0.01000 },
+                    { "model": "PMS-04V-S", "unit": "Unit", "pricePerUnit": 0.01000 },
+                    { "model": "VLS-02V", "unit": "Unit", "pricePerUnit": 0.01510 },
+                    { "model": "VLS-03V", "unit": "Unit", "pricePerUnit": 0.02510 },
+                    { "model": "XMS-04V", "unit": "Unit", "pricePerUnit": 0.01330 },
+                    { "model": "YLS-02V", "unit": "Unit", "pricePerUnit": 0.01000 },
+                    { "model": "YLS-03V", "unit": "Unit", "pricePerUnit": 0.01640 }
+                ]
+            },
+            {
+                type: "Grommet", isDirectPrice: false, models: [
+                    { model: "12.5mm", unit: "Unit", pricePerUnit: 0.05 },
+                    { model: "19mm", unit: "Unit", pricePerUnit: 0.06 },
+                    { model: "30mm", unit: "Unit", pricePerUnit: 0.08 }
+                ]
+            }
+        ];
+
+        const connectorModelsData = [
+            { "model": "W10201940", "unit": "Unit", "pricePerUnit": 0.02010 },
+            { "model": "W10208161", "unit": "Unit", "pricePerUnit": 0.01570 },
+            { "model": "W10208162", "unit": "Unit", "pricePerUnit": 0.01690 },
+            { "model": "W10210598", "unit": "Unit", "pricePerUnit": 0.05191 },
+            { "model": "W10241087", "unit": "Unit", "pricePerUnit": 0.02563 },
+            { "model": "W10439936", "unit": "Unit", "pricePerUnit": 0.06310 },
+            { "model": "W10460700", "unit": "Unit", "pricePerUnit": 0.03920 },
+            { "model": "W10519359", "unit": "Unit", "pricePerUnit": 0.02000 },
+            { "model": "W10709241", "unit": "Unit", "pricePerUnit": 0.02676 },
+            { "model": "W10791640", "unit": "Unit", "pricePerUnit": 0.03281 },
+            { "model": "W10850299", "unit": "Unit", "pricePerUnit": 0.02113 },
+            { "model": "W10863576", "unit": "Unit", "pricePerUnit": 0.03275 },
+            { "model": "W10867932", "unit": "Unit", "pricePerUnit": 0.03680 },
+            { "model": "W10871531", "unit": "Unit", "pricePerUnit": 0.03040 },
+            { "model": "W11295937", "unit": "Unit", "pricePerUnit": 0.04570 },
+            { "model": "W11372511", "unit": "Unit", "pricePerUnit": 0.02372 },
+            { "model": "W11404384", "unit": "Unit", "pricePerUnit": 0.06310 },
+            { "model": "W11461251", "unit": "Unit", "pricePerUnit": 0.08580 },
+            { "model": "W11568062", "unit": "Unit", "pricePerUnit": 0.05369 },
+            { "model": "W11569744", "unit": "Unit", "pricePerUnit": 0.04863 },
+            { "model": "W11635490", "unit": "Unit", "pricePerUnit": 0.05181 },
+            { "model": "W11659551", "unit": "Unit", "pricePerUnit": 0.02805 },
+            { "model": "W11659561", "unit": "Unit", "pricePerUnit": 0.00894 },
+            { "model": "W11675256", "unit": "Unit", "pricePerUnit": 0.02497 },
+            { "model": "W11681314", "unit": "Unit", "pricePerUnit": 0.07432 },
+            { "model": "W11681334", "unit": "Unit", "pricePerUnit": 0.06770 },
+            { "model": "W11686060", "unit": "Unit", "pricePerUnit": 0.10765 }
+        ];
+
         const wirePriceData = [ { gauge: "24", pricePerMeterSingle: 0.05 },{ gauge: "22", pricePerMeterSingle: 0.06 },{ gauge: "20", pricePerMeterSingle: 0.07 },{ gauge: "18", pricePerMeterSingle: 0.08 },{ gauge: "17", pricePerMeterSingle: 0.09 },{ gauge: "16", pricePerMeterSingle: 0.10 } ];
 
         // --- DOM Elements ---
@@ -134,7 +235,7 @@
             projetoInput: document.getElementById("projeto"), autorInput: document.getElementById("autor"), regiaoSelect: document.getElementById("regiao"),
             mainWire: { length: document.getElementById("main-wire-length"), amount: document.getElementById("main-wire-amount"), insulation: document.getElementById("main-wire-insulation"), gauge: document.getElementById("main-wire-gauge"), customInsulation: document.getElementById("custom-main-wire-insulation-name"), customGauge: document.getElementById("custom-main-wire-gauge-input"), customPrice: document.getElementById("custom-main-wire-price-per-meter"), customFields: document.querySelectorAll(".custom-main-wire-fields"), number: document.getElementById("main-wire-number"), actions: document.getElementById("main-wire-actions"), formSection: document.getElementById("main-wire-form-section") },
             branchWire: { length: document.getElementById("branch-wire-length"), amount: document.getElementById("branch-wire-amount"), insulation: document.getElementById("branch-wire-insulation"), gauge: document.getElementById("branch-wire-gauge"), customInsulation: document.getElementById("custom-branch-wire-insulation-name"), customGauge: document.getElementById("custom-branch-wire-gauge-input"), customPrice: document.getElementById("custom-branch-wire-price-per-meter"), customFields: document.querySelectorAll(".custom-branch-wire-fields"), number: document.getElementById("branch-wire-number"), parent: document.getElementById("branch-wire-integration-wire"), distance: document.getElementById("branch-wire-integration-distance"), actions: document.getElementById("branch-wire-actions"), formSection: document.getElementById("branch-wire-form-section") },
-            component: { type: document.getElementById("component-type"), model: document.getElementById("component-model"), customName: document.getElementById("custom-component-name"), customPrice: document.getElementById("custom-component-price"), customFields: document.querySelectorAll(".custom-component-fields"), wire: document.getElementById("component-wire"), distance: document.getElementById("component-distance"), quantity: document.getElementById("component-quantity"), actions: document.getElementById("component-actions"), formSection: document.getElementById("component-form-section") },
+            component: { type: document.getElementById("component-type"), model: document.getElementById("component-model"), customName: document.getElementById("custom-component-name"), customPrice: document.getElementById("custom-component-price"), customFields: document.querySelectorAll(".custom-component-fields"), wire: document.getElementById("component-wire"), distance: document.getElementById("component-distance"), quantity: document.getElementById("component-quantity"), quantityLabel: document.querySelector('label[for="component-quantity"]'), actions: document.getElementById("component-actions"), formSection: document.getElementById("component-form-section") },
             connector: { model: document.getElementById("connector-model"), customName: document.getElementById("custom-connector-name"), customPrice: document.getElementById("custom-connector-price"), customFields: document.querySelectorAll(".custom-connector-fields"), wire: document.getElementById("connector-wire"), distance: document.getElementById("connector-distance"), quantity: document.getElementById("connector-quantity"), actions: document.getElementById("connector-actions"), formSection: document.getElementById("connector-form-section") },
             listaItensBody: document.getElementById("lista-itens"), totalEstimativaElement: document.getElementById("total-estimativa"), mensagemContainer: document.getElementById("mensagem-container"), ramalCanvas: document.getElementById("ramal-canvas"), exportPdfButton: document.getElementById("export-pdf-button"), zoomInButton: document.getElementById("zoom-in-button"), zoomOutButton: document.getElementById("zoom-out-button"), repeatComponentButton: document.getElementById("repeat-component"), repeatConnectorButton: document.getElementById("repeat-connector")
         };
@@ -171,6 +272,7 @@
             [mainWire.insulation, branchWire.insulation].forEach(select => {
                 select.innerHTML = '<option value="" disabled selected>Select Insulation</option>';
                 insulationOptions.forEach(item => select.add(new Option(item, item)));
+                select.add(new Option("Other / Custom", "Other")); // Alterado
             });
             [mainWire.gauge, branchWire.gauge].forEach(select => {
                 select.innerHTML = '<option value="" disabled selected>Select Gauge</option>';
@@ -178,6 +280,8 @@
             });
             component.type.innerHTML = '<option value="" disabled selected>Select Type</option>';
             componentTypesData.forEach(compType => component.type.add(new Option(compType.isDirectPrice ? compType.type.toUpperCase() : compType.type, compType.type)));
+            component.type.add(new Option("Other / Custom Type", "custom-type")); // Adicionado
+            
             connector.model.innerHTML = '<option value="" disabled selected>Select Model</option>';
             connectorModelsData.forEach(conn => connector.model.add(new Option(conn.model, conn.model)));
             connector.model.add(new Option("Other / Custom", "custom"));
@@ -278,7 +382,7 @@
             if (!isStandardInsulation) {
                 dom.customInsulation.value = item.insulation; dom.customGauge.value = item.gauge; dom.customPrice.value = item.pricePerUnit;
             } else { dom.gauge.value = item.gauge; }
-            if (wireType !== 'main') {
+            if (wireType === 'branch') {
                 dom.parent.value = item.parentWireNumber; dom.distance.value = item.integrationDistance;
                 document.querySelector(`input[name="branch-direction-branch"][value="${item.direction || 'below'}"]`).checked = true;
             }
@@ -286,13 +390,18 @@
         
         function configurarBotoesParaEdicao(type) {
             const sections = { 'main-wire': allDomElements.mainWire.actions, 'branch-wire': allDomElements.branchWire.actions, 'component': allDomElements.component.actions, 'connector': allDomElements.connector.actions };
+            document.querySelectorAll('.action-button.add-button, .action-button.bg-gray-500').forEach(btn => btn.disabled = true);
+
             for (const key in sections) {
                 const btnContainer = sections[key];
                 if (type === key) {
                     btnContainer.innerHTML = `<button class="action-button update-button">Update</button><button class="action-button cancel-button ml-2">Cancel</button>`;
                     btnContainer.querySelector('.update-button').addEventListener('click', () => atualizarItem(key));
                     btnContainer.querySelector('.cancel-button').addEventListener('click', finalizarEdicao);
-                } else { Array.from(btnContainer.children).forEach(btn => btn.disabled = true); }
+                     btnContainer.querySelector('.update-button').disabled = false;
+                } else { 
+                    Array.from(btnContainer.children).forEach(btn => btn.disabled = true); 
+                }
             }
         }
 
@@ -320,6 +429,8 @@
             sections.connector.actions.innerHTML = '<button id="adicionar-conector" class="action-button add-button">Add Connector</button><button id="repeat-connector" class="action-button bg-gray-500 hover:bg-gray-700 ml-2">Repeat Last</button>';
             sections.connector.actions.children[0].addEventListener('click', () => adicionarConector(false));
             sections.connector.actions.children[1].addEventListener('click', repeatLastConnector);
+            
+            document.querySelectorAll('.action-button').forEach(btn => btn.disabled = false);
             atualizarInterfaceCompleta();
         }
         
@@ -351,7 +462,7 @@
                     let parentNum = queue.shift();
                     let children = listaItens.filter(i => i.parentWireNumber === parentNum);
                     itemsToRemove.push(...children);
-                    children.forEach(c => c.type.includes('wire') && queue.push(c.wireNumber));
+                    children.forEach(c => { if (c.type.includes('wire')) queue.push(c.wireNumber); });
                 }
                 if (itemsToRemove.length > 1 && !confirm(`Removing wire ${removedItem.wireNumber} will also remove ${itemsToRemove.length - 1} child item(s). Are you sure?`)) { return; }
                 listaItens = listaItens.filter(item => !itemsToRemove.includes(item));
@@ -359,7 +470,7 @@
                 listaItens.splice(index, 1);
             }
             exibirMensagem("Item(s) removed.", "success");
-            if (editingIndex !== null && editingIndex >= index) { editingIndex = null; }
+            if (editingIndex !== null && editingIndex >= index) { editingIndex = null; finalizarEdicao(); }
             atualizarInterfaceCompleta();
         };
 
@@ -392,7 +503,9 @@
             const wiresToDrawQueue = [mainWire.wireNumber], drawnWires = new Set(wiresToDrawQueue);
             while(wiresToDrawQueue.length > 0) {
                 const parentWireNumber = wiresToDrawQueue.shift(), parentInfo = wireMap[parentWireNumber];
+                
                 const children = listaItens.filter(item => item.type === 'branch-wire' && item.parentWireNumber === parentWireNumber);
+                
                 let branchesBelowCount = 0, branchesAboveCount = 0;
                 children.sort((a,b) => a.integrationDistance - b.integrationDistance).forEach(childWire => {
                     if (!parentInfo.item.length) return;
@@ -448,42 +561,101 @@
             ctx.restore();
         }
         
+        async function logCustomItemToServer(itemData) {
+            const logApiUrl = '/api/log-item';
+            try {
+                await fetch(logApiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(itemData)
+                });
+            } catch (error) {
+                console.error('Erro de rede ao tentar enviar log:', error);
+            }
+        }
+
         function popularFormularioComponente(item) {
-            const dom = allDomElements.component; dom.type.value = item.itemType; dom.type.dispatchEvent(new Event('change'));
+            const dom = allDomElements.component; 
+            
+            // Lógica para lidar com tipo customizado ou não
+            const isKnownType = componentTypesData.some(t => t.type === item.itemType);
+            if (!isKnownType || item.isCustomType) {
+                 dom.type.value = "custom-type";
+            } else {
+                 dom.type.value = item.itemType;
+            }
+            dom.type.dispatchEvent(new Event('change'));
+
             setTimeout(() => { 
-                if (item.isCustom) {
-                    dom.model.value = "custom"; dom.model.dispatchEvent(new Event('change'));
-                    dom.customName.value = item.model; dom.customPrice.value = item.pricePerUnit;
-                } else { const typeData = componentTypesData.find(t => t.type === item.itemType); if (typeData && !typeData.isDirectPrice) dom.model.value = item.model; }
-                dom.wire.value = item.parentWireNumber; dom.distance.value = item.distance; dom.quantity.value = item.quantity;
+                if (dom.type.value === 'custom-type') {
+                    dom.customName.value = item.itemType; // Se for custom, o nome vai para o campo custom
+                    dom.customPrice.value = item.pricePerUnit;
+                } else if (item.isCustom) {
+                    dom.model.value = "custom";
+                    dom.model.dispatchEvent(new Event('change'));
+                    dom.customName.value = item.model; 
+                    dom.customPrice.value = item.pricePerUnit;
+                } else { 
+                    const typeData = componentTypesData.find(t => t.type === item.itemType); 
+                    if (typeData && !typeData.isDirectPrice) dom.model.value = item.model; 
+                }
+                dom.wire.value = item.parentWireNumber; 
+                dom.distance.value = item.distance; 
+                dom.quantity.value = item.quantity;
             }, 100);
         }
 
         function adicionarComponenteItem(isEditing = false) {
             const { component } = allDomElements;
-            const itemType = component.type.value; let selectedModel = component.model.value;
-            const parentWireNumber = component.wire.value; const distance = parseFloat(component.distance.value);
-            const quantity = parseInt(component.quantity.value); let finalModel, finalPricePerUnit, finalUnit;
-            const selectedComponentTypeData = componentTypesData.find(ct => ct.type === itemType);
-            if (!selectedComponentTypeData) { exibirMensagem("Please select a valid Component Type.", "erro"); return; }
-            if (selectedComponentTypeData.isDirectPrice) {
-                finalModel = selectedComponentTypeData.type; finalPricePerUnit = selectedComponentTypeData.pricePerUnit; finalUnit = selectedComponentTypeData.unit;
+            let itemType = component.type.value; 
+            let selectedModel = component.model.value;
+            const parentWireNumber = component.wire.value; 
+            const distance = parseFloat(component.distance.value);
+            const quantity = parseFloat(component.quantity.value); 
+            let finalModel, finalPricePerUnit, finalUnit, isCustomType = false;
+            
+            if (itemType === 'custom-type') {
+                finalModel = component.customName.value.trim();
+                itemType = finalModel; // O tipo customizado se torna o nome do item
+                finalPricePerUnit = parseFloat(component.customPrice.value);
+                finalUnit = 'Unit'; // Unidade padrão para novos tipos
+                isCustomType = true;
+                if (!finalModel || isNaN(finalPricePerUnit) || finalPricePerUnit <= 0) { 
+                    exibirMensagem("Please fill all custom Component fields for the new type.", "erro"); 
+                    return; 
+                }
             } else {
-                if (selectedModel === 'custom') {
-                    finalModel = component.customName.value.trim(); finalPricePerUnit = parseFloat(component.customPrice.value); finalUnit = 'Unit';
-                    if (!finalModel || isNaN(finalPricePerUnit) || finalPricePerUnit <= 0) { exibirMensagem("Please fill all custom Component fields.", "erro"); return; }
+                const selectedComponentTypeData = componentTypesData.find(ct => ct.type === itemType);
+                if (!selectedComponentTypeData) { exibirMensagem("Please select a valid Component Type.", "erro"); return; }
+                
+                if (selectedComponentTypeData.isDirectPrice) {
+                    finalModel = selectedComponentTypeData.type; 
+                    finalPricePerUnit = selectedComponentTypeData.pricePerUnit; 
+                    finalUnit = selectedComponentTypeData.unit;
                 } else {
-                    finalModel = selectedModel; const modelData = selectedComponentTypeData.models?.find(m => m.model === selectedModel);
-                    if (!modelData) { exibirMensagem("Select a valid component model.", "erro"); return; }
-                    finalPricePerUnit = modelData.pricePerUnit; finalUnit = modelData.unit;
+                    if (selectedModel === 'custom') {
+                        finalModel = component.customName.value.trim(); 
+                        finalPricePerUnit = parseFloat(component.customPrice.value); 
+                        finalUnit = 'Unit';
+                        if (!finalModel || isNaN(finalPricePerUnit) || finalPricePerUnit <= 0) { exibirMensagem("Please fill all custom Component fields.", "erro"); return; }
+                        logCustomItemToServer({ type: itemType, nome: finalModel, preco: finalPricePerUnit });
+                    } else {
+                        finalModel = selectedModel; 
+                        const modelData = selectedComponentTypeData.models?.find(m => m.model === selectedModel);
+                        if (!modelData) { exibirMensagem("Select a valid component model.", "erro"); return; }
+                        finalPricePerUnit = modelData.pricePerUnit; 
+                        finalUnit = modelData.unit;
+                    }
                 }
             }
+
             if (!itemType || !finalModel || !parentWireNumber || isNaN(distance) || distance < 0 || isNaN(quantity) || quantity <= 0) { exibirMensagem("Please fill all Component fields correctly.", "erro"); return; }
             const parentWire = listaItens.find(item => item.wireNumber === parentWireNumber);
             if (!parentWire) { exibirMensagem(`Source wire "${parentWireNumber}" not found.`, "erro"); return; }
             if (distance > parentWire.length) { exibirMensagem(`Distance exceeds the length of source wire.`, "erro"); return; }
             const subtotal = quantity * finalPricePerUnit;
-            const novoComponente = { type: 'component', itemType, model: finalModel, parentWireNumber, distance, quantity, unit: finalUnit, pricePerUnit: finalPricePerUnit, subtotal, isCustom: (selectedModel === 'custom') };
+            const novoComponente = { type: 'component', itemType, model: finalModel, parentWireNumber, distance, quantity, unit: finalUnit, pricePerUnit: finalPricePerUnit, subtotal, isCustom: (selectedModel === 'custom'), isCustomType };
+            
             if (isEditing) { handleUpdateItem("Component", novoComponente); } else { lastAddedComponent = novoComponente; handleAddItem("Component", novoComponente); }
         }
 
@@ -501,6 +673,7 @@
             if (selectedModel === 'custom') {
                 finalModel = connector.customName.value.trim(); finalPricePerUnit = parseFloat(connector.customPrice.value); finalUnit = 'Unit';
                 if (!finalModel || isNaN(finalPricePerUnit) || finalPricePerUnit <= 0) { exibirMensagem("Please fill all custom Connector fields.", "erro"); return; }
+                logCustomItemToServer({ type: 'Conector', nome: finalModel, preco: finalPricePerUnit });
             } else {
                 finalModel = selectedModel; const modelData = connectorModelsData.find(m => m.model === selectedModel);
                 if (!modelData) { exibirMensagem("Select a valid connector model.", "erro"); return; }
@@ -515,14 +688,23 @@
             if(isEditing) { handleUpdateItem("Connector", novoConector); } else { lastAddedConnector = novoConector; handleAddItem("Connector", novoConector); }
         }
 
-        function repeatLastComponent() { if(lastAddedComponent) popularFormularioComponente(lastAddedComponent); else exibirMensagem("No component to repeat", "erro"); }
-        function repeatLastConnector() { if(lastAddedConnector) popularFormularioConector(lastAddedConnector); else exibirMensagem("No connector to repeat", "erro"); }
+        function repeatLastComponent() { if(lastAddedComponent) { popularFormularioComponente(lastAddedComponent); allDomElements.component.formSection.scrollIntoView({behavior: 'smooth'}) } else exibirMensagem("No component to repeat", "erro"); }
+        function repeatLastConnector() { if(lastAddedConnector) { popularFormularioConector(lastAddedConnector); allDomElements.connector.formSection.scrollIntoView({behavior: 'smooth'}) } else exibirMensagem("No connector to repeat", "erro"); }
         
         function preencherComponentModelSelect(selectedType) {
             const { component } = allDomElements;
             component.model.innerHTML = '<option value="" disabled selected>Select Model</option>';
             component.model.disabled = true;
             toggleCustomComponentFields();
+
+            // Lógica da Label Dinâmica
+            allDomElements.component.quantityLabel.textContent = (selectedType === 'Tape') ? 'METERS:' : 'QUANTITY:';
+
+            if (selectedType === 'custom-type') {
+                component.model.innerHTML = '<option value="N/A" selected>N/A (Custom Type)</option>';
+                return;
+            }
+
             const componentType = componentTypesData.find(ct => ct.type === selectedType);
             if (!componentType) return;
             if (componentType.isDirectPrice) {
@@ -533,7 +715,17 @@
                 component.model.add(new Option("Other / Custom", "custom"));
             }
         }
-        function toggleCustomComponentFields() { allDomElements.component.customFields.forEach(field => field.classList.toggle('hidden', allDomElements.component.model.value !== 'custom')); }
+
+        function toggleCustomComponentFields() {
+            const { component } = allDomElements;
+            const showCustom = component.model.value === 'custom' || component.type.value === 'custom-type';
+            component.customFields.forEach(field => field.classList.toggle('hidden', !showCustom));
+            if (!showCustom) {
+                component.customName.value = "";
+                component.customPrice.value = "0";
+            }
+        }
+
         function toggleCustomConnectorFields() { allDomElements.connector.customFields.forEach(field => field.classList.toggle('hidden', allDomElements.connector.model.value !== 'custom')); }
         
         function zoomIn() { zoomLevel += zoomStep; desenharRede(); }
