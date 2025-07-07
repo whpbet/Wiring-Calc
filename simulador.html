@@ -58,8 +58,8 @@
 
         <div id="main-wire-form-section" class="form-section item-form-section">
             <h2 class="section-heading">Step 2: MAIN WIRE</h2>
-             <div class="form-row"><div class="form-group"><label for="main-wire-length" class="form-label">TOTAL LENGTH (m):</label><input type="number" id="main-wire-length" name="main-wire-length" class="form-input" value="0" min="0"></div><div class="form-group"><label for="main-wire-amount" class="form-label">WIRE AMOUNT:</label><input type="number" id="main-wire-amount" name="main-wire-amount" class="form-input" value="1" min="1"></div></div>
-             <div class="form-row"><div class="form-group"><label for="main-wire-insulation" class="form-label">INSULATION:</label><select id="main-wire-insulation" name="main-wire-insulation" class="form-select"></select></div><div class="form-group"><label for="main-wire-gauge" class="form-label">GAUGE (AWG):</label><select id="main-wire-gauge" name="main-wire-gauge" class="form-select"></select></div></div>
+             <div class="form-row"><div class="form-group"><label for="main-wire-length" class="form-label">TOTAL LENGTH (m):</label><input type="number" id="main-wire-length" class="form-input" value="0" min="0"></div><div class="form-group"><label for="main-wire-amount" class="form-label">WIRE AMOUNT:</label><input type="number" id="main-wire-amount" class="form-input" value="1" min="1"></div></div>
+             <div class="form-row"><div class="form-group"><label for="main-wire-insulation" class="form-label">INSULATION:</label><select id="main-wire-insulation" class="form-select"></select></div><div class="form-group"><label for="main-wire-gauge" class="form-label">GAUGE (AWG):</label><select id="main-wire-gauge" class="form-select"></select></div></div>
             <div class="form-group custom-main-wire-fields hidden"><label for="custom-main-wire-insulation-name" class="form-label">Custom Insulation Name:</label><input type="text" id="custom-main-wire-insulation-name" class="form-input" placeholder="Ex: XLPE"></div>
             <div class="form-group custom-main-wire-fields hidden"><label for="custom-main-wire-gauge-input" class="form-label">Custom Gauge (AWG):</label><input type="text" id="custom-main-wire-gauge-input" class="form-input" placeholder="Ex: 16.0"></div>
             <div class="form-group custom-main-wire-fields hidden"><label for="custom-main-wire-price-per-meter" class="form-label">Custom Price per Meter ($):</label><input type="number" id="custom-main-wire-price-per-meter" class="form-input" value="0" min="0" step="0.001"></div>
@@ -67,48 +67,35 @@
             <div id="main-wire-actions"><button id="adicionar-main-wire" class="action-button add-button">Add Main Wire</button></div>
         </div>
 
-        <div id="secondary-wire-form-section" class="form-section item-form-section">
-            <h2 class="section-heading">Step 3: SECONDARY WIRE</h2>
-             <div class="form-row"><div class="form-group"><label for="secondary-wire-length" class="form-label">TOTAL LENGTH (m):</label><input type="number" id="secondary-wire-length" class="form-input" value="0" min="0"></div><div class="form-group"><label for="secondary-wire-amount" class="form-label">WIRE AMOUNT:</label><input type="number" id="secondary-wire-amount" class="form-input" value="1" min="1"></div></div>
-             <div class="form-row"><div class="form-group"><label for="secondary-wire-insulation" class="form-label">INSULATION:</label><select id="secondary-wire-insulation" class="form-select"></select></div><div class="form-group"><label for="secondary-wire-gauge" class="form-label">GAUGE (AWG):</label><select id="secondary-wire-gauge" class="form-select"></select></div></div>
-            <div class="form-group custom-secondary-wire-fields hidden"><label for="custom-secondary-wire-insulation-name" class="form-label">Custom Insulation Name:</label><input type="text" id="custom-secondary-wire-insulation-name" class="form-input" placeholder="Ex: EPR"></div>
-            <div class="form-group custom-secondary-wire-fields hidden"><label for="custom-secondary-wire-gauge-input" class="form-label">Custom Gauge (AWG):</label><input type="text" id="custom-secondary-wire-gauge-input" class="form-input" placeholder="Ex: 0.8"></div>
-            <div class="form-group custom-secondary-wire-fields hidden"><label for="custom-secondary-wire-price-per-meter" class="form-label">Custom Price per Meter ($):</label><input type="number" id="custom-secondary-wire-price-per-meter" class="form-input" value="0" min="0" step="0.001"></div>
-            <div class="form-row"><div class="form-group"><label for="secondary-wire-number" class="form-label">WIRE NUMBER:</label><input type="text" id="secondary-wire-number" class="form-input" placeholder="Ex: W02"></div><div class="form-group"><label for="secondary-wire-integration-wire" class="form-label">WIRE INTEGRATION:</label><select id="secondary-wire-integration-wire" class="form-select"></select></div></div>
-             <div class="form-group"><label for="secondary-wire-integration-distance" class="form-label">INTEGRATION DISTANCE (m):</label><input type="number" id="secondary-wire-integration-distance" class="form-input" value="0" min="0"></div>
-            <div class="form-group"><label class="form-label">Branch Direction:</label><div class="flex items-center space-x-6 py-2"><label class="flex items-center space-x-2 cursor-pointer"><input type="radio" id="direction-below-sec" name="branch-direction-sec" value="below" class="form-radio h-4 w-4 text-blue-600" checked><span>Below Parent</span></label><label class="flex items-center space-x-2 cursor-pointer"><input type="radio" id="direction-above-sec" name="branch-direction-sec" value="above" class="form-radio h-4 w-4 text-blue-600"><span>Above Parent</span></label></div></div>
-            <div id="secondary-wire-actions"><button id="adicionar-secondary-wire" class="action-button add-button">Add Secondary Wire</button></div>
-        </div>
-
-        <div id="extra-wire-form-section" class="form-section item-form-section">
-            <h2 class="section-heading">Step 4: EXTRA WIRE (Tertiary)</h2>
-             <div class="form-row"><div class="form-group"><label for="extra-wire-length" class="form-label">TOTAL LENGTH (m):</label><input type="number" id="extra-wire-length" class="form-input" value="0" min="0"></div><div class="form-group"><label for="extra-wire-amount" class="form-label">WIRE AMOUNT:</label><input type="number" id="extra-wire-amount" class="form-input" value="1" min="1"></div></div>
-             <div class="form-row"><div class="form-group"><label for="extra-wire-insulation" class="form-label">INSULATION:</label><select id="extra-wire-insulation" class="form-select"></select></div><div class="form-group"><label for="extra-wire-gauge" class="form-label">GAUGE (AWG):</label><select id="extra-wire-gauge" class="form-select"></select></div></div>
-            <div class="form-group custom-extra-wire-fields hidden"><label for="custom-extra-wire-insulation-name" class="form-label">Custom Insulation Name:</label><input type="text" id="custom-extra-wire-insulation-name" class="form-input" placeholder="Ex: TPE"></div>
-            <div class="form-group custom-extra-wire-fields hidden"><label for="custom-extra-wire-gauge-input" class="form-label">Custom Gauge (AWG):</label><input type="text" id="custom-extra-wire-gauge-input" class="form-input" placeholder="Ex: 26"></div>
-            <div class="form-group custom-extra-wire-fields hidden"><label for="custom-extra-wire-price-per-meter" class="form-label">Custom Price per Meter ($):</label><input type="number" id="custom-extra-wire-price-per-meter" class="form-input" value="0" min="0" step="0.001"></div>
-            <div class="form-row"><div class="form-group"><label for="extra-wire-number" class="form-label">WIRE NUMBER:</label><input type="text" id="extra-wire-number" class="form-input" placeholder="Ex: W03"></div><div class="form-group"><label for="extra-wire-integration-wire" class="form-label">WIRE INTEGRATION:</label><select id="extra-wire-integration-wire" class="form-select"></select></div></div>
-             <div class="form-group"><label for="extra-wire-integration-distance" class="form-label">INTEGRATION DISTANCE (m):</label><input type="number" id="extra-wire-integration-distance" class="form-input" value="0" min="0"></div>
-            <div class="form-group"><label class="form-label">Branch Direction:</label><div class="flex items-center space-x-6 py-2"><label class="flex items-center space-x-2 cursor-pointer"><input type="radio" id="direction-below-extra" name="branch-direction-extra" value="below" class="form-radio h-4 w-4 text-blue-600" checked><span>Below Parent</span></label><label class="flex items-center space-x-2 cursor-pointer"><input type="radio" id="direction-above-extra" name="branch-direction-extra" value="above" class="form-radio h-4 w-4 text-blue-600"><span>Above Parent</span></label></div></div>
-            <div id="extra-wire-actions"><button id="adicionar-extra-wire" class="action-button add-button">Add Extra Wire</button></div>
+        <div id="branch-wire-form-section" class="form-section item-form-section">
+            <h2 class="section-heading">Step 3: BRANCH WIRE</h2>
+             <div class="form-row"><div class="form-group"><label for="branch-wire-length" class="form-label">TOTAL LENGTH (m):</label><input type="number" id="branch-wire-length" class="form-input" value="0" min="0"></div><div class="form-group"><label for="branch-wire-amount" class="form-label">WIRE AMOUNT:</label><input type="number" id="branch-wire-amount" class="form-input" value="1" min="1"></div></div>
+             <div class="form-row"><div class="form-group"><label for="branch-wire-insulation" class="form-label">INSULATION:</label><select id="branch-wire-insulation" class="form-select"></select></div><div class="form-group"><label for="branch-wire-gauge" class="form-label">GAUGE (AWG):</label><select id="branch-wire-gauge" class="form-select"></select></div></div>
+            <div class="form-group custom-branch-wire-fields hidden"><label for="custom-branch-wire-insulation-name" class="form-label">Custom Insulation Name:</label><input type="text" id="custom-branch-wire-insulation-name" class="form-input" placeholder="Ex: TPE"></div>
+            <div class="form-group custom-branch-wire-fields hidden"><label for="custom-branch-wire-gauge-input" class="form-label">Custom Gauge (AWG):</label><input type="text" id="custom-branch-wire-gauge-input" class="form-input" placeholder="Ex: 26"></div>
+            <div class="form-group custom-branch-wire-fields hidden"><label for="custom-branch-wire-price-per-meter" class="form-label">Custom Price per Meter ($):</label><input type="number" id="custom-branch-wire-price-per-meter" class="form-input" value="0" min="0" step="0.001"></div>
+            <div class="form-row"><div class="form-group"><label for="branch-wire-number" class="form-label">WIRE NUMBER:</label><input type="text" id="branch-wire-number" class="form-input" placeholder="Ex: W02"></div><div class="form-group"><label for="branch-wire-integration-wire" class="form-label">CONNECT TO WIRE:</label><select id="branch-wire-integration-wire" class="form-select"></select></div></div>
+             <div class="form-group"><label for="branch-wire-integration-distance" class="form-label">INTEGRATION DISTANCE (m on parent wire):</label><input type="number" id="branch-wire-integration-distance" class="form-input" value="0" min="0"></div>
+            <div class="form-group"><label class="form-label">Branch Direction:</label><div class="flex items-center space-x-6 py-2"><label class="flex items-center space-x-2 cursor-pointer"><input type="radio" id="direction-below-branch" name="branch-direction-branch" value="below" class="form-radio h-4 w-4 text-blue-600" checked><span>Below Parent</span></label><label class="flex items-center space-x-2 cursor-pointer"><input type="radio" id="direction-above-branch" name="branch-direction-branch" value="above" class="form-radio h-4 w-4 text-blue-600"><span>Above Parent</span></label></div></div>
+            <div id="branch-wire-actions"><button id="adicionar-branch-wire" class="action-button add-button">Add Branch Wire</button></div>
         </div>
 
         <div id="component-form-section" class="form-section item-form-section">
-            <h2 class="section-heading">Step 5: COMPONENTS</h2>
+            <h2 class="section-heading">Step 4: COMPONENTS</h2>
              <div class="form-row"><div class="form-group"><label for="component-type" class="form-label">COMPONENT TYPE:</label><select id="component-type" class="form-select"></select></div><div class="form-group"><label for="component-model" class="form-label">MODEL:</label><select id="component-model" class="form-select" disabled></select></div></div>
             <div class="form-group custom-component-fields hidden"><label for="custom-component-name" class="form-label">Custom Name:</label><input type="text" id="custom-component-name" class="form-input" placeholder="Ex: Xtreme Component"></div>
             <div class="form-group custom-component-fields hidden"><label for="custom-component-price" class="form-label">Custom Unit Price ($):</label><input type="number" id="custom-component-price" class="form-input" value="0" min="0" step="0.01"></div>
-            <div class="form-row"><div class="form-group"><label for="component-wire" class="form-label">WIRE:</label><select id="component-wire" class="form-select"></select></div><div class="form-group"><label for="component-distance" class="form-label">DISTANCE (m):</label><input type="number" id="component-distance" class="form-input" value="0" min="0"></div></div>
+            <div class="form-row"><div class="form-group"><label for="component-wire" class="form-label">ATTACH TO WIRE:</label><select id="component-wire" class="form-select"></select></div><div class="form-group"><label for="component-distance" class="form-label">DISTANCE (m on wire):</label><input type="number" id="component-distance" class="form-input" value="0" min="0"></div></div>
              <div class="form-group"><label for="component-quantity" class="form-label">QUANTITY:</label><input type="number" id="component-quantity" class="form-input" value="1" min="1"></div>
             <div id="component-actions"><button id="adicionar-componente" class="action-button add-button">Add Component</button><button id="repeat-component" class="action-button bg-gray-500 hover:bg-gray-700 ml-2">Repeat Last</button></div>
         </div>
 
         <div id="connector-form-section" class="form-section item-form-section">
-            <h2 class="section-heading">Step 6: CONNECTOR</h2>
-             <div class="form-row"><div class="form-group"><label for="connector-model" class="form-label">MODEL:</label><select id="connector-model" class="form-select"></select></div><div class="form-group"><label for="connector-wire" class="form-label">WIRE:</label><select id="connector-wire" class="form-select"></select></div></div>
+            <h2 class="section-heading">Step 5: CONNECTOR</h2>
+             <div class="form-row"><div class="form-group"><label for="connector-model" class="form-label">MODEL:</label><select id="connector-model" class="form-select"></select></div><div class="form-group"><label for="connector-wire" class="form-label">ATTACH TO WIRE:</label><select id="connector-wire" class="form-select"></select></div></div>
             <div class="form-group custom-connector-fields hidden"><label for="custom-connector-name" class="form-label">Custom Name:</label><input type="text" id="custom-connector-name" class="form-input" placeholder="Ex: Ultra Connector"></div>
             <div class="form-group custom-connector-fields hidden"><label for="custom-connector-price" class="form-label">Custom Unit Price ($):</label><input type="number" id="custom-connector-price" class="form-input" value="0" min="0" step="0.01"></div>
-            <div class="form-row"><div class="form-group"><label for="connector-distance" class="form-label">DISTANCE (m):</label><input type="number" id="connector-distance" class="form-input" value="0" min="0"></div><div class="form-group"><label for="connector-quantity" class="form-label">QUANTITY:</label><input type="number" id="connector-quantity" class="form-input" value="1" min="1"></div></div>
+            <div class="form-row"><div class="form-group"><label for="connector-distance" class="form-label">DISTANCE (m on wire):</label><input type="number" id="connector-distance" class="form-input" value="0" min="0"></div><div class="form-group"><label for="connector-quantity" class="form-label">QUANTITY:</label><input type="number" id="connector-quantity" class="form-input" value="1" min="1"></div></div>
             <div id="connector-actions"><button id="adicionar-conector" class="action-button add-button">Add Connector</button><button id="repeat-connector" class="action-button bg-gray-500 hover:bg-gray-700 ml-2">Repeat Last</button></div>
         </div>
 
@@ -138,67 +125,15 @@
         // --- DATA ---
         const insulationOptions = ["PVC", "Other"];
         const gaugeOptions = ["24", "22", "20", "18", "17", "16"];
-        const componentTypesData = [
-            { type: "Bimetal", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 },
-            { type: "Ferrite", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 },
-            { type: "Splice", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.060 },
-            { type: "POLYAMIDE GLUE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.154 },
-            { type: "HEAT SHRINK TUBE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.240 },
-            { type: "Hot Melt", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.010 },
-            {
-                type: "Terminal", isDirectPrice: false, models: [
-                    { model: "39012065", unit: "Unit", pricePerUnit: 0.03820 }, { model: "39012125", unit: "Unit", pricePerUnit: 0.07185 },
-                    { model: "39013028", unit: "Unit", pricePerUnit: 0.07100 }, { model: "39013029", unit: "Unit", pricePerUnit: 0.03158 },
-                    { model: "39014053", unit: "Unit", pricePerUnit: 0.10800 }, { model: "50841025", unit: "Unit", pricePerUnit: 0.07607 },
-                    { model: "50841035", unit: "Unit", pricePerUnit: 0.08588 }, { model: "50841045", unit: "Unit", pricePerUnit: 0.09588 },
-                    { model: "50842032", unit: "Unit", pricePerUnit: 0.10789 }, { model: "50842042", unit: "Unit", pricePerUnit: 0.11489 },
-                    { model: "366440004", unit: "Unit", pricePerUnit: 0.11789 }, { model: "433351002", unit: "Unit", pricePerUnit: 0.06359 },
-                    { model: "457763006", unit: "Unit", pricePerUnit: 0.24687 }, { model: "457763012", unit: "Unit", pricePerUnit: 0.30191 },
-                    { model: "945504106", unit: "Unit", pricePerUnit: 0.09123 }, { model: "1-1744417-0", unit: "Unit", pricePerUnit: 0.03921 },
-                    { model: "1-1971772-4", unit: "Unit", pricePerUnit: 0.06804 }, { model: "1-1971773-2", unit: "Unit", pricePerUnit: 0.04276 },
-                    { model: "1-1971775-3", unit: "Unit", pricePerUnit: 0.21512 }, { model: "1-1971776-3", unit: "Unit", pricePerUnit: 0.22795 },
-                    { model: "17444036-3", unit: "Unit", pricePerUnit: 0.03140 }, { model: "17444036-5", unit: "Unit", pricePerUnit: 0.04041 },
-                    { model: "1744417-4", unit: "Unit", pricePerUnit: 0.01469 }, { model: "1744417-5", unit: "Unit", pricePerUnit: 0.02298 },
-                    { model: "1744417-7", unit: "Unit", pricePerUnit: 0.02497 }, { model: "1969588-4", unit: "Unit", pricePerUnit: 0.01000 },
-                    { model: "2371377-9", unit: "Unit", pricePerUnit: 0.05000 }, { model: "316088-1", unit: "Unit", pricePerUnit: 0.04565 },
-                    { model: "4-180923-0", unit: "Unit", pricePerUnit: 0.04801 }, { model: "521229-1", unit: "Unit", pricePerUnit: 0.03464 },
-                    { model: "PARP-04V", unit: "Unit", pricePerUnit: 0.01430 }, { model: "VLR-02", unit: "Unit", pricePerUnit: 0.04890 },
-                    { model: "VLR-03V", unit: "Unit", pricePerUnit: 0.07460 }, { model: "XARP-04V", unit: "Unit", pricePerUnit: 0.01950 },
-                    { model: "YLNR-02VF", unit: "Unit", pricePerUnit: 0.03920 }, { model: "YLP-03V", unit: "Unit", pricePerUnit: 0.02890 },
-                    { model: "W11669793", unit: "Unit", pricePerUnit: 0.0520 }, { model: "W11678929", unit: "Unit", pricePerUnit: 0.1620 }
-                ]
-            },
-            { type: "Tape", isDirectPrice: false, models: [{ model: "Masking Tape", unit: "Meter", pricePerUnit: 0.10 }, { model: "Electrical Tape", unit: "Roll", pricePerUnit: 2.50 }, { model: "GLASS TAPE", unit: "Meter", pricePerUnit: 0.30 }] },
-            { type: "Ground Ring", isDirectPrice: false, models: [{ model: "61795-3", unit: "Unit", pricePerUnit: 0.12345 }] },
-            { type: "Retainer", isDirectPrice: false, models: [{ model: "1-1969443-0", unit: "Unit", pricePerUnit: 0.01000 }, { model: "316088-1", unit: "Unit", pricePerUnit: 0.04565 }, { model: "YLS-03V", unit: "Unit", pricePerUnit: 0.02890 }] },
-            { type: "Grommet", isDirectPrice: false, models: [{ model: "12.5mm", unit: "Unit", pricePerUnit: 0.05 }, { model: "19mm", unit: "Unit", pricePerUnit: 0.06 }, { model: "30mm", unit: "Unit", pricePerUnit: 0.08 }] }
-        ];
-        const connectorModelsData = [
-            { model: "39012065", unit: "Unit", pricePerUnit: 0.03820 }, { model: "39012125", unit: "Unit", pricePerUnit: 0.07185 }, { model: "39013028", unit: "Unit", pricePerUnit: 0.07100 },
-            { model: "39013029", unit: "Unit", pricePerUnit: 0.03158 }, { model: "39014053", unit: "Unit", pricePerUnit: 0.10800 }, { model: "50841025", unit: "Unit", pricePerUnit: 0.07607 },
-            { model: "50841035", unit: "Unit", pricePerUnit: 0.08588 }, { model: "50841045", unit: "Unit", pricePerUnit: 0.09588 }, { model: "50842032", unit: "Unit", pricePerUnit: 0.10789 },
-            { model: "50842042", unit: "Unit", pricePerUnit: 0.11489 }, { model: "366440004", unit: "Unit", pricePerUnit: 0.11789 }, { model: "433351002", unit: "Unit", pricePerUnit: 0.06359 },
-            { model: "457763006", unit: "Unit", pricePerUnit: 0.24687 }, { model: "457763012", unit: "Unit", pricePerUnit: 0.30191 }, { model: "945504106", unit: "Unit", pricePerUnit: 0.09123 },
-            { model: "1-1744417-0", unit: "Unit", pricePerUnit: 0.03921 }, { model: "1-1971772-4", unit: "Unit", pricePerUnit: 0.06804 }, { model: "1-1971773-2", unit: "Unit", pricePerUnit: 0.04276 },
-            { model: "1-1971775-3", unit: "Unit", pricePerUnit: 0.21512 }, { model: "1-1971776-3", unit: "Unit", pricePerUnit: 0.22795 }, { model: "17444036-3", unit: "Unit", pricePerUnit: 0.03140 },
-            { model: "17444036-5", unit: "Unit", pricePerUnit: 0.04041 }, { model: "1744417-4", unit: "Unit", pricePerUnit: 0.01469 }, { model: "1744417-5", unit: "Unit", pricePerUnit: 0.02298 },
-            { model: "1744417-7", unit: "Unit", pricePerUnit: 0.02497 }, { model: "1969588-4", unit: "Unit", pricePerUnit: 0.01000 }, { model: "2371377-9", unit: "Unit", pricePerUnit: 0.05000 },
-            { model: "316088-1", unit: "Unit", pricePerUnit: 0.04565 }, { model: "4-180923-0", unit: "Unit", pricePerUnit: 0.04801 }, { model: "521229-1", unit: "Unit", pricePerUnit: 0.03464 },
-            { model: "PARP-04V", unit: "Unit", pricePerUnit: 0.01430 }, { model: "VLR-02", unit: "Unit", pricePerUnit: 0.04890 }, { model: "VLR-03V", unit: "Unit", pricePerUnit: 0.07460 },
-            { model: "XARP-04V", unit: "Unit", pricePerUnit: 0.01950 }, { model: "YLNR-02VF", unit: "Unit", pricePerUnit: 0.03920 }, { model: "YLP-03V", unit: "Unit", pricePerUnit: 0.02890 },
-            { model: "W11669793", unit: "Unit", pricePerUnit: 0.0520 }, { model: "W11678929", unit: "Unit", pricePerUnit: 0.1620 }
-        ];
-        const wirePriceData = [
-            { gauge: "24", pricePerMeterSingle: 0.05 }, { gauge: "22", pricePerMeterSingle: 0.06 }, { gauge: "20", pricePerMeterSingle: 0.07 },
-            { gauge: "18", pricePerMeterSingle: 0.08 }, { gauge: "17", pricePerMeterSingle: 0.09 }, { gauge: "16", pricePerMeterSingle: 0.10 }
-        ];
+        const componentTypesData = [ { type: "Bimetal", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 }, { type: "Ferrite", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 }, { type: "Splice", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.060 }, { type: "POLYAMIDE GLUE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.154 }, { type: "HEAT SHRINK TUBE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.240 }, { type: "Hot Melt", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.010 }, { type: "Terminal", isDirectPrice: false, models: [ {"model": "39012065", "unit": "Unit", "pricePerUnit": 0.03820}, {"model": "39012125", "unit": "Unit", "pricePerUnit": 0.07185}, {"model": "39013028", "unit": "Unit", "pricePerUnit": 0.07100}, {"model": "39013029", "unit": "Unit", "pricePerUnit": 0.03158}, {"model": "39014053", "unit": "Unit", "pricePerUnit": 0.10800}, {"model": "50841025", "unit": "Unit", "pricePerUnit": 0.07607}, {"model": "50841035", "unit": "Unit", "pricePerUnit": 0.08588}, {"model": "50841045", "unit": "Unit", "pricePerUnit": 0.09588}, {"model": "50842032", "unit": "Unit", "pricePerUnit": 0.10789}, {"model": "50842042", "unit": "Unit", "pricePerUnit": 0.11489}, {"model": "366440004", "unit": "Unit", "pricePerUnit": 0.11789}, {"model": "433351002", "unit": "Unit", "pricePerUnit": 0.06359}, {"model": "457763006", "unit": "Unit", "pricePerUnit": 0.24687}, {"model": "457763012", "unit": "Unit", "pricePerUnit": 0.30191}, {"model": "945504106", "unit": "Unit", "pricePerUnit": 0.09123}, {"model": "1-1744417-0", "unit": "Unit", "pricePerUnit": 0.03921}, {"model": "1-1971772-4", "unit": "Unit", "pricePerUnit": 0.06804}, {"model": "1-1971773-2", "unit": "Unit", "pricePerUnit": 0.04276}, {"model": "1-1971775-3", "unit": "Unit", "pricePerUnit": 0.21512}, {"model": "1-1971776-3", "unit": "Unit", "pricePerUnit": 0.22795}, {"model": "17444036-3", "unit": "Unit", "pricePerUnit": 0.03140}, {"model": "17444036-5", "unit": "Unit", "pricePerUnit": 0.04041}, {"model": "1744417-4", "unit": "Unit", "pricePerUnit": 0.01469}, {"model": "1744417-5", "unit": "Unit", "pricePerUnit": 0.02298}, {"model": "1744417-7", "unit": "Unit", "pricePerUnit": 0.02497}, {"model": "1969588-4", "unit": "Unit", "pricePerUnit": 0.01000}, {"model": "2371377-9", "unit": "Unit", "pricePerUnit": 0.05000}, {"model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565}, {"model": "4-180923-0", "unit": "Unit", "pricePerUnit": 0.04801}, {"model": "521229-1", "unit": "Unit", "pricePerUnit": 0.03464}, {"model": "PARP-04V", "unit": "Unit", "pricePerUnit": 0.01430}, {"model": "VLR-02", "unit": "Unit", "pricePerUnit": 0.04890}, {"model": "VLR-03V", "unit": "Unit", "pricePerUnit": 0.07460}, {"model": "XARP-04V", "unit": "Unit", "pricePerUnit": 0.01950}, {"model": "YLNR-02VF", "unit": "Unit", "pricePerUnit": 0.03920}, {"model": "YLP-03V", "unit": "Unit", "pricePerUnit": 0.02890}, {"model": "W11669793", "unit": "Unit", "pricePerUnit": 0.0520}, {"model": "W11678929", "unit": "Unit", "pricePerUnit": 0.1620} ]}, { type: "Tape", isDirectPrice: false, models: [ { model: "Masking Tape", unit: "Meter", pricePerUnit: 0.10 }, { model: "Electrical Tape", unit: "Roll", pricePerUnit: 2.50 }, { model: "GLASS TAPE", unit: "Meter", "pricePerUnit": 0.30 } ]}, { type: "Ground Ring", isDirectPrice: false, models: [ { model: "61795-3", unit: "Unit", pricePerUnit: 0.12345 } ]}, { type: "Retainer", isDirectPrice: false, models: [ { model: "1-1969443-0", "unit": "Unit", pricePerUnit: 0.01000 }, { "model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565 }, { "model": "YLS-03V", "unit": "Unit", "pricePerUnit": 0.02890 } ]}, { type: "Grommet", isDirectPrice: false, models: [ { model: "12.5mm", unit: "Unit", pricePerUnit: 0.05 }, { model: "19mm", unit: "Unit", pricePerUnit: 0.06 }, { model: "30mm", unit: "Unit", pricePerUnit: 0.08 } ]} ];
+        const connectorModelsData = [ {"model": "39012065", "unit": "Unit", "pricePerUnit": 0.03820}, {"model": "39012125", "unit": "Unit", "pricePerUnit": 0.07185}, {"model": "39013028", "unit": "Unit", "pricePerUnit": 0.07100}, {"model": "39013029", "unit": "Unit", "pricePerUnit": 0.03158}, {"model": "39014053", "unit": "Unit", "pricePerUnit": 0.10800}, {"model": "50841025", "unit": "Unit", "pricePerUnit": 0.07607}, {"model": "50841035", "unit": "Unit", "pricePerUnit": 0.08588}, {"model": "50841045", "unit": "Unit", "pricePerUnit": 0.09588}, {"model": "50842032", "unit": "Unit", "pricePerUnit": 0.10789}, {"model": "50842042", "unit": "Unit", "pricePerUnit": 0.11489}, {"model": "366440004", "unit": "Unit", "pricePerUnit": 0.11789}, {"model": "433351002", "unit": "Unit", "pricePerUnit": 0.06359}, {"model": "457763006", "unit": "Unit", "pricePerUnit": 0.24687}, {"model": "457763012", "unit": "Unit", "pricePerUnit": 0.30191}, {"model": "945504106", "unit": "Unit", "pricePerUnit": 0.09123}, {"model": "1-1744417-0", "unit": "Unit", "pricePerUnit": 0.03921}, {"model": "1-1971772-4", "unit": "Unit", "pricePerUnit": 0.06804}, {"model": "1-1971773-2", "unit": "Unit", "pricePerUnit": 0.04276}, {"model": "1-1971775-3", "unit": "Unit", "pricePerUnit": 0.21512}, {"model": "1-1971776-3", "unit": "Unit", "pricePerUnit": 0.22795}, {"model": "17444036-3", "unit": "Unit", "pricePerUnit": 0.03140}, {"model": "17444036-5", "unit": "Unit", "pricePerUnit": 0.04041}, {"model": "1744417-4", "unit": "Unit", "pricePerUnit": 0.01469}, {"model": "1744417-5", "unit": "Unit", "pricePerUnit": 0.02298}, {"model": "1744417-7", "unit": "Unit", "pricePerUnit": 0.02497}, {"model": "1969588-4", "unit": "Unit", "pricePerUnit": 0.01000}, {"model": "2371377-9", "unit": "Unit", "pricePerUnit": 0.05000}, {"model": "316088-1", "unit": "Unit", "pricePerUnit": 0.04565}, {"model": "4-180923-0", "unit": "Unit", "pricePerUnit": 0.04801}, {"model": "521229-1", "unit": "Unit", "pricePerUnit": 0.03464}, {"model": "PARP-04V", "unit": "Unit", "pricePerUnit": 0.01430}, {"model": "VLR-02", "unit": "Unit", "pricePerUnit": 0.04890}, {"model": "VLR-03V", "unit": "Unit", "pricePerUnit": 0.07460}, {"model": "XARP-04V", "unit": "Unit", "pricePerUnit": 0.01950}, {"model": "YLNR-02VF", "unit": "Unit", "pricePerUnit": 0.03920}, {"model": "YLP-03V", "unit": "Unit", "pricePerUnit": 0.02890}, {"model": "W11669793", "unit": "Unit", "pricePerUnit": 0.0520}, {"model": "W11678929", "unit": "Unit", "pricePerUnit": 0.1620} ];
+        const wirePriceData = [ { gauge: "24", pricePerMeterSingle: 0.05 },{ gauge: "22", pricePerMeterSingle: 0.06 },{ gauge: "20", pricePerMeterSingle: 0.07 },{ gauge: "18", pricePerMeterSingle: 0.08 },{ gauge: "17", pricePerMeterSingle: 0.09 },{ gauge: "16", pricePerMeterSingle: 0.10 } ];
 
         // --- DOM Elements ---
         const allDomElements = {
             projetoInput: document.getElementById("projeto"), autorInput: document.getElementById("autor"), regiaoSelect: document.getElementById("regiao"),
             mainWire: { length: document.getElementById("main-wire-length"), amount: document.getElementById("main-wire-amount"), insulation: document.getElementById("main-wire-insulation"), gauge: document.getElementById("main-wire-gauge"), customInsulation: document.getElementById("custom-main-wire-insulation-name"), customGauge: document.getElementById("custom-main-wire-gauge-input"), customPrice: document.getElementById("custom-main-wire-price-per-meter"), customFields: document.querySelectorAll(".custom-main-wire-fields"), number: document.getElementById("main-wire-number"), actions: document.getElementById("main-wire-actions"), formSection: document.getElementById("main-wire-form-section") },
-            secondaryWire: { length: document.getElementById("secondary-wire-length"), amount: document.getElementById("secondary-wire-amount"), insulation: document.getElementById("secondary-wire-insulation"), gauge: document.getElementById("secondary-wire-gauge"), customInsulation: document.getElementById("custom-secondary-wire-insulation-name"), customGauge: document.getElementById("custom-secondary-wire-gauge-input"), customPrice: document.getElementById("custom-secondary-wire-price-per-meter"), customFields: document.querySelectorAll(".custom-secondary-wire-fields"), number: document.getElementById("secondary-wire-number"), parent: document.getElementById("secondary-wire-integration-wire"), distance: document.getElementById("secondary-wire-integration-distance"), actions: document.getElementById("secondary-wire-actions"), formSection: document.getElementById("secondary-wire-form-section") },
-            extraWire: { length: document.getElementById("extra-wire-length"), amount: document.getElementById("extra-wire-amount"), insulation: document.getElementById("extra-wire-insulation"), gauge: document.getElementById("extra-wire-gauge"), customInsulation: document.getElementById("custom-extra-wire-insulation-name"), customGauge: document.getElementById("custom-extra-wire-gauge-input"), customPrice: document.getElementById("custom-extra-wire-price-per-meter"), customFields: document.querySelectorAll(".custom-extra-wire-fields"), number: document.getElementById("extra-wire-number"), parent: document.getElementById("extra-wire-integration-wire"), distance: document.getElementById("extra-wire-integration-distance"), actions: document.getElementById("extra-wire-actions"), formSection: document.getElementById("extra-wire-form-section") },
+            branchWire: { length: document.getElementById("branch-wire-length"), amount: document.getElementById("branch-wire-amount"), insulation: document.getElementById("branch-wire-insulation"), gauge: document.getElementById("branch-wire-gauge"), customInsulation: document.getElementById("custom-branch-wire-insulation-name"), customGauge: document.getElementById("custom-branch-wire-gauge-input"), customPrice: document.getElementById("custom-branch-wire-price-per-meter"), customFields: document.querySelectorAll(".custom-branch-wire-fields"), number: document.getElementById("branch-wire-number"), parent: document.getElementById("branch-wire-integration-wire"), distance: document.getElementById("branch-wire-integration-distance"), actions: document.getElementById("branch-wire-actions"), formSection: document.getElementById("branch-wire-form-section") },
             component: { type: document.getElementById("component-type"), model: document.getElementById("component-model"), customName: document.getElementById("custom-component-name"), customPrice: document.getElementById("custom-component-price"), customFields: document.querySelectorAll(".custom-component-fields"), wire: document.getElementById("component-wire"), distance: document.getElementById("component-distance"), quantity: document.getElementById("component-quantity"), actions: document.getElementById("component-actions"), formSection: document.getElementById("component-form-section") },
             connector: { model: document.getElementById("connector-model"), customName: document.getElementById("custom-connector-name"), customPrice: document.getElementById("custom-connector-price"), customFields: document.querySelectorAll(".custom-connector-fields"), wire: document.getElementById("connector-wire"), distance: document.getElementById("connector-distance"), quantity: document.getElementById("connector-quantity"), actions: document.getElementById("connector-actions"), formSection: document.getElementById("connector-form-section") },
             listaItensBody: document.getElementById("lista-itens"), totalEstimativaElement: document.getElementById("total-estimativa"), mensagemContainer: document.getElementById("mensagem-container"), ramalCanvas: document.getElementById("ramal-canvas"), exportPdfButton: document.getElementById("export-pdf-button"), zoomInButton: document.getElementById("zoom-in-button"), zoomOutButton: document.getElementById("zoom-out-button"), repeatComponentButton: document.getElementById("repeat-component"), repeatConnectorButton: document.getElementById("repeat-connector")
@@ -232,12 +167,12 @@
         }
 
         function preencherStaticSelects() {
-            const { mainWire, secondaryWire, extraWire, component, connector } = allDomElements;
-            [mainWire.insulation, secondaryWire.insulation, extraWire.insulation].forEach(select => {
+            const { mainWire, branchWire, component, connector } = allDomElements;
+            [mainWire.insulation, branchWire.insulation].forEach(select => {
                 select.innerHTML = '<option value="" disabled selected>Select Insulation</option>';
                 insulationOptions.forEach(item => select.add(new Option(item, item)));
             });
-            [mainWire.gauge, secondaryWire.gauge, extraWire.gauge].forEach(select => {
+            [mainWire.gauge, branchWire.gauge].forEach(select => {
                 select.innerHTML = '<option value="" disabled selected>Select Gauge</option>';
                 gaugeOptions.forEach(item => select.add(new Option(item, item)));
             });
@@ -271,7 +206,7 @@
         }
 
         function collectAndValidateWireData(wireType) {
-            const domSets = { main: allDomElements.mainWire, secondary: allDomElements.secondaryWire, extra: allDomElements.extraWire };
+            const domSets = { main: allDomElements.mainWire, branch: allDomElements.branchWire };
             const dom = domSets[wireType];
             const length = parseFloat(dom.length.value), amount = parseInt(dom.amount.value), wireNumber = dom.number.value.trim();
             let insulation = dom.insulation.value, gauge = dom.gauge.value, finalInsulationName, finalGauge, finalPricePerMeterSingleWire;
@@ -299,24 +234,21 @@
                     exibirMensagem("A Main Wire already exists.", "erro"); return null;
                 }
                 return { ...baseData, type: 'main-wire', subtotal: length * finalPricePerMeterSingleWire * amount };
-            } else {
+            } else { // 'branch'
                 const parentWireNumber = dom.parent.value;
                 const integrationDistance = parseFloat(dom.distance.value);
-                const directionRadioName = wireType === 'secondary' ? 'branch-direction-sec' : 'branch-direction-extra';
-                const direction = document.querySelector(`input[name="${directionRadioName}"]:checked`).value;
-                if (!parentWireNumber || isNaN(integrationDistance) || integrationDistance < 0) { exibirMensagem("Please select a source wire and set a valid integration distance.", "erro"); return null; }
+                const direction = document.querySelector(`input[name="branch-direction-branch"]:checked`).value;
+                if (!parentWireNumber || isNaN(integrationDistance) || integrationDistance < 0) { exibirMensagem("Please select a parent wire and set a valid integration distance.", "erro"); return null; }
                 const parentWire = listaItens.find(item => item.wireNumber === parentWireNumber);
-                if (!parentWire) { exibirMensagem(`Source wire "${parentWireNumber}" not found.`, "erro"); return null; }
-                if (integrationDistance > parentWire.length) { exibirMensagem(`Integration distance exceeds the length of source wire.`, "erro"); return null; }
+                if (!parentWire) { exibirMensagem(`Parent wire "${parentWireNumber}" not found.`, "erro"); return null; }
+                if (integrationDistance > parentWire.length) { exibirMensagem(`Integration distance exceeds the length of parent wire.`, "erro"); return null; }
                 
-                const type = wireType === 'secondary' ? 'secondary-wire' : 'extra-wire';
-                return { ...baseData, type, parentWireNumber, integrationDistance, direction, subtotal: length * finalPricePerMeterSingleWire * amount };
+                return { ...baseData, type: 'branch-wire', parentWireNumber, integrationDistance, direction, subtotal: length * finalPricePerMeterSingleWire * amount };
             }
         }
         
         function adicionarFioPrincipal() { const itemData = collectAndValidateWireData('main'); if (itemData) handleAddItem("Main Wire", itemData); }
-        function adicionarFioSecundario() { const itemData = collectAndValidateWireData('secondary'); if (itemData) handleAddItem("Secondary Wire", itemData); }
-        function adicionarExtraWire() { const itemData = collectAndValidateWireData('extra'); if (itemData) handleAddItem("Extra Wire", itemData); }
+        function adicionarBranchWire() { const itemData = collectAndValidateWireData('branch'); if (itemData) handleAddItem("Branch Wire", itemData); }
         
         window.iniciarEdicao = (index) => {
             if (editingIndex !== null) { exibirMensagem("Please finish the current edit first.", "erro"); return; }
@@ -326,8 +258,7 @@
 
             switch(item.type) {
                 case 'main-wire': formType = 'main'; dom = allDomElements.mainWire; break;
-                case 'secondary-wire': formType = 'secondary'; dom = allDomElements.secondaryWire; break;
-                case 'extra-wire': formType = 'extra'; dom = allDomElements.extraWire; break;
+                case 'branch-wire': formType = 'branch'; dom = allDomElements.branchWire; break;
                 case 'component': popularFormularioComponente(item); configurarBotoesParaEdicao('component'); allDomElements.component.formSection.scrollIntoView({ behavior: 'smooth' }); return;
                 case 'connector': popularFormularioConector(item); configurarBotoesParaEdicao('connector'); allDomElements.connector.formSection.scrollIntoView({ behavior: 'smooth' }); return;
             }
@@ -338,7 +269,7 @@
         };
 
         function popularFormularioFio(wireType, item) {
-            const domSets = { main: allDomElements.mainWire, secondary: allDomElements.secondaryWire, extra: allDomElements.extraWire };
+            const domSets = { main: allDomElements.mainWire, branch: allDomElements.branchWire };
             const dom = domSets[wireType];
             dom.length.value = item.length; dom.amount.value = item.amount; dom.number.value = item.wireNumber;
             const isStandardInsulation = insulationOptions.includes(item.insulation);
@@ -349,13 +280,12 @@
             } else { dom.gauge.value = item.gauge; }
             if (wireType !== 'main') {
                 dom.parent.value = item.parentWireNumber; dom.distance.value = item.integrationDistance;
-                const radioName = wireType === 'secondary' ? 'branch-direction-sec' : 'branch-direction-extra';
-                document.querySelector(`input[name="${radioName}"][value="${item.direction || 'below'}"]`).checked = true;
+                document.querySelector(`input[name="branch-direction-branch"][value="${item.direction || 'below'}"]`).checked = true;
             }
         }
         
         function configurarBotoesParaEdicao(type) {
-            const sections = { 'main-wire': allDomElements.mainWire.actions, 'secondary-wire': allDomElements.secondaryWire.actions, 'extra-wire': allDomElements.extraWire.actions, 'component': allDomElements.component.actions, 'connector': allDomElements.connector.actions };
+            const sections = { 'main-wire': allDomElements.mainWire.actions, 'branch-wire': allDomElements.branchWire.actions, 'component': allDomElements.component.actions, 'connector': allDomElements.connector.actions };
             for (const key in sections) {
                 const btnContainer = sections[key];
                 if (type === key) {
@@ -370,8 +300,7 @@
             let itemData;
             switch(type) {
                 case 'main-wire': itemData = collectAndValidateWireData('main'); if (itemData) handleUpdateItem("Main Wire", itemData); break;
-                case 'secondary-wire': itemData = collectAndValidateWireData('secondary'); if (itemData) handleUpdateItem("Secondary Wire", itemData); break;
-                case 'extra-wire': itemData = collectAndValidateWireData('extra'); if (itemData) handleUpdateItem("Extra Wire", itemData); break;
+                case 'branch-wire': itemData = collectAndValidateWireData('branch'); if (itemData) handleUpdateItem("Branch Wire", itemData); break;
                 case 'component': adicionarComponenteItem(true); break;
                 case 'connector': adicionarConector(true); break;
             }
@@ -380,13 +309,11 @@
         function finalizarEdicao() {
             editingIndex = null;
             clearAllForms();
-            const sections = { mainWire: allDomElements.mainWire, secondaryWire: allDomElements.secondaryWire, extraWire: allDomElements.extraWire, component: allDomElements.component, connector: allDomElements.connector };
+            const sections = { mainWire: allDomElements.mainWire, branchWire: allDomElements.branchWire, component: allDomElements.component, connector: allDomElements.connector };
             sections.mainWire.actions.innerHTML = '<button id="adicionar-main-wire" class="action-button add-button">Add Main Wire</button>';
             sections.mainWire.actions.firstChild.addEventListener('click', adicionarFioPrincipal);
-            sections.secondaryWire.actions.innerHTML = '<button id="adicionar-secondary-wire" class="action-button add-button">Add Secondary Wire</button>';
-            sections.secondaryWire.actions.firstChild.addEventListener('click', adicionarFioSecundario);
-            sections.extraWire.actions.innerHTML = '<button id="adicionar-extra-wire" class="action-button add-button">Add Extra Wire</button>';
-            sections.extraWire.actions.firstChild.addEventListener('click', adicionarExtraWire);
+            sections.branchWire.actions.innerHTML = '<button id="adicionar-branch-wire" class="action-button add-button">Add Branch Wire</button>';
+            sections.branchWire.actions.firstChild.addEventListener('click', adicionarBranchWire);
             sections.component.actions.innerHTML = '<button id="adicionar-componente" class="action-button add-button">Add Component</button><button id="repeat-component" class="action-button bg-gray-500 hover:bg-gray-700 ml-2">Repeat Last</button>';
             sections.component.actions.children[0].addEventListener('click', () => adicionarComponenteItem(false));
             sections.component.actions.children[1].addEventListener('click', repeatLastComponent);
@@ -400,13 +327,13 @@
             const body = allDomElements.listaItensBody;
             if (listaItens.length === 0) { body.innerHTML = '<tr><td colspan="9" class="text-center text-gray-500">No items added.</td></tr>'; return; }
             body.innerHTML = "";
+            listaItens.sort((a,b) => (a.type === 'main-wire') ? -1 : (b.type === 'main-wire') ? 1 : 0);
             listaItens.forEach((item, index) => {
                 const row = body.insertRow();
                 let typeName, desc, qty, wire, dist, price;
                 switch (item.type) {
                     case 'main-wire': typeName = "Main Wire"; desc = `Main (${item.insulation}, ${item.gauge} AWG) - ${item.wireNumber}`; qty = `${item.length}m (${item.amount} vias)`; wire = '-'; dist = '-'; price = `${formatCurrency(item.pricePerUnit)}/m`; break;
-                    case 'secondary-wire': typeName = "Secondary Wire"; desc = `Sec (${item.insulation}, ${item.gauge} AWG) - ${item.wireNumber}`; qty = `${item.length}m (${item.amount} vias)`; wire = item.parentWireNumber; dist = `${item.integrationDistance}m`; price = `${formatCurrency(item.pricePerUnit)}/m`; break;
-                    case 'extra-wire': typeName = "Extra Wire"; desc = `Extra (${item.insulation}, ${item.gauge} AWG) - ${item.wireNumber}`; qty = `${item.length}m (${item.amount} vias)`; wire = item.parentWireNumber; dist = `${item.integrationDistance}m`; price = `${formatCurrency(item.pricePerUnit)}/m`; break;
+                    case 'branch-wire': typeName = "Branch Wire"; desc = `Branch (${item.insulation}, ${item.gauge} AWG) - ${item.wireNumber}`; qty = `${item.length}m (${item.amount} vias)`; wire = item.parentWireNumber; dist = `${item.integrationDistance}m`; price = `${formatCurrency(item.pricePerUnit)}/m`; break;
                     case 'component': typeName = "Component"; desc = `${item.itemType} - ${item.model}`; qty = `${item.quantity} ${item.unit}`; wire = item.parentWireNumber; dist = `${item.distance}m`; price = `${formatCurrency(item.pricePerUnit)}/${item.unit}`; break;
                     case 'connector': typeName = "Connector"; desc = `Connector - ${item.model}`; qty = `${item.quantity} ${item.unit}`; wire = item.parentWireNumber; dist = `${item.distance}m`; price = `${formatCurrency(item.pricePerUnit)}/${item.unit}`; break;
                 }
@@ -415,25 +342,24 @@
         }
         
         window.removerItem = (index) => {
-            if (editingIndex === index) finalizarEdicao();
+            if (editingIndex === index) { finalizarEdicao(); }
             const removedItem = listaItens[index];
-            const childrenOfRemoved = listaItens.filter(item => item.parentWireNumber === removedItem.wireNumber);
-            if (removedItem.type.includes('wire') && childrenOfRemoved.length > 0) {
-                if (!confirm(`Removing wire ${removedItem.wireNumber} will also remove ${childrenOfRemoved.length} child item(s). Are you sure?`)) {
-                    return;
+            if (removedItem.type.includes('wire')) {
+                let itemsToRemove = [removedItem];
+                let queue = [removedItem.wireNumber];
+                while(queue.length > 0) {
+                    let parentNum = queue.shift();
+                    let children = listaItens.filter(i => i.parentWireNumber === parentNum);
+                    itemsToRemove.push(...children);
+                    children.forEach(c => c.type.includes('wire') && queue.push(c.wireNumber));
                 }
+                if (itemsToRemove.length > 1 && !confirm(`Removing wire ${removedItem.wireNumber} will also remove ${itemsToRemove.length - 1} child item(s). Are you sure?`)) { return; }
+                listaItens = listaItens.filter(item => !itemsToRemove.includes(item));
+            } else {
+                listaItens.splice(index, 1);
             }
-            let itemsToRemove = [removedItem];
-            let queue = [removedItem.wireNumber];
-            while(queue.length > 0) {
-                let parentNum = queue.shift();
-                let children = listaItens.filter(i => i.parentWireNumber === parentNum);
-                itemsToRemove.push(...children);
-                children.forEach(c => c.type.includes('wire') && queue.push(c.wireNumber));
-            }
-            listaItens = listaItens.filter(item => !itemsToRemove.includes(item));
             exibirMensagem("Item(s) removed.", "success");
-            if (editingIndex !== null && editingIndex >= index) editingIndex = null;
+            if (editingIndex !== null && editingIndex >= index) { editingIndex = null; }
             atualizarInterfaceCompleta();
         };
 
@@ -448,8 +374,6 @@
             const paddingX = 60, mainWireY = canvas.height / 2, wireStrokeWidth = 3, itemMarkerSize = 8;
             const mainWireColor = "#000000", labelColor = "#1f2937";
             const wireMap = {};
-            
-            // <<< CORREÇÃO APLICADA AQUI >>>
             const mainWire = listaItens.find(item => item.type === 'main-wire');
             
             if (!mainWire) {
@@ -457,31 +381,26 @@
                 ctx.fillText("Add a Main Wire to start.", canvasWidth / 2, canvas.height / 2); return;
             }
 
-            const mainStartX = paddingX, mainEndX = canvasWidth - paddingX, mainVisualLength = mainEndX - mainStartX;
-            const mainPixelPerMeter = mainWire.length > 0 ? mainVisualLength / mainWire.length : 0;
+            const mainStartX = paddingX, mainEndX = canvasWidth - paddingX;
+            const mainPixelPerMeter = mainWire.length > 0 ? (mainEndX - mainStartX) / mainWire.length : 0;
             ctx.beginPath(); ctx.moveTo(mainStartX, mainWireY); ctx.lineTo(mainEndX, mainWireY); ctx.strokeStyle = mainWireColor; ctx.lineWidth = wireStrokeWidth; ctx.stroke();
             ctx.font = "14px Inter"; ctx.fillStyle = labelColor; ctx.textAlign = "left";
             ctx.fillText(`Wire ${mainWire.wireNumber} (${mainWire.length}m)`, mainStartX, mainWireY - 15);
             
             wireMap[mainWire.wireNumber] = { item: mainWire, canvasStartX: mainStartX, canvasStartY: mainWireY, canvasEndX: mainEndX, canvasEndY: mainWireY, angle: 0 };
             
-            const wiresToDrawQueue = [mainWire.wireNumber];
-            const drawnWires = new Set(wiresToDrawQueue);
-
+            const wiresToDrawQueue = [mainWire.wireNumber], drawnWires = new Set(wiresToDrawQueue);
             while(wiresToDrawQueue.length > 0) {
-                const parentWireNumber = wiresToDrawQueue.shift();
-                const parentInfo = wireMap[parentWireNumber];
-                const children = listaItens.filter(item => item.parentWireNumber === parentWireNumber);
+                const parentWireNumber = wiresToDrawQueue.shift(), parentInfo = wireMap[parentWireNumber];
+                const children = listaItens.filter(item => item.type === 'branch-wire' && item.parentWireNumber === parentWireNumber);
                 let branchesBelowCount = 0, branchesAboveCount = 0;
-
                 children.sort((a,b) => a.integrationDistance - b.integrationDistance).forEach(childWire => {
-                    if (!parentInfo.item.length) return; // Avoid division by zero
+                    if (!parentInfo.item.length) return;
                     const attachRatio = childWire.integrationDistance / parentInfo.item.length;
                     const attachX = parentInfo.canvasStartX + (parentInfo.canvasEndX - parentInfo.canvasStartX) * attachRatio;
                     const attachY = parentInfo.canvasStartY + (parentInfo.canvasEndY - parentInfo.canvasStartY) * attachRatio;
                     const visualDiagonalLength = childWire.length * mainPixelPerMeter * 0.8;
-                    const angleIncrement = Math.PI / 18;
-                    const baseAngle = Math.PI / 6;
+                    const angleIncrement = Math.PI / 18, baseAngle = Math.PI / 6;
                     let relativeAngle = childWire.direction === 'below' ? baseAngle + (branchesBelowCount++ * angleIncrement) : -baseAngle - (branchesAboveCount++ * angleIncrement);
                     const finalAngle = parentInfo.angle + relativeAngle;
                     const deltaX = visualDiagonalLength * Math.cos(finalAngle), deltaY = visualDiagonalLength * Math.sin(finalAngle);
@@ -496,10 +415,7 @@
                     ctx.restore();
 
                     wireMap[childWire.wireNumber] = { item: childWire, canvasStartX: attachX, canvasStartY: attachY, canvasEndX: branchEndX, canvasEndY: branchEndY, angle: finalAngle };
-                    if (!drawnWires.has(childWire.wireNumber)) {
-                        wiresToDrawQueue.push(childWire.wireNumber);
-                        drawnWires.add(childWire.wireNumber);
-                    }
+                    if (!drawnWires.has(childWire.wireNumber)) { wiresToDrawQueue.push(childWire.wireNumber); drawnWires.add(childWire.wireNumber); }
                 });
             }
 
@@ -510,7 +426,6 @@
                 const attachRatio = item.distance / parentInfo.item.length;
                 const itemX = parentInfo.canvasStartX + (parentInfo.canvasEndX - parentInfo.canvasStartX) * attachRatio;
                 const itemY = parentInfo.canvasStartY + (parentInfo.canvasEndY - parentInfo.canvasStartY) * attachRatio;
-
                 ctx.save(); ctx.translate(itemX, itemY); ctx.rotate(parentInfo.angle || 0);
                 const itemIdentifier = item.type === 'connector' ? 'connector' : item.itemType;
                 switch(itemIdentifier) {
@@ -528,37 +443,111 @@
             });
 
             ctx.font = "14px Inter"; ctx.fillStyle = mainWireColor;
-            ctx.textAlign = "left"; ctx.fillText("Start", paddingX, mainWireY + 20);
-            ctx.textAlign = "right"; ctx.fillText("End", canvasWidth - paddingX, mainWireY + 20);
+            ctx.textAlign = "left"; ctx.fillText("Start", paddingX, mainWireY + 35);
+            ctx.textAlign = "right"; ctx.fillText("End", canvasWidth - paddingX, mainWireY + 35);
             ctx.restore();
         }
         
-        document.addEventListener('DOMContentLoaded', () => {
-            preencherStaticSelects();
-            finalizarEdicao();
-            allDomElements.mainWire.insulation.addEventListener("change", () => toggleCustomWireFields('main'));
-            allDomElements.secondaryWire.insulation.addEventListener("change", () => toggleCustomWireFields('secondary'));
-            allDomElements.extraWire.insulation.addEventListener("change", () => toggleCustomWireFields('extra'));
-            allDomElements.component.type.addEventListener("change", (e) => preencherComponentModelSelect(e.target.value));
-            allDomElements.component.model.addEventListener("change", toggleCustomComponentFields);
-            allDomElements.connector.model.addEventListener("change", toggleCustomConnectorFields);
-            allDomElements.repeatComponentButton.addEventListener("click", repeatLastComponent);
-            allDomElements.repeatConnectorButton.addEventListener("click", repeatLastConnector);
-            allDomElements.zoomInButton.addEventListener("click", ()=>{zoomLevel+=.1;desenharRede()});
-            allDomElements.zoomOutButton.addEventListener("click", ()=>{if(zoomLevel-.1>=.2){zoomLevel-=.1;desenharRede()}});
-            allDomElements.exportPdfButton.addEventListener("click", exportToPdf);
-            window.addEventListener('resize', desenharRede);
-        });
+        function popularFormularioComponente(item) {
+            const dom = allDomElements.component; dom.type.value = item.itemType; dom.type.dispatchEvent(new Event('change'));
+            setTimeout(() => { 
+                if (item.isCustom) {
+                    dom.model.value = "custom"; dom.model.dispatchEvent(new Event('change'));
+                    dom.customName.value = item.model; dom.customPrice.value = item.pricePerUnit;
+                } else { const typeData = componentTypesData.find(t => t.type === item.itemType); if (typeData && !typeData.isDirectPrice) dom.model.value = item.model; }
+                dom.wire.value = item.parentWireNumber; dom.distance.value = item.distance; dom.quantity.value = item.quantity;
+            }, 100);
+        }
+
+        function adicionarComponenteItem(isEditing = false) {
+            const { component } = allDomElements;
+            const itemType = component.type.value; let selectedModel = component.model.value;
+            const parentWireNumber = component.wire.value; const distance = parseFloat(component.distance.value);
+            const quantity = parseInt(component.quantity.value); let finalModel, finalPricePerUnit, finalUnit;
+            const selectedComponentTypeData = componentTypesData.find(ct => ct.type === itemType);
+            if (!selectedComponentTypeData) { exibirMensagem("Please select a valid Component Type.", "erro"); return; }
+            if (selectedComponentTypeData.isDirectPrice) {
+                finalModel = selectedComponentTypeData.type; finalPricePerUnit = selectedComponentTypeData.pricePerUnit; finalUnit = selectedComponentTypeData.unit;
+            } else {
+                if (selectedModel === 'custom') {
+                    finalModel = component.customName.value.trim(); finalPricePerUnit = parseFloat(component.customPrice.value); finalUnit = 'Unit';
+                    if (!finalModel || isNaN(finalPricePerUnit) || finalPricePerUnit <= 0) { exibirMensagem("Please fill all custom Component fields.", "erro"); return; }
+                } else {
+                    finalModel = selectedModel; const modelData = selectedComponentTypeData.models?.find(m => m.model === selectedModel);
+                    if (!modelData) { exibirMensagem("Select a valid component model.", "erro"); return; }
+                    finalPricePerUnit = modelData.pricePerUnit; finalUnit = modelData.unit;
+                }
+            }
+            if (!itemType || !finalModel || !parentWireNumber || isNaN(distance) || distance < 0 || isNaN(quantity) || quantity <= 0) { exibirMensagem("Please fill all Component fields correctly.", "erro"); return; }
+            const parentWire = listaItens.find(item => item.wireNumber === parentWireNumber);
+            if (!parentWire) { exibirMensagem(`Source wire "${parentWireNumber}" not found.`, "erro"); return; }
+            if (distance > parentWire.length) { exibirMensagem(`Distance exceeds the length of source wire.`, "erro"); return; }
+            const subtotal = quantity * finalPricePerUnit;
+            const novoComponente = { type: 'component', itemType, model: finalModel, parentWireNumber, distance, quantity, unit: finalUnit, pricePerUnit: finalPricePerUnit, subtotal, isCustom: (selectedModel === 'custom') };
+            if (isEditing) { handleUpdateItem("Component", novoComponente); } else { lastAddedComponent = novoComponente; handleAddItem("Component", novoComponente); }
+        }
+
+        function popularFormularioConector(item) {
+            const dom = allDomElements.connector;
+            if (item.isCustom) { dom.model.value = "custom"; dom.model.dispatchEvent(new Event('change')); dom.customName.value = item.model; dom.customPrice.value = item.pricePerUnit; } 
+            else { dom.model.value = item.model; }
+            dom.wire.value = item.parentWireNumber; dom.distance.value = item.distance; dom.quantity.value = item.quantity;
+        }
+
+        function adicionarConector(isEditing = false) {
+            const { connector } = allDomElements; let selectedModel = connector.model.value;
+            const parentWireNumber = connector.wire.value; const distance = parseFloat(connector.distance.value);
+            const quantity = parseInt(connector.quantity.value); let finalModel, finalPricePerUnit, finalUnit;
+            if (selectedModel === 'custom') {
+                finalModel = connector.customName.value.trim(); finalPricePerUnit = parseFloat(connector.customPrice.value); finalUnit = 'Unit';
+                if (!finalModel || isNaN(finalPricePerUnit) || finalPricePerUnit <= 0) { exibirMensagem("Please fill all custom Connector fields.", "erro"); return; }
+            } else {
+                finalModel = selectedModel; const modelData = connectorModelsData.find(m => m.model === selectedModel);
+                if (!modelData) { exibirMensagem("Select a valid connector model.", "erro"); return; }
+                finalPricePerUnit = modelData.pricePerUnit; finalUnit = modelData.unit;
+            }
+            if (!finalModel || !parentWireNumber || isNaN(distance) || distance < 0 || isNaN(quantity) || quantity <= 0) { exibirMensagem("Please fill all Connector fields correctly.", "erro"); return; }
+            const parentWire = listaItens.find(item => item.wireNumber === parentWireNumber);
+            if (!parentWire) { exibirMensagem(`Source wire "${parentWireNumber}" not found.`, "erro"); return; }
+            if (distance > parentWire.length) { exibirMensagem(`Distance exceeds the length of source wire.`, "erro"); return; }
+            const subtotal = quantity * finalPricePerUnit;
+            const novoConector = { type: 'connector', model: finalModel, parentWireNumber, distance, quantity, unit: finalUnit, pricePerUnit: finalPricePerUnit, subtotal, isCustom: (selectedModel === 'custom') };
+            if(isEditing) { handleUpdateItem("Connector", novoConector); } else { lastAddedConnector = novoConector; handleAddItem("Connector", novoConector); }
+        }
+
+        function repeatLastComponent() { if(lastAddedComponent) popularFormularioComponente(lastAddedComponent); else exibirMensagem("No component to repeat", "erro"); }
+        function repeatLastConnector() { if(lastAddedConnector) popularFormularioConector(lastAddedConnector); else exibirMensagem("No connector to repeat", "erro"); }
+        
+        function preencherComponentModelSelect(selectedType) {
+            const { component } = allDomElements;
+            component.model.innerHTML = '<option value="" disabled selected>Select Model</option>';
+            component.model.disabled = true;
+            toggleCustomComponentFields();
+            const componentType = componentTypesData.find(ct => ct.type === selectedType);
+            if (!componentType) return;
+            if (componentType.isDirectPrice) {
+                component.model.innerHTML = '<option value="N/A" selected>N/A (Direct Price)</option>';
+            } else if (componentType.models?.length > 0) {
+                componentType.models.forEach(model => component.model.add(new Option(model.model, model.model)));
+                component.model.disabled = false;
+                component.model.add(new Option("Other / Custom", "custom"));
+            }
+        }
+        function toggleCustomComponentFields() { allDomElements.component.customFields.forEach(field => field.classList.toggle('hidden', allDomElements.component.model.value !== 'custom')); }
+        function toggleCustomConnectorFields() { allDomElements.connector.customFields.forEach(field => field.classList.toggle('hidden', allDomElements.connector.model.value !== 'custom')); }
+        
+        function zoomIn() { zoomLevel += zoomStep; desenharRede(); }
+        function zoomOut() { if (zoomLevel - zoomStep >= 0.2) { zoomLevel -= zoomStep; desenharRede(); } }
         
         function toggleCustomWireFields(wireType) {
-            const dom = { main: allDomElements.mainWire, secondary: allDomElements.secondaryWire, extra: allDomElements.extraWire }[wireType];
+            const dom = { main: allDomElements.mainWire, branch: allDomElements.branchWire }[wireType];
             const show = dom.insulation.value === 'Other';
             dom.customFields.forEach(field => field.classList.toggle('hidden', !show));
             dom.gauge.disabled = show; if (show) dom.gauge.value = "";
         }
 
         function preencherWireSelects() {
-            const selects = [allDomElements.secondaryWire.parent, allDomElements.extraWire.parent, allDomElements.component.wire, allDomElements.connector.wire];
+            const selects = [allDomElements.branchWire.parent, allDomElements.component.wire, allDomElements.connector.wire];
             const wires = listaItens.filter(item => item.type.includes('wire'));
             selects.forEach(s => {
                 const currentVal = s.value;
@@ -569,19 +558,50 @@
                 if (wires.some(w => w.wireNumber === currentVal)) s.value = currentVal;
             });
         }
-        
-        // --- Funções restantes que não precisam de alteração significativa ---
-        function popularFormularioComponente(item) { /* ... */ }
-        function popularFormularioConector(item) { /* ... */ }
-        function adicionarComponenteItem(isEditing = false) { /* ... */ }
-        function adicionarConector(isEditing = false) { /* ... */ }
-        function repeatLastComponent() { if(lastAddedComponent) popularFormularioComponente(lastAddedComponent); else exibirMensagem("No component to repeat", "erro"); }
-        function repeatLastConnector() { if(lastAddedConnector) popularFormularioConector(lastAddedConnector); else exibirMensagem("No connector to repeat", "erro"); }
-        function preencherComponentModelSelect(selectedType) { /* ... */ }
-        function toggleCustomComponentFields() { /* ... */ }
-        function toggleCustomConnectorFields() { /* ... */ }
-        async function exportToPdf() { /* ... */ }
 
+        async function exportToPdf() {
+            exibirMensagem("Generating PDF...", "success");
+            const { jsPDF } = window.jspdf; const pdf = new jsPDF('p', 'mm', 'a4'); const margin = 15; let yOffset = margin;
+            const pageWidth = pdf.internal.pageSize.getWidth(), usableWidth = pageWidth - (2 * margin);
+            pdf.setFontSize(20); pdf.text("Electrical Network Budget Report", pageWidth / 2, yOffset, { align: 'center' }); yOffset += 12;
+            pdf.setFontSize(12);
+            pdf.text(`Project: ${allDomElements.projetoInput.value || 'N/A'}`, margin, yOffset);
+            pdf.text(`Author: ${allDomElements.autorInput.value || 'N/A'}`, margin, yOffset + 7);
+            pdf.text(`Region: ${allDomElements.regiaoSelect.value || 'N/A'}`, margin, yOffset + 14); yOffset += 25;
+            if (listaItens.length > 0) {
+                pdf.setFontSize(16); pdf.text("Material List", margin, yOffset); yOffset += 8;
+                const tableCanvas = await html2canvas(document.querySelector(".table-container"), { scale: 2 });
+                const tableImgData = tableCanvas.toDataURL('image/png'); const tableImgHeight = (tableCanvas.height * usableWidth) / tableCanvas.width;
+                if (yOffset + tableImgHeight > pdf.internal.pageSize.getHeight() - margin) { pdf.addPage(); yOffset = margin; }
+                pdf.addImage(tableImgData, 'PNG', margin, yOffset, usableWidth, tableImgHeight); yOffset += tableImgHeight + 10;
+            }
+            if (yOffset + 20 > pdf.internal.pageSize.getHeight() - margin) { pdf.addPage(); yOffset = margin; }
+            pdf.setFontSize(14); pdf.text(`Total Estimated Cost: ${allDomElements.totalEstimativaElement.textContent}`, margin, yOffset); yOffset += 15;
+            if (listaItens.find(item => item.type === 'main-wire')) {
+                if (yOffset + 80 > pdf.internal.pageSize.getHeight() - margin) { pdf.addPage(); yOffset = margin; }
+                pdf.setFontSize(16); pdf.text("Wire View", margin, yOffset); yOffset += 8;
+                const canvasImage = allDomElements.ramalCanvas.toDataURL('image/png', 1.0);
+                const imgHeightCanvas = (allDomElements.ramalCanvas.height * usableWidth) / allDomElements.ramalCanvas.width;
+                pdf.addImage(canvasImage, 'PNG', margin, yOffset, usableWidth, imgHeightCanvas);
+            }
+            pdf.save(`${(allDomElements.projetoInput.value || 'Report').replace(/ /g, '_')}.pdf`);
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            preencherStaticSelects();
+            finalizarEdicao();
+            allDomElements.mainWire.insulation.addEventListener("change", () => toggleCustomWireFields('main'));
+            allDomElements.branchWire.insulation.addEventListener("change", () => toggleCustomWireFields('branch'));
+            allDomElements.component.type.addEventListener("change", (e) => preencherComponentModelSelect(e.target.value));
+            allDomElements.component.model.addEventListener("change", toggleCustomComponentFields);
+            allDomElements.connector.model.addEventListener("change", toggleCustomConnectorFields);
+            allDomElements.repeatComponentButton.addEventListener("click", repeatLastComponent);
+            allDomElements.repeatConnectorButton.addEventListener("click", repeatLastConnector);
+            allDomElements.zoomInButton.addEventListener("click", zoomIn);
+            allDomElements.zoomOutButton.addEventListener("click", zoomOut);
+            allDomElements.exportPdfButton.addEventListener("click", exportToPdf);
+            window.addEventListener('resize', desenharRede);
+        });
     </script>
 </body>
 </html>
