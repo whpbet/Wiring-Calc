@@ -1,0 +1,96 @@
+[
+    { "type": "Bimetal", "isDirectPrice": true, "unit": "Unit", "pricePerUnit": 0.800 },
+    { "type": "Ferrite", "isDirectPrice": true, "unit": "Unit", "pricePerUnit": 0.800 },
+    { "type": "Splice", "isDirectPrice": true, "unit": "Unit", "pricePerUnit": 0.060 },
+    { "type": "POLYAMIDE GLUE", "isDirectPrice": true, "unit": "Unit", "pricePerUnit": 0.154 },
+    { "type": "HEAT SHRINK TUBE", "isDirectPrice": true, "unit": "Unit", "pricePerUnit": 0.240 },
+    { "type": "Hot Melt", "isDirectPrice": true, "unit": "Unit", "pricePerUnit": 0.010 },
+    {
+        "type": "Terminal",
+        "isDirectPrice": false,
+        "models": [
+            { "model": "08-70-1031", "unit": "Unit", "pricePerUnit": 0.0200 },
+            { "model": "16-02-0107", "unit": "Unit", "pricePerUnit": 0.0300 },
+            { "model": "172718-3121", "unit": "Unit", "pricePerUnit": 0.0250 },
+            { "model": "172718-4121", "unit": "Unit", "pricePerUnit": 0.0250 },
+            { "model": "172718-5121", "unit": "Unit", "pricePerUnit": 0.0250 },
+            { "model": "172765-2121", "unit": "Unit", "pricePerUnit": 0.0250 },
+            { "model": "172765-4121", "unit": "Unit", "pricePerUnit": 0.0250 },
+            { "model": "172765-5121", "unit": "Unit", "pricePerUnit": 0.0250 },
+            { "model": "177914-2", "unit": "Unit", "pricePerUnit": 0.0150 },
+            { "model": "177915-2", "unit": "Unit", "pricePerUnit": 0.0150 },
+            { "model": "2329911-1", "unit": "Unit", "pricePerUnit": 0.0300 },
+            { "model": "2350223-1", "unit": "Unit", "pricePerUnit": 0.0820 },
+            { "model": "35745-0110", "unit": "Unit", "pricePerUnit": 0.0200 },
+            { "model": "35746-0110", "unit": "Unit", "pricePerUnit": 0.0200 },
+            { "model": "35747-0110", "unit": "Unit", "pricePerUnit": 0.0200 },
+            { "model": "40-06-2003", "unit": "Unit", "pricePerUnit": 0.0200 },
+            { "model": "42660-1", "unit": "Unit", "pricePerUnit": 0.0200 },
+            { "model": "43375-2001", "unit": "Unit", "pricePerUnit": 0.0400 },
+            { "model": "485043-1", "unit": "Unit", "pricePerUnit": 0.0500 },
+            { "model": "50-29-1597", "unit": "Unit", "pricePerUnit": 0.0400 },
+            { "model": "521596-2", "unit": "Unit", "pricePerUnit": 0.0300 },
+            { "model": "61795-3", "unit": "Unit", "pricePerUnit": 0.12345 },
+            { "model": "63130-2", "unit": "Unit", "pricePerUnit": 0.0600 },
+            { "model": "63482-1", "unit": "Unit", "pricePerUnit": 0.0400 },
+            { "model": "W10242411", "unit": "Unit", "pricePerUnit": 0.1500 }
+        ]
+    },
+    {
+        "type": "Tape",
+        "isDirectPrice": false,
+        "models": [
+            { "model": "Masking Tape", "unit": "Meter", "pricePerUnit": 0.10 },
+            { "model": "Electrical Tape", "unit": "Roll", "pricePerUnit": 2.50 },
+            { "model": "GLASS TAPE", "unit": "Meter", "pricePerUnit": 0.30 },
+            { "model": "PVC", "unit": "Meter", "pricePerUnit": 0.0333 }
+        ]
+    },
+    {
+        "type": "Ground Ring",
+        "isDirectPrice": false,
+        "models": [
+            { "model": "61795-3", "unit": "Unit", "pricePerUnit": 0.12345 }
+        ]
+    },
+    {
+        "type": "Retainer",
+        "isDirectPrice": false,
+        "models": [
+            { "model": "172709-0003", "unit": "Unit", "pricePerUnit": 0.010 },
+            { "model": "172709-2001", "unit": "Unit", "pricePerUnit": 0.010 },
+            { "model": "172709-2002", "unit": "Unit", "pricePerUnit": 0.010 },
+            { "model": "172709-2003", "unit": "Unit", "pricePerUnit": 0.010 },
+            { "model": "172709-2005", "unit": "Unit", "pricePerUnit": 0.010 },
+            { "model": "172709-2006", "unit": "Unit", "pricePerUnit": 0.010 },
+            { "model": "172769-0004", "unit": "Unit", "pricePerUnit": 0.010 },
+            { "model": "177819-1", "unit": "Unit", "pricePerUnit": 0.011 },
+            { "model": "177910-1", "unit": "Unit", "pricePerUnit": 0.010 },
+            { "model": "2357686-1", "unit": "Unit", "pricePerUnit": 0.010 },
+            { "model": "2357686-2", "unit": "Unit", "pricePerUnit": 0.010 },
+            { "model": "2357686-5", "unit": "Unit", "pricePerUnit": 0.010 },
+            { "model": "35150-0390", "unit": "Unit", "pricePerUnit": 0.010 },
+            { "model": "35150-0393", "unit": "Unit", "pricePerUnit": 0.010 }
+        ]
+    },
+    {
+        "type": "Grommet",
+        "isDirectPrice": false,
+        "models": [
+            { "model": "10213550", "unit": "Unit", "pricePerUnit": 0.05 },
+            { "model": "10233325", "unit": "Unit", "pricePerUnit": 0.05 },
+            { "model": "10279541", "unit": "Unit", "pricePerUnit": 0.05 },
+            { "model": "2005553", "unit": "Unit", "pricePerUnit": 0.06 },
+            { "model": "2209039", "unit": "Unit", "pricePerUnit": 0.06 },
+            { "model": "W10185457", "unit": "Unit", "pricePerUnit": 0.05 },
+            { "model": "W11166908", "unit": "Unit", "pricePerUnit": 0.05 }
+        ]
+    },
+    {
+        "type": "Holder",
+        "isDirectPrice": false,
+        "models": [
+            { "model": "10288385", "unit": "Unit", "pricePerUnit": 0.100 }
+        ]
+    }
+]
