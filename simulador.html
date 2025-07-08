@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electrical Network Budget Simulator</title>
+    <title>Wire Budget Simulator</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -48,7 +48,7 @@
 </head>
 <body class="bg-gray-100 p-6">
     <div class="container">
-        <h1 class="heading-primary">Electrical Network Budget Simulator</h1>
+        <h1 class="heading-primary">Wire Budget Simulator</h1>
 
         <div class="form-section">
             <h2 class="section-heading">Step 1: Project Information</h2>
@@ -755,7 +755,7 @@
             exibirMensagem("Generating PDF...", "success");
             const { jsPDF } = window.jspdf; const pdf = new jsPDF('p', 'mm', 'a4'); const margin = 15; let yOffset = margin;
             const pageWidth = pdf.internal.pageSize.getWidth(), usableWidth = pageWidth - (2 * margin);
-            pdf.setFontSize(20); pdf.text("Electrical Network Budget Report", pageWidth / 2, yOffset, { align: 'center' }); yOffset += 12;
+            pdf.setFontSize(20); pdf.text("Wire Budget Report", pageWidth / 2, yOffset, { align: 'center' }); yOffset += 12;
             pdf.setFontSize(12);
             pdf.text(`Project: ${allDomElements.projetoInput.value || 'N/A'}`, margin, yOffset);
             pdf.text(`Author: ${allDomElements.autorInput.value || 'N/A'}`, margin, yOffset + 7);
