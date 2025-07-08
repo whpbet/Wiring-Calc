@@ -1,8 +1,0 @@
-[
-    { "gauge": "24", "pricePerMeterSingle": 0.05 },
-    { "gauge": "22", "pricePerMeterSingle": 0.06 },
-    { "gauge": "20", "pricePerMeterSingle": 0.07 },
-    { "gauge": "18", "pricePerMeterSingle": 0.08 },
-    { "gauge": "17", "pricePerMeterSingle": 0.09 },
-    { "gauge": "16", "pricePerMeterSingle": 0.10 }
-]

@@ -124,36 +124,111 @@
 
     <script>
         // --- DATA ---
-        // As variáveis de dados (wirePriceData, etc.) foram removidas daqui.
-        // Elas serão carregadas a partir dos arquivos JSON.
-        const insulationOptions = ["PVC"];
+        const insulationOptions = ["PVC"]; // Alterado
         const gaugeOptions = ["24", "22", "20", "18", "17", "16"];
-
-        // --- NOVA FUNÇÃO PARA CARREGAR DADOS EXTERNOS ---
-        async function carregarDados() {
-            try {
-                // Carrega os 3 arquivos JSON em paralelo para mais eficiência
-                const [fiosResponse, componentesResponse, conectoresResponse] = await Promise.all([
-                    fetch('fios.json'),
-                    fetch('componentes.json'),
-                    fetch('conectores.json')
-                ]);
-
-                // Converte a resposta de cada um para o formato JSON
-                const wirePriceData = await fiosResponse.json();
-                const componentTypesData = await componentesResponse.json();
-                const connectorModelsData = await conectoresResponse.json();
-                
-                // Retorna um objeto com todos os dados carregados
-                return { wirePriceData, componentTypesData, connectorModelsData };
-
-            } catch (error) {
-                // Em caso de erro (ex: arquivo não encontrado), exibe uma mensagem
-                console.error("Falha ao carregar os dados:", error);
-                exibirMensagem("Erro: Não foi possível carregar os arquivos de dados (JSON). Verifique se eles existem e se você está usando um servidor local.", "erro");
-                return null;
+        
+        const componentTypesData = [
+            { type: "Bimetal", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 },
+            { type: "Ferrite", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.800 },
+            { type: "Splice", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.060 },
+            { type: "POLYAMIDE GLUE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.154 },
+            { type: "HEAT SHRINK TUBE", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.240 },
+            { type: "Hot Melt", isDirectPrice: true, unit: "Unit", pricePerUnit: 0.010 },
+            {
+                type: "Terminal", isDirectPrice: false, models: [
+                    { "model": "6-917660", "unit": "Unit", "pricePerUnit": 0.00880 },
+                    { "model": "TBD", "unit": "Unit", "pricePerUnit": 0.01264 },
+                    { "model": "W10224274", "unit": "Unit", "pricePerUnit": 0.01540 },
+                    { "model": "W10224275", "unit": "Unit", "pricePerUnit": 0.2100 },
+                    { "model": "W10241280", "unit": "Unit", "pricePerUnit": 0.0410 },
+                    { "model": "W10241606", "unit": "Unit", "pricePerUnit": 0.00380 },
+                    { "model": "W10241607", "unit": "Unit", "pricePerUnit": 0.01050 },
+                    { "model": "W10241608", "unit": "Unit", "pricePerUnit": 0.01030 },
+                    { "model": "W10361444", "unit": "Unit", "pricePerUnit": 0.0470 },
+                    { "model": "10431333", "unit": "Unit", "pricePerUnit": 0.00528 },
+                    { "model": "W10582562", "unit": "Unit", "pricePerUnit": 0.00873 },
+                    { "model": "W10704522", "unit": "Unit", "pricePerUnit": 0.01002 },
+                    { "model": "W10704522", "unit": "Unit", "pricePerUnit": 0.0570 },
+                    { "model": "10863776", "unit": "Unit", "pricePerUnit": 0.00839 },
+                    { "model": "W11224007", "unit": "Unit", "pricePerUnit": 0.2160 },
+                    { "model": "W11402255", "unit": "Unit", "pricePerUnit": 0.00528 },
+                    { "model": "W11561408", "unit": "Unit", "pricePerUnit": 0.033 },
+                    { "model": "W11600246", "unit": "Unit", "pricePerUnit": 0.0820 },
+                    { "model": "W11620170", "unit": "Unit", "pricePerUnit": 0.0410 },
+                    { "model": "W11650942", "unit": "Unit", "pricePerUnit": 0.012 }
+                ]
+            },
+            {
+                type: "Tape", isDirectPrice: false, models: [
+                    { model: "Masking Tape", unit: "Meter", pricePerUnit: 0.10 },
+                    { model: "Electrical Tape", unit: "Roll", pricePerUnit: 2.50 },
+                    { model: "GLASS TAPE", unit: "Meter", "pricePerUnit": 0.30 },
+                    { model: "PVC", unit: "Meter", "pricePerUnit": 0.0333 } // Adicionado
+                ]
+            },
+            {
+                type: "Ground Ring", isDirectPrice: false, models: [
+                    { model: "61795-3", unit: "Unit", pricePerUnit: 0.12345 }
+                ]
+            },
+            {
+                type: "Retainer", isDirectPrice: false, models: [
+                    { "model": "177918-1", "unit": "Unit", "pricePerUnit": 0.011 },
+                    { "model": "1-1969443-0", "unit": "Unit", "pricePerUnit": 0.02055 },
+                    { "model": "1744544-9", "unit": "Unit", "pricePerUnit": 0.05553 },
+                    { "model": "1969443-4", "unit": "Unit", "pricePerUnit": 0.01000 },
+                    { "model": "1969443-5", "unit": "Unit", "pricePerUnit": 0.01000 },
+                    { "model": "1969443-7", "unit": "Unit", "pricePerUnit": 0.02000 },
+                    { "model": "1971778-3", "unit": "Unit", "pricePerUnit": 0.04970 },
+                    { "model": "917700-1", "unit": "Unit", "pricePerUnit": 0.01000 },
+                    { "model": "PMS-04V-S", "unit": "Unit", "pricePerUnit": 0.01000 },
+                    { "model": "VLS-02V", "unit": "Unit", "pricePerUnit": 0.01510 },
+                    { "model": "VLS-03V", "unit": "Unit", "pricePerUnit": 0.02510 },
+                    { "model": "XMS-04V", "unit": "Unit", "pricePerUnit": 0.01330 },
+                    { "model": "YLS-02V", "unit": "Unit", "pricePerUnit": 0.01000 },
+                    { "model": "YLS-03V", "unit": "Unit", "pricePerUnit": 0.01640 }
+                ]
+            },
+            {
+                type: "Grommet", isDirectPrice: false, models: [
+                    { model: "12.5mm", unit: "Unit", pricePerUnit: 0.05 },
+                    { model: "19mm", unit: "Unit", pricePerUnit: 0.06 },
+                    { model: "30mm", unit: "Unit", pricePerUnit: 0.08 }
+                ]
             }
-        }
+        ];
+
+        const connectorModelsData = [
+            { "model": "W10201940", "unit": "Unit", "pricePerUnit": 0.02010 },
+            { "model": "W10208161", "unit": "Unit", "pricePerUnit": 0.01570 },
+            { "model": "W10208162", "unit": "Unit", "pricePerUnit": 0.01690 },
+            { "model": "W10210598", "unit": "Unit", "pricePerUnit": 0.05191 },
+            { "model": "W10241087", "unit": "Unit", "pricePerUnit": 0.02563 },
+            { "model": "W10439936", "unit": "Unit", "pricePerUnit": 0.06310 },
+            { "model": "W10460700", "unit": "Unit", "pricePerUnit": 0.03920 },
+            { "model": "W10519359", "unit": "Unit", "pricePerUnit": 0.02000 },
+            { "model": "W10709241", "unit": "Unit", "pricePerUnit": 0.02676 },
+            { "model": "W10791640", "unit": "Unit", "pricePerUnit": 0.03281 },
+            { "model": "W10850299", "unit": "Unit", "pricePerUnit": 0.02113 },
+            { "model": "W10863576", "unit": "Unit", "pricePerUnit": 0.03275 },
+            { "model": "W10867932", "unit": "Unit", "pricePerUnit": 0.03680 },
+            { "model": "W10871531", "unit": "Unit", "pricePerUnit": 0.03040 },
+            { "model": "W11295937", "unit": "Unit", "pricePerUnit": 0.04570 },
+            { "model": "W11372511", "unit": "Unit", "pricePerUnit": 0.02372 },
+            { "model": "W11404384", "unit": "Unit", "pricePerUnit": 0.06310 },
+            { "model": "W11461251", "unit": "Unit", "pricePerUnit": 0.08580 },
+            { "model": "W11568062", "unit": "Unit", "pricePerUnit": 0.05369 },
+            { "model": "W11569744", "unit": "Unit", "pricePerUnit": 0.04863 },
+            { "model": "W11635490", "unit": "Unit", "pricePerUnit": 0.05181 },
+            { "model": "W11659551", "unit": "Unit", "pricePerUnit": 0.02805 },
+            { "model": "W11659561", "unit": "Unit", "pricePerUnit": 0.00894 },
+            { "model": "W11675256", "unit": "Unit", "pricePerUnit": 0.02497 },
+            { "model": "W11681314", "unit": "Unit", "pricePerUnit": 0.07432 },
+            { "model": "W11681334", "unit": "Unit", "pricePerUnit": 0.06770 },
+            { "model": "W11686060", "unit": "Unit", "pricePerUnit": 0.10765 }
+        ];
+
+        const wirePriceData = [ { gauge: "24", pricePerMeterSingle: 0.05 },{ gauge: "22", pricePerMeterSingle: 0.06 },{ gauge: "20", pricePerMeterSingle: 0.07 },{ gauge: "18", pricePerMeterSingle: 0.08 },{ gauge: "17", pricePerMeterSingle: 0.09 },{ gauge: "16", pricePerMeterSingle: 0.10 } ];
 
         // --- DOM Elements ---
         const allDomElements = {
@@ -169,11 +244,6 @@
         // --- Application State ---
         let listaItens = [], totalEstimativa = 0, lastAddedComponent = null, lastAddedConnector = null, zoomLevel = 1.0, zoomStep = 0.1, editingIndex = null;
         
-        // --- MODIFICAÇÃO: Variáveis de dados globais para serem acessadas por outras funções ---
-        let wirePriceData = [];
-        let componentTypesData = [];
-        let connectorModelsData = [];
-        
         // --- UI & Helper Functions ---
         const formatCurrency = (value) => `$${(value || 0).toFixed(3)}`;
         
@@ -182,7 +252,7 @@
             container.textContent = message;
             container.style.display = "block";
             container.className = `message-container ${type === "success" ? 'bg-green-100 border-green-400 text-green-800' : 'bg-red-100 border-red-400 text-red-800'}`;
-            setTimeout(() => { container.style.display = "none"; }, 4000); // Aumentei o tempo
+            setTimeout(() => { container.style.display = "none"; }, 3000);
         }
 
         function clearAllForms() {
@@ -197,24 +267,23 @@
             });
         }
 
-        // --- MODIFICAÇÃO: A função agora aceita os dados como parâmetros ---
-        function preencherStaticSelects(insulationOpts, gaugeOpts, componentData, connectorData) {
+        function preencherStaticSelects() {
             const { mainWire, branchWire, component, connector } = allDomElements;
             [mainWire.insulation, branchWire.insulation].forEach(select => {
                 select.innerHTML = '<option value="" disabled selected>Select Insulation</option>';
-                insulationOpts.forEach(item => select.add(new Option(item, item)));
-                select.add(new Option("Other / Custom", "Other"));
+                insulationOptions.forEach(item => select.add(new Option(item, item)));
+                select.add(new Option("Other / Custom", "Other")); // Alterado
             });
             [mainWire.gauge, branchWire.gauge].forEach(select => {
                 select.innerHTML = '<option value="" disabled selected>Select Gauge</option>';
-                gaugeOpts.forEach(item => select.add(new Option(item, item)));
+                gaugeOptions.forEach(item => select.add(new Option(item, item)));
             });
             component.type.innerHTML = '<option value="" disabled selected>Select Type</option>';
-            componentData.forEach(compType => component.type.add(new Option(compType.isDirectPrice ? compType.type.toUpperCase() : compType.type, compType.type)));
-            component.type.add(new Option("Other / Custom Type", "custom-type"));
+            componentTypesData.forEach(compType => component.type.add(new Option(compType.isDirectPrice ? compType.type.toUpperCase() : compType.type, compType.type)));
+            component.type.add(new Option("Other / Custom Type", "custom-type")); // Adicionado
             
             connector.model.innerHTML = '<option value="" disabled selected>Select Model</option>';
-            connectorData.forEach(conn => connector.model.add(new Option(conn.model, conn.model)));
+            connectorModelsData.forEach(conn => connector.model.add(new Option(conn.model, conn.model)));
             connector.model.add(new Option("Other / Custom", "custom"));
         }
 
@@ -329,7 +398,7 @@
                     btnContainer.innerHTML = `<button class="action-button update-button">Update</button><button class="action-button cancel-button ml-2">Cancel</button>`;
                     btnContainer.querySelector('.update-button').addEventListener('click', () => atualizarItem(key));
                     btnContainer.querySelector('.cancel-button').addEventListener('click', finalizarEdicao);
-                    btnContainer.querySelector('.update-button').disabled = false;
+                     btnContainer.querySelector('.update-button').disabled = false;
                 } else { 
                     Array.from(btnContainer.children).forEach(btn => btn.disabled = true); 
                 }
@@ -493,7 +562,7 @@
         }
         
         async function logCustomItemToServer(itemData) {
-            const logApiUrl = '/api/log-item'; // URL do seu endpoint de API
+            const logApiUrl = '/api/log-item';
             try {
                 await fetch(logApiUrl, {
                     method: 'POST',
@@ -508,6 +577,7 @@
         function popularFormularioComponente(item) {
             const dom = allDomElements.component; 
             
+            // Lógica para lidar com tipo customizado ou não
             const isKnownType = componentTypesData.some(t => t.type === item.itemType);
             if (!isKnownType || item.isCustomType) {
                  dom.type.value = "custom-type";
@@ -518,7 +588,7 @@
 
             setTimeout(() => { 
                 if (dom.type.value === 'custom-type') {
-                    dom.customName.value = item.itemType; 
+                    dom.customName.value = item.itemType; // Se for custom, o nome vai para o campo custom
                     dom.customPrice.value = item.pricePerUnit;
                 } else if (item.isCustom) {
                     dom.model.value = "custom";
@@ -546,9 +616,9 @@
             
             if (itemType === 'custom-type') {
                 finalModel = component.customName.value.trim();
-                itemType = finalModel; 
+                itemType = finalModel; // O tipo customizado se torna o nome do item
                 finalPricePerUnit = parseFloat(component.customPrice.value);
-                finalUnit = 'Unit';
+                finalUnit = 'Unit'; // Unidade padrão para novos tipos
                 isCustomType = true;
                 if (!finalModel || isNaN(finalPricePerUnit) || finalPricePerUnit <= 0) { 
                     exibirMensagem("Please fill all custom Component fields for the new type.", "erro"); 
@@ -627,6 +697,7 @@
             component.model.disabled = true;
             toggleCustomComponentFields();
 
+            // Lógica da Label Dinâmica
             allDomElements.component.quantityLabel.textContent = (selectedType === 'Tape') ? 'METERS:' : 'QUANTITY:';
 
             if (selectedType === 'custom-type') {
@@ -708,24 +779,8 @@
             pdf.save(`${(allDomElements.projetoInput.value || 'Report').replace(/ /g, '_')}.pdf`);
         }
         
-        // --- MODIFICAÇÃO PRINCIPAL: Event Listener de inicialização ---
-        document.addEventListener('DOMContentLoaded', async () => {
-            // 1. Carrega os dados dos arquivos JSON e aguarda a conclusão
-            const dadosCarregados = await carregarDados();
-
-            // 2. Se o carregamento falhar, interrompe a inicialização
-            if (!dadosCarregados) {
-                return;
-            }
-
-            // 3. Atribui os dados carregados às variáveis globais
-            wirePriceData = dadosCarregados.wirePriceData;
-            componentTypesData = dadosCarregados.componentTypesData;
-            connectorModelsData = dadosCarregados.connectorModelsData;
-
-            // 4. Continua com a inicialização normal, agora com os dados prontos
-            preencherStaticSelects(insulationOptions, gaugeOptions, componentTypesData, connectorModelsData);
-            
+        document.addEventListener('DOMContentLoaded', () => {
+            preencherStaticSelects();
             finalizarEdicao();
             allDomElements.mainWire.insulation.addEventListener("change", () => toggleCustomWireFields('main'));
             allDomElements.branchWire.insulation.addEventListener("change", () => toggleCustomWireFields('branch'));
